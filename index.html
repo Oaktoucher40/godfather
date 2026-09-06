@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#100D0B">
 <meta name="description" content="$GODFATHER — Hold $GODFATHER. Earn $SIGMA. Watch the Vault shrink.">
 <title>$GODFATHER</title>
+<link rel="canonical" href="https://www.godfatheronsf.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;500;600;700&display=swap" rel="stylesheet">
@@ -19,18 +20,19 @@
       <span>$GODFATH<span class="sigma">Σ</span>R</span>
     </a>
 
-    <div class="top-ca">
-      <span>CA</span>
-      <code id="contractValue">TBA — pinned at launch</code>
-      <button class="copybtn top-copy" type="button" data-copy="contractValue">Copy</button>
-    </div>
+    <div class="header-right">
+      <nav class="navlinks">
+        <a id="navX" href="#">X</a>
+        <a id="navFomo" href="#">Fomo</a>
+        <a id="navDex" href="#">Dexscreener</a>
+      </nav>
 
-    <nav class="navlinks">
-      <a id="navX" href="#">X</a>
-      <a id="navFomo" href="#">Fomo</a>
-      <a id="navDex" href="#">Dexscreener</a>
-      <a id="navStonk" class="stonk" href="#">StonkFun</a>
-    </nav>
+      <div class="top-ca">
+        <span>CA</span>
+        <code id="contractValue">Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m</code>
+        <button class="copybtn top-copy" type="button" data-copy="contractValue">Copy</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -61,8 +63,24 @@
       </div>
 
       <div class="closing">Every rise in one funds scarcity in the other. Two communities, pulling the same rope.</div>
+      <div class="pairing-ca">
+        <div>
+          <span class="smalllabel">$SIGMA contract address</span>
+          <code id="sigmaContractValue">5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump</code>
+        </div>
+        <button class="copybtn" type="button" data-copy="sigmaContractValue">Copy</button>
+      </div>
+
     </div>
   </div>
+
+      <div class="pairing-ca">
+        <div>
+          <span class="smalllabel">$GODFATHER / $SIGMA pool address</span>
+          <code id="poolAddressValue">N4H42icHgbVorHS2gEvMcJna8pJ3ioW6DZ4FiECpP39</code>
+        </div>
+        <button class="copybtn" type="button" data-copy="poolAddressValue">Copy</button>
+      </div>
 </section>
 
 <section class="supply-section" id="remaining-supply">
@@ -92,10 +110,16 @@
 <section class="section">
   <div class="shell vault-grid">
     <div class="section-intro">
-      <div class="eyebrow">The Family Vault</div>
-      <h2>Publicly held. Never sold. Only burned.</h2>
-      <p>The Vault begins with 100,000,000 $GODFATHER — 10% of supply acquired for the project reserve. Its balance only moves down.</p>
-      <p><strong>1 net-new all-time-high follower = 1,000 $GODFATHER burned.</strong> X and Fomo are tracked separately and combined. Only growth above the previous recorded ATH counts.</p>
+      <div class="eyebrow vault-eyebrow">The Family Vault</div>
+      <h2>100,000,000 $GODFATHER. Publicly held. Never sold. Only burned.</h2>
+      <p>The Family Vault starts with <strong>10% of the total supply — 100,000,000 $GODFATHER</strong>. Its purpose is simple: as the Family grows, the Vault shrinks.</p>
+      <p><strong>Every new all-time-high follower on X or Fomo burns 1,000 $GODFATHER from the Vault.</strong> Only net growth above the previous combined follower ATH counts.</p>
+      <div class="vault-milestones">
+        <div><span>10,000 followers</span><strong>10,000,000 burned</strong></div>
+        <div><span>50,000 followers</span><strong>50,000,000 burned</strong></div>
+        <div><span>100,000 followers</span><strong>ZERO VAULT</strong></div>
+      </div>
+      <div class="vault-final">100,000 FOLLOWERS. ZERO VAULT.</div>
     </div>
 
     <div class="vault-card">
@@ -132,8 +156,8 @@
 <section class="section">
   <div class="shell ledgers">
     <details class="log gold">
-      <summary>Burn Log</summary>
-      <div class="log-sub">Community growth → $GODFATHER burned from the Vault</div>
+      <summary>Family Vault Burn Log</summary>
+      <div class="log-sub">New X + Fomo follower ATHs → $GODFATHER burned directly from the Family Vault</div>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Date</th><th>X followers</th><th>Fomo followers</th><th>Combined</th><th>Δ vs previous</th><th>$GODFATHER burned</th><th>Transaction</th></tr></thead>
@@ -143,11 +167,11 @@
     </details>
 
     <details class="log red">
-      <summary>$SIGMA Buyback &amp; Burn Log</summary>
-      <div class="log-sub">$SIGMA rewards sold → $GODFATHER bought back and burned</div>
+      <summary>$GODFATHER Buyback &amp; Burn Log</summary>
+      <div class="log-sub">50% of processed $SIGMA rewards sold → $GODFATHER bought back and burned</div>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>Date</th><th>$SIGMA rewards sold (50%)</th><th>$GODFATHER bought back</th><th>$GODFATHER burned</th><th>Transaction</th></tr></thead>
+          <thead><tr><th>Date</th><th>$SIGMA sold (50%)</th><th>$GODFATHER bought back</th><th>$GODFATHER burned</th><th>Transaction</th></tr></thead>
           <tbody id="buybackRows"><tr><td colspan="5" class="empty">No buybacks recorded yet — the first entry appears here.</td></tr></tbody>
         </table>
       </div>

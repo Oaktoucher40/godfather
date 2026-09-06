@@ -338,3 +338,121 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
     padding:0 0 18px;
   }
 }
+
+.vault-eyebrow{
+  font-size:.82rem;
+  letter-spacing:.24em;
+}
+.vault-milestones{
+  margin:26px 0 0;
+  display:grid;
+  gap:8px;
+}
+.vault-milestones div{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding:10px 0;
+  border-top:1px solid var(--line);
+  font-size:.83rem;
+}
+.vault-milestones span{color:var(--muted)}
+.vault-milestones strong{color:var(--gold)}
+.vault-final{
+  margin-top:18px;
+  padding:14px 0;
+  border-top:1px solid var(--line);
+  font-family:Fraunces,serif;
+  font-size:1.15rem;
+  letter-spacing:.06em;
+  color:var(--gold);
+}
+
+.pairing-ca{
+  margin-top:20px;
+  padding-top:16px;
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.pairing-ca>div{
+  min-width:0;
+  flex:1;
+}
+.pairing-ca code{
+  display:block;
+  margin-top:5px;
+  color:#d8ccb8;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-size:.78rem;
+}
+@media(max-width:600px){
+  .pairing-ca{
+    align-items:stretch;
+    flex-direction:column;
+  }
+}
+
+/* v17 header alignment */
+.header-right{
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  min-width:0;
+}
+.header-right .navlinks{
+  margin-left:0;
+}
+.header-right .top-ca{
+  margin-left:0;
+}
+
+@media(max-width:980px){
+  .header-right{gap:12px}
+  .header-right .navlinks{gap:10px}
+  .top-ca code{max-width:150px}
+}
+
+@media(max-width:820px){
+  .nav{
+    height:auto;
+    min-height:70px;
+    flex-wrap:wrap;
+    padding:10px 0;
+  }
+  .header-right{
+    width:100%;
+    margin-left:0;
+    order:3;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:12px;
+  }
+  .header-right .navlinks{
+    justify-content:flex-start;
+  }
+  .header-right .top-ca{
+    width:100%;
+    justify-self:stretch;
+  }
+  .header-right .top-ca code{
+    max-width:none;
+    flex:1;
+  }
+}
+
+@media(max-width:620px){
+  .header-right{
+    grid-template-columns:1fr;
+  }
+  .header-right .navlinks{
+    justify-content:center;
+  }
+  .header-right .top-ca{
+    width:100%;
+  }
+}

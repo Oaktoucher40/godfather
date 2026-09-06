@@ -14,3 +14,27 @@ Upload the whole folder/repository, not only index.html.
 - v12: added the previously generated walking-couple Family/legacy image before the FAQ.
 
 - v13: added the loyalty hand-kissing image as an extra cinematic section before the FAQ.
+
+- v14: clarified Family Vault copy and renamed the two burn ledgers to Family Vault Burn Log and $GODFATHER Buyback & Burn Log.
+
+- v15 official data added:
+  - Website: https://www.godfatheronsf.com/
+  - X: https://x.com/godfatheronsf
+  - Fomo: https://fomo.family/profile/godfatheronsf
+  - $SIGMA CA: 5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump
+  - Family Vault wallet: ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn
+- Still missing for full launch setup:
+  - $GODFATHER CA
+  - Dexscreener token/chart URL
+  - StonkFun token page URL
+
+- v16:
+  - $GODFATHER mint / CA: Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m
+  - Pool address: N4H42icHgbVorHS2gEvMcJna8pJ3ioW6DZ4FiECpP39
+  - Dexscreener URL: https://dexscreener.com/solana/N4H42icHgbVorHS2gEvMcJna8pJ3ioW6DZ4FiECpP39
+- Still missing:
+  - StonkFun token page URL
+
+- v17: top header reordered. X, Fomo and Dexscreener links sit to the left of the CA; CA + Copy is the rightmost element. StonkFun remains available in the lower official-links section.
+
+- v18: added the live StonkFun token page: https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m
