@@ -52,3 +52,5 @@ Upload the whole folder/repository, not only index.html.
   - added StonkFun to the top navigation
   - top X / Fomo / Dexscreener / StonkFun links now point to their live pages
   - set current displayed $SIGMA supply to 899,682,749 (static snapshot; automate later)
+
+- v22: removed the pool address completely from the website and project data/config. Dexscreener link remains functional.
