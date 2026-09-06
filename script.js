@@ -10,7 +10,7 @@ const DATA = {
   links: {
     x: "https://x.com/godfatheronsf",
     fomo: "https://fomo.family/profile/godfatheronsf",
-    dex: "https://x.com/godfatheronsf",
+    dex: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m", // TEMP until graduation — swap to real Dexscreener URL after
     stonkfun: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m"
   },
   burnLog: [],

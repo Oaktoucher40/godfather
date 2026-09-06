@@ -54,3 +54,8 @@ Upload the whole folder/repository, not only index.html.
   - set current displayed $SIGMA supply to 899,682,749 (static snapshot; automate later)
 
 - v22: removed the pool address completely from the website and project data/config. Dexscreener link remains functional.
+
+- v23:
+  - fixed img-01 hero banner: removed the baked-in verbatim movie quote ("I'm gonna make him an offer he can't refuse") via a clean background patch — title and tagline artwork otherwise unchanged
+  - fixed dex link in script.js: was mistakenly pointing to the X profile; now temporarily points to the StonkFun token page until the token graduates and a real Dexscreener URL exists
+  - added assets/family-walk.jpg and assets/silent-oath.jpg (both reviewed: no verbatim text, no specific film-still reproduction, no identifiable real-person likeness)
