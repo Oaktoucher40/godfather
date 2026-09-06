@@ -14,7 +14,9 @@ const DATA = {
     stonkfun: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m"
   },
   burnLog: [],
-  buybackLog: []
+  buybackLog: [],
+  oathLog: [],
+  oathSubmitUrl: "#" // TODO: set to wherever burn-tx submissions should be sent (form / Telegram / X DM)
 };
 
 const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
@@ -31,6 +33,8 @@ Object.entries(linkMap).forEach(([k,ids])=>ids.forEach(id=>{
 }));
 
 document.getElementById("contractValue").textContent=DATA.contractAddress;
+const oathSubmitEl=document.getElementById("oathSubmit");
+if(oathSubmitEl){ oathSubmitEl.href=DATA.oathSubmitUrl||"#"; }
 document.getElementById("vaultWallet").textContent=DATA.vaultWallet;
 document.getElementById("vaultBalance").textContent=fmt(DATA.vaultBalance);
 document.getElementById("vaultPercent").textContent=((DATA.vaultBalance/DATA.totalSupply)*100).toFixed(2)+"% of supply";
@@ -78,6 +82,13 @@ if(DATA.buybackLog.length){
   const body=document.getElementById("buybackRows"); body.innerHTML="";
   DATA.buybackLog.forEach(r=>body.insertAdjacentHTML("beforeend",`<tr>
     <td>${r.date}</td><td>${fmt(r.sigmaSold)}</td><td>${fmt(r.godfatherBought)}</td><td>${fmt(r.godfatherBurned)}</td>
+    <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+  </tr>`));
+}
+if(DATA.oathLog && DATA.oathLog.length){
+  const body=document.getElementById("oathRows"); body.innerHTML="";
+  DATA.oathLog.forEach(r=>body.insertAdjacentHTML("beforeend",`<tr>
+    <td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
     <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
 }

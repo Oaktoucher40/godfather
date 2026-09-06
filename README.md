@@ -59,3 +59,15 @@ Upload the whole folder/repository, not only index.html.
   - fixed img-01 hero banner: removed the baked-in verbatim movie quote ("I'm gonna make him an offer he can't refuse") via a clean background patch — title and tagline artwork otherwise unchanged
   - fixed dex link in script.js: was mistakenly pointing to the X profile; now temporarily points to the StonkFun token page until the token graduates and a real Dexscreener URL exists
   - added assets/family-walk.jpg and assets/silent-oath.jpg (both reviewed: no verbatim text, no specific film-still reproduction, no identifiable real-person likeness)
+
+- v24:
+  - removed the last decorative ornament left over below the deleted hero quote — that area is now plain background, matching the rest of the banner
+  - added the $GODFATHER coin icon next to its remaining-supply label; $SIGMA icon intentionally left out until a real asset is provided
+  - added a new section, "The Oath", between Remaining Supply and The Family Vault: a limited, capped (100,000,000 $GODFATHER) loyalty program — buy + burn ≥100,000 $GODFATHER, submit the Solscan burn tx, get double sent back to the same wallet
+  - moved the hand-kissing image (silent-oath.jpg) out of its old standalone cinematic-break spot and into The Oath section as its feature image, to avoid showing it twice
+  - added a new "The Sworn" ledger (same accordion/table pattern as the other two logs) to publicly list participating wallets — currently empty
+  - added DATA.oathLog and DATA.oathSubmitUrl to script.js — oathSubmitUrl is a placeholder ("#") and needs to be set to a real destination (form / Telegram / X DM) for burn-proof submissions
+
+- v25: replaced assets/img-02-3c67414c04.png with the official wallet-visible $GODFATHER coin icon (circular badge, seated figure + cat + wordmark). Same filename, so it updates automatically in the nav, footer, and the $GODFATHER supply card.
+
+- v26: added assets/sigma-icon.png — a simple gold Σ (Greek letter Sigma) coin badge, generated to match the site's visual style, since no usable official $SIGMA icon was available. Added next to the $SIGMA remaining-supply label.
