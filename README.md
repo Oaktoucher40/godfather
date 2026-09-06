@@ -71,3 +71,5 @@ Upload the whole folder/repository, not only index.html.
 - v25: replaced assets/img-02-3c67414c04.png with the official wallet-visible $GODFATHER coin icon (circular badge, seated figure + cat + wordmark). Same filename, so it updates automatically in the nav, footer, and the $GODFATHER supply card.
 
 - v26: added assets/sigma-icon.png — a simple gold Σ (Greek letter Sigma) coin badge, generated to match the site's visual style, since no usable official $SIGMA icon was available. Added next to the $SIGMA remaining-supply label.
+
+- v27: set oathSubmitUrl to the X group chat invite (https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv) — the "Submit Your Burn" button now points here.

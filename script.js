@@ -16,7 +16,7 @@ const DATA = {
   burnLog: [],
   buybackLog: [],
   oathLog: [],
-  oathSubmitUrl: "#" // TODO: set to wherever burn-tx submissions should be sent (form / Telegram / X DM)
+  oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv"
 };
 
 const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
