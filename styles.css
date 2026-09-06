@@ -456,3 +456,28 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
     width:100%;
   }
 }
+
+
+.supply-ca{
+  margin:14px auto 6px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.supply-ca code{
+  min-width:0;
+  max-width:330px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#d8ccb8;
+  font-size:.76rem;
+}
+.supply-ca .copybtn{
+  flex:0 0 auto;
+}
+@media(max-width:600px){
+  .supply-ca code{max-width:220px}
+}

@@ -1,17 +1,17 @@
 const DATA = {
-  contractAddress: "TBA — pinned at launch",
-  vaultWallet: "TBA — published at launch",
+  contractAddress: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
+  vaultWallet: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn",
   totalSupply: 1000000000,
-  sigmaRemainingSupply: null,
+  sigmaRemainingSupply: 899682749,
   vaultStart: 100000000,
   vaultBalance: 100000000,
   xAth: null,
   fomoAth: null,
   links: {
-    x: "#",
-    fomo: "#",
-    dex: "#",
-    stonkfun: "https://stonkfun.xyz/"
+    x: "https://x.com/godfatheronsf",
+    fomo: "https://fomo.family/profile/godfatheronsf",
+    dex: "https://x.com/godfatheronsf",
+    stonkfun: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m"
   },
   burnLog: [],
   buybackLog: []

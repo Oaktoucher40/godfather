@@ -38,3 +38,17 @@ Upload the whole folder/repository, not only index.html.
 - v17: top header reordered. X, Fomo and Dexscreener links sit to the left of the CA; CA + Copy is the rightmost element. StonkFun remains available in the lower official-links section.
 
 - v18: added the live StonkFun token page: https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m
+
+- v19: added $SIGMA Solscan link: https://solscan.io/token/5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump
+
+- v20:
+  - removed the Solscan link from the site
+  - removed the $SIGMA CA block from The Pairing section
+  - added $GODFATHER CA + Copy below the $GODFATHER remaining supply number
+  - added $SIGMA CA + Copy below the $SIGMA remaining supply number
+
+- v21:
+  - fixed project data in script.js (CA, Vault wallet and all official links)
+  - added StonkFun to the top navigation
+  - top X / Fomo / Dexscreener / StonkFun links now point to their live pages
+  - set current displayed $SIGMA supply to 899,682,749 (static snapshot; automate later)
