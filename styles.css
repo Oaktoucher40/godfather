@@ -303,3 +303,38 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   .supply-grid{grid-template-columns:1fr}
   .supply-card{padding:24px 20px}
 }
+.cinematic-break{
+  padding:18px 0 70px;
+  background:#000;
+}
+.cinematic-frame{
+  margin:0;
+  overflow:hidden;
+  background:#000;
+}
+.cinematic-frame img{
+  display:block;
+  width:100%;
+  height:clamp(300px,43vw,560px);
+  object-fit:cover;
+  object-position:center 48%;
+}
+@media(max-width:700px){
+  .cinematic-break{padding:8px 0 54px}
+  .cinematic-frame img{
+    height:360px;
+    object-position:center center;
+  }
+}
+
+.cinematic-break-oath{
+  padding:0 0 28px;
+}
+.cinematic-break-oath .cinematic-frame img{
+  object-position:center 44%;
+}
+@media(max-width:700px){
+  .cinematic-break-oath{
+    padding:0 0 18px;
+  }
+}
