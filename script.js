@@ -20,12 +20,12 @@ const DATA = {
     {
       date: "September 7, 2026",
       wallet: "99HwYT...ci4Apr",
-      burned: 500000, // amount the participant sent — this is what's shown in the table and what the reward is based on
-      actualBurned: 485000, // net amount actually destroyed on-chain by the burn wallet after the 3% transfer tax — used for supply math, not shown in the table
+      sentAmount: 500000, // amount the participant sent from their wallet — this is what the reward is calculated on, but NOT what's shown as "burned"
+      burned: 485000, // net amount actually destroyed on-chain by the burn wallet's Burn instruction, after the 3% transfer tax — this is what's shown in the table and feeds the supply math
       rewardSent: 1000000,
       rewardTx: "https://orbmarkets.io/tx/NSv6AQAJnb4sHGkRx3U6H4jJm4ZgPtwn2tdzFj9J8sXuwhxFQmpvs9qudxCqCTYKL72fLczQPndLqKvEyVMTNfa"
     }
-  ], // each entry: { date, wallet, burned, actualBurned, rewardSent, rewardTx } — only the reward tx is linked; the burn amount shown in the table is the amount sent (what the reward is based on), while actualBurned (net of the 3% transfer tax) feeds the site-wide remaining-supply total
+  ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table, feeds the remaining-supply total); "sentAmount" is what the participant sent and what the reward is based on (kept for reference, not displayed as a separate column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
   oathReserveBalance: 200000000 // dev wallet balance reserved to fund double-back rewards; drains as rewards are sent — update as it changes
 };
@@ -67,7 +67,7 @@ if(burnedToDateEl){ burnedToDateEl.textContent=fmt(DATA.vaultStart-DATA.vaultBal
 
 const communityBurnTotal = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnTotal = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
-const oathBurnTotal = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.actualBurned) || 0), 0);
+const oathBurnTotal = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const totalGodfatherBurned = communityBurnTotal + buybackBurnTotal + oathBurnTotal;
 const godfatherRemaining = Math.max(0, (Number(DATA.totalSupply) || 0) - totalGodfatherBurned);
 
