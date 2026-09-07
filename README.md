@@ -22,7 +22,7 @@ Upload the whole folder/repository, not only index.html.
   - X: https://x.com/godfatheronsf
   - Fomo: https://fomo.family/profile/godfatheronsf
   - $SIGMA CA: 5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump
-  - Family Vault wallet: ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn
+  - Family Vault wallet: [REDACTED — this was mistakenly the dev wallet, corrected in v29. Never publish the dev wallet address anywhere.]
 - Still missing for full launch setup:
   - $GODFATHER CA
   - Dexscreener token/chart URL
@@ -73,3 +73,34 @@ Upload the whole folder/repository, not only index.html.
 - v26: added assets/sigma-icon.png — a simple gold Σ (Greek letter Sigma) coin badge, generated to match the site's visual style, since no usable official $SIGMA icon was available. Added next to the $SIGMA remaining-supply label.
 
 - v27: set oathSubmitUrl to the X group chat invite (https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv) — the "Submit Your Burn" button now points here.
+
+- v28: fixed index.html — the vault wallet address was hardcoded as "TBA — published at launch" in the HTML itself (only overwritten by script.js at runtime). Now the real address is baked into the HTML directly, so it's correct even if JavaScript fails to load.
+
+- v29: **IMPORTANT CORRECTION** — the address previously used everywhere as the "Family Vault / burning wallet" was actually the dev wallet, mistakenly published in v15. It has been fully replaced with the correct burning wallet address: 6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y — updated in script.js (vaultWallet) and index.html (fallback text). The dev wallet address must never be displayed anywhere on the site or in this file.
+  - Also clarified Oath step 02: participants who don't want to self-burn may instead send their $GODFATHER to the burning wallet, and the team burns it on their behalf — reduction is verifiable on-chain via the $GODFATHER remaining supply counter either way.
+
+- v30: restructured the site around the three agreed phases, clearly separated and labeled:
+  - added a phase-tracker strip (Phase 1 / 2 / 3, with Phase 1 marked "Active") right before The Oath section
+  - The Oath (Phase 1) is now tagged "Phase 1 · Active" and shown in full detail, as before
+  - The Family Vault (Phase 2) and Buyback & Burn (Phase 3) are now teaser-only: eyebrow + "Coming" tag + one-line description + their burn log accordion (still empty). The detailed Vault balance/progress/wallet/follower card and the milestone list are hidden until Phase 1 closes — the markup was removed, not just visually hidden, so nothing half-loads.
+  - script.js: guarded every Phase-2-only DOM lookup (vaultBalance, vaultWallet, xAth, fomoAth, combinedAth, etc.) with existence checks so the rest of the script (supply counters, copy buttons, log rendering) keeps working now that those elements aren't in the DOM. DATA still holds vaultWallet/xAth/fomoAth for when Phase 2 is revealed in full later — only the HTML display was removed.
+  - changed the Oath CTA button text from "Submit Your Burn" to "Submit in the Family Chat", and updated the note beside it to make clear the button opens a chat where the wallet address and Solscan link should be sent.
+
+- v31: header/nav redesign:
+  - brand icon and wordmark enlarged (logo 38px → 50px, wordmark ~1.4rem); the Σ-for-E in $GODFATHΣR is unchanged
+  - nav links (X, Fomo, Dexscreener) converted from plain text to small circular icon buttons with their familiar icons; StonkFun stays as the bordered text button
+  - added a new nav icon linking to the X group chat (DATA.links.chat) — separate from the X profile icon
+  - removed the old .header-right wrapper and all now-dead v17 CSS for it; nav layout is handled directly by .nav/.navlinks/.top-ca
+  - the CA box is pushed to the far right of the header (margin-left:auto) with a bolder gold border, larger text, and a bigger, more visible Copy button (icon + label, gold border, fills gold on hover)
+  - unified the header's typography to Fraunces (serif) across the wordmark, nav links, CA label, and Copy button — only the contract address itself stays in a legible monospace-style font
+  - nav links no longer hide on mobile (icons are compact enough); the CA box still wraps to its own full-width row on narrow screens
+
+- v32:
+  - removed the Dexscreener nav icon for now, since the link isn't functional until graduation (still present in the "Official links" section and footer — flag if those should come out too)
+  - CA box in the header no longer truncates — the full contract address is always shown in full, box grows to fit
+  - added a "Reward reserve — dev wallet" box inside The Oath (Phase 1) section: shows the dev wallet's current $GODFATHER balance (starting at 200,000,000) WITHOUT showing its address, plus an explanation of why it's 200M — the Oath caps burns at 100,000,000 $GODFATHER and pays double, so 200,000,000 covers the full program up front. DATA.oathReserveBalance added to script.js; update this number as the reserve drains from paying out rewards.
+  - Fomo nav icon: pending — user wants fomo.family's actual "two eyes" icon; waiting on the asset to be uploaded before swapping it in.
+
+- v33: replaced the Fomo nav icon with plain text ("fomo"), styled to match the header's unified Fraunces typography, since the actual Fomo icon asset wasn't available.
+
+- v34: removed every remaining Dexscreener reference site-wide for now (Official links button, footer link, DATA.links.dex, linkMap entry) — not just the nav icon. Add it back once a real Dexscreener URL exists post-graduation; a comment in script.js marks where.

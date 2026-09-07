@@ -1,6 +1,6 @@
 const DATA = {
   contractAddress: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
-  vaultWallet: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn",
+  vaultWallet: "6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y",
   totalSupply: 1000000000,
   sigmaRemainingSupply: 899682749,
   vaultStart: 100000000,
@@ -9,21 +9,23 @@ const DATA = {
   fomoAth: null,
   links: {
     x: "https://x.com/godfatheronsf",
+    chat: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
     fomo: "https://fomo.family/profile/godfatheronsf",
-    dex: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m", // TEMP until graduation — swap to real Dexscreener URL after
     stonkfun: "https://www.stonkfun.xyz/token/Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m"
+    // dex removed for now — no working Dexscreener URL until the token graduates. Add back as: dex: "https://dexscreener.com/solana/..."
   },
   burnLog: [],
   buybackLog: [],
   oathLog: [],
-  oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv"
+  oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
+  oathReserveBalance: 200000000 // dev wallet balance reserved to fund double-back rewards; drains as rewards are sent — update as it changes
 };
 
 const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
 const linkMap = {
   x:["navX","footX","footerX"],
+  chat:["navChat"],
   fomo:["navFomo","footFomo","footerFomo"],
-  dex:["navDex","heroDex","footDex","footerDex"],
   stonkfun:["navStonk","heroStonk","footStonk","footerStonk"]
 };
 Object.entries(linkMap).forEach(([k,ids])=>ids.forEach(id=>{
@@ -35,13 +37,24 @@ Object.entries(linkMap).forEach(([k,ids])=>ids.forEach(id=>{
 document.getElementById("contractValue").textContent=DATA.contractAddress;
 const oathSubmitEl=document.getElementById("oathSubmit");
 if(oathSubmitEl){ oathSubmitEl.href=DATA.oathSubmitUrl||"#"; }
-document.getElementById("vaultWallet").textContent=DATA.vaultWallet;
-document.getElementById("vaultBalance").textContent=fmt(DATA.vaultBalance);
-document.getElementById("vaultPercent").textContent=((DATA.vaultBalance/DATA.totalSupply)*100).toFixed(2)+"% of supply";
+const oathReserveEl=document.getElementById("oathReserveBalance");
+if(oathReserveEl){ oathReserveEl.textContent=fmt(DATA.oathReserveBalance); }
+
+// Phase 2 (Family Vault) detail elements are hidden until Phase 1 closes.
+// Guarded so the rest of the script keeps running even without them in the DOM.
+const vaultWalletEl=document.getElementById("vaultWallet");
+if(vaultWalletEl){ vaultWalletEl.textContent=DATA.vaultWallet; }
+const vaultBalanceEl=document.getElementById("vaultBalance");
+if(vaultBalanceEl){ vaultBalanceEl.textContent=fmt(DATA.vaultBalance); }
+const vaultPercentEl=document.getElementById("vaultPercent");
+if(vaultPercentEl){ vaultPercentEl.textContent=((DATA.vaultBalance/DATA.totalSupply)*100).toFixed(2)+"% of supply"; }
 const remain=(DATA.vaultBalance/DATA.vaultStart)*100;
-document.getElementById("vaultRemainPct").textContent=remain.toFixed(2)+"%";
-document.getElementById("vaultProgress").style.width=Math.max(0,Math.min(100,remain))+"%";
-document.getElementById("burnedToDate").textContent=fmt(DATA.vaultStart-DATA.vaultBalance);
+const vaultRemainPctEl=document.getElementById("vaultRemainPct");
+if(vaultRemainPctEl){ vaultRemainPctEl.textContent=remain.toFixed(2)+"%"; }
+const vaultProgressEl=document.getElementById("vaultProgress");
+if(vaultProgressEl){ vaultProgressEl.style.width=Math.max(0,Math.min(100,remain))+"%"; }
+const burnedToDateEl=document.getElementById("burnedToDate");
+if(burnedToDateEl){ burnedToDateEl.textContent=fmt(DATA.vaultStart-DATA.vaultBalance); }
 
 const communityBurnTotal = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnTotal = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
@@ -58,9 +71,10 @@ document.getElementById("sigmaRemainingSupply").textContent =
   DATA.sigmaRemainingSupply == null ? "TBA" : fmt(DATA.sigmaRemainingSupply);
 
 
-function showAth(id,val){ document.getElementById(id).textContent=val==null?"—":fmt(val); }
+function showAth(id,val){ const el=document.getElementById(id); if(el){ el.textContent=val==null?"—":fmt(val); } }
 showAth("xAth",DATA.xAth); showAth("fomoAth",DATA.fomoAth);
-document.getElementById("combinedAth").textContent=(DATA.xAth==null||DATA.fomoAth==null)?"—":fmt((DATA.xAth||0)+(DATA.fomoAth||0));
+const combinedAthEl=document.getElementById("combinedAth");
+if(combinedAthEl){ combinedAthEl.textContent=(DATA.xAth==null||DATA.fomoAth==null)?"—":fmt((DATA.xAth||0)+(DATA.fomoAth||0)); }
 
 document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",async()=>{
   const target=document.getElementById(btn.dataset.copy);

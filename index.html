@@ -20,19 +20,24 @@
       <span>$GODFATH<span class="sigma">Σ</span>R</span>
     </a>
 
-    <div class="header-right">
-      <nav class="navlinks">
-        <a id="navX" href="#">X</a>
-        <a id="navFomo" href="#">Fomo</a>
-        <a id="navDex" href="#">Dexscreener</a>
-        <a id="navStonk" href="#">StonkFun</a>
-      </nav>
+    <nav class="navlinks">
+      <a id="navX" class="iconlink" href="#" aria-label="X" title="X">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.9L4.8 22H1.7l8.2-9.3L1 2h7.1l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
+      </a>
+      <a id="navChat" class="iconlink" href="#" aria-label="Family Chat" title="Family Chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4.5h16v12H9l-4.5 4v-4H4v-12Z"/></svg>
+      </a>
+      <a id="navFomo" class="textlink" href="#">fomo</a>
+      <a id="navStonk" class="stonk" href="#">StonkFun</a>
+    </nav>
 
-      <div class="top-ca">
-        <span>CA</span>
-        <code id="contractValue">Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m</code>
-        <button class="copybtn top-copy" type="button" data-copy="contractValue">Copy</button>
-      </div>
+    <div class="top-ca">
+      <span>CA</span>
+      <code id="contractValue">Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m</code>
+      <button class="copybtn top-copy" type="button" data-copy="contractValue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="1.5"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></svg>
+        <span>Copy</span>
+      </button>
     </div>
   </div>
 </header>
@@ -100,10 +105,37 @@
   </div>
 </section>
 
+<section class="section phase-tracker-section">
+  <div class="shell">
+    <div class="phase-tracker">
+      <a href="#the-oath" class="phase-node is-active">
+        <span class="phase-index">01</span>
+        <span class="phase-name">The Oath</span>
+        <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+      </a>
+      <div class="phase-line"></div>
+      <a href="#phase-2" class="phase-node">
+        <span class="phase-index">02</span>
+        <span class="phase-name">The Family Vault</span>
+        <span class="phase-pill upcoming">Coming</span>
+      </a>
+      <div class="phase-line"></div>
+      <a href="#phase-3" class="phase-node">
+        <span class="phase-index">03</span>
+        <span class="phase-name">Buyback &amp; Burn</span>
+        <span class="phase-pill upcoming">Coming</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="section oath-section" id="the-oath">
   <div class="shell oath-grid">
     <div>
-      <div class="eyebrow">The Oath</div>
+      <div class="eyebrow-row">
+        <span class="eyebrow">The Oath</span>
+        <span class="phase-pill active"><span class="phase-dot"></span>Phase 1 · Active</span>
+      </div>
       <h2>Kiss the ring. Burn early. Earn double.</h2>
       <figure class="feature-image">
         <img src="assets/silent-oath.jpg" alt="A man respectfully kissing the Don's hand as a sign of loyalty, watched by others in a dimly lit room">
@@ -115,16 +147,23 @@
 
       <div class="steps">
         <div class="step"><b>01</b><p>Buy $GODFATHER on the open market.</p></div>
-        <div class="step"><b>02</b><p>Burn at least 100,000 $GODFATHER from your own wallet.</p></div>
-        <div class="step"><b>03</b><p>Submit the Solscan link to your burn transaction.</p></div>
-        <div class="step"><b>04</b><p>Once verified, the Family sends double the burned amount back to the same wallet.</p></div>
+        <div class="step"><b>02</b><p>Burn at least 100,000 $GODFATHER from your own wallet — or, if you'd rather not handle the burn yourself, send the same amount to the Family's burning wallet and the team will burn it for you. Either way, the reduction shows up on-chain in the $GODFATHER remaining supply above.</p></div>
+        <div class="step"><b>03</b><p>Submit the Solscan link to your burn (or transfer) transaction.</p></div>
+        <div class="step"><b>04</b><p>Once verified, the Family sends double the amount back to the same wallet.</p></div>
       </div>
 
       <div class="oath-pool">100,000,000 $GODFATHER — first come, first served. When the pool is gone, the Oath is closed.</div>
 
+      <div class="reserve-card">
+        <span class="reserve-label">Reward reserve — dev wallet</span>
+        <strong class="reserve-number" id="oathReserveBalance">200,000,000</strong>
+        <span class="reserve-token">$GODFATHER</span>
+        <p class="reserve-note">Bought up front, on purpose: the Oath caps burns at 100,000,000 $GODFATHER, and every burn is matched double. 200,000,000 $GODFATHER covers the entire program before a single wallet swears in — the wallet's address stays private to avoid confusion with the burning wallet, but its balance is shown here and will visibly drain as rewards go out.</p>
+      </div>
+
       <div class="oath-cta">
-        <a id="oathSubmit" class="btn primary" href="#" target="_blank">Submit Your Burn</a>
-        <span class="oath-cta-note">Verified manually. Only your own wallet's burn transaction qualifies.</span>
+        <a id="oathSubmit" class="btn primary" href="#" target="_blank">Submit in the Family Chat</a>
+        <span class="oath-cta-note">Opens a chat — send your wallet address and Solscan link there. Verified manually.</span>
       </div>
 
       <div class="closing">Every wallet that swears in gets published. No hiding, no favorites — the Family remembers who came early.</div>
@@ -146,55 +185,16 @@
 </section>
 
 
-<section class="section">
-  <div class="shell vault-grid">
-    <div class="section-intro">
-      <div class="eyebrow vault-eyebrow">The Family Vault</div>
-      <h2>100,000,000 $GODFATHER. Publicly held. Never sold. Only burned.</h2>
-      <p>The Family Vault starts with <strong>10% of the total supply — 100,000,000 $GODFATHER</strong>. Its purpose is simple: as the Family grows, the Vault shrinks.</p>
-      <p><strong>Every new all-time-high follower on X or Fomo burns 1,000 $GODFATHER from the Vault.</strong> Only net growth above the previous combined follower ATH counts.</p>
-      <div class="vault-milestones">
-        <div><span>10,000 followers</span><strong>10,000,000 burned</strong></div>
-        <div><span>50,000 followers</span><strong>50,000,000 burned</strong></div>
-        <div><span>100,000 followers</span><strong>ZERO VAULT</strong></div>
-      </div>
-      <div class="vault-final">100,000 FOLLOWERS. ZERO VAULT.</div>
+<section class="section" id="phase-2">
+  <div class="shell">
+    <div class="eyebrow-row">
+      <span class="eyebrow">The Family Vault</span>
+      <span class="phase-pill upcoming">Phase 2 · Coming</span>
     </div>
+    <h2>Community growth burns the Vault.</h2>
+    <p class="phase-teaser-copy">Full mechanics — balance, wallet, milestones — unlock once Phase 1, The Oath, closes.</p>
 
-    <div class="vault-card">
-      <div class="vault-balance">
-        <span>Current Vault balance</span>
-        <strong id="vaultBalance">100,000,000</strong>
-        <small id="vaultPercent">10.00% of supply</small>
-      </div>
-
-      <div class="progress-meta">
-        <span>Vault remaining</span>
-        <strong id="vaultRemainPct">100.00%</strong>
-      </div>
-      <div class="progress"><div id="vaultProgress"></div></div>
-      <div class="burned-note"><span id="burnedToDate">0</span> $GODFATHER burned to date · balance updates with every burn below</div>
-
-      <div class="walletbox">
-        <div>
-          <span class="smalllabel">Vault wallet</span>
-          <code id="vaultWallet">TBA — published at launch</code>
-        </div>
-        <button class="copybtn" type="button" data-copy="vaultWallet">Copy</button>
-      </div>
-
-      <div class="followers">
-        <div><span>X followers (ATH)</span><strong id="xAth">—</strong></div>
-        <div><span>Fomo followers (ATH)</span><strong id="fomoAth">—</strong></div>
-        <div><span>Combined</span><strong id="combinedAth">—</strong></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="shell ledgers">
-    <details class="log gold">
+    <details class="log gold" style="margin-top:28px;">
       <summary>Family Vault Burn Log</summary>
       <div class="log-sub">New X + Fomo follower ATHs → $GODFATHER burned directly from the Family Vault</div>
       <div class="tablewrap">
@@ -204,8 +204,19 @@
         </table>
       </div>
     </details>
+  </div>
+</section>
 
-    <details class="log red">
+<section class="section" id="phase-3">
+  <div class="shell">
+    <div class="eyebrow-row">
+      <span class="eyebrow">Buyback &amp; Burn</span>
+      <span class="phase-pill upcoming">Phase 3 · Coming</span>
+    </div>
+    <h2>Volume burns both sides.</h2>
+    <p class="phase-teaser-copy">Full mechanics — milestones, split, triggers — unlock once Phase 1, The Oath, closes.</p>
+
+    <details class="log red" style="margin-top:28px;">
       <summary>$GODFATHER Buyback &amp; Burn Log</summary>
       <div class="log-sub">50% of processed $SIGMA rewards sold → $GODFATHER bought back and burned</div>
       <div class="tablewrap">
@@ -264,7 +275,6 @@
     <div class="footerlinks">
       <a id="footX" class="btn secondary" href="#">X</a>
       <a id="footFomo" class="btn secondary" href="#">Fomo</a>
-      <a id="footDex" class="btn secondary" href="#">Dexscreener</a>
       <a id="footStonk" class="btn primary" href="#">StonkFun</a>
     </div>
   </div>
@@ -279,7 +289,6 @@
     <div class="footerlinks">
       <a id="footerX" href="#">X</a>
       <a id="footerFomo" href="#">Fomo</a>
-      <a id="footerDex" href="#">Dex</a>
       <a id="footerStonk" href="#">StonkFun</a>
     </div>
   </div>
