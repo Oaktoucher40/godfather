@@ -16,7 +16,16 @@ const DATA = {
   },
   burnLog: [],
   buybackLog: [],
-  oathLog: [],
+  oathLog: [
+    {
+      date: "September 7, 2026",
+      wallet: "99HwYT...ci4Apr",
+      burned: 500000, // amount the participant sent — this is what's shown in the table and what the reward is based on
+      actualBurned: 485000, // net amount actually destroyed on-chain by the burn wallet after the 3% transfer tax — used for supply math, not shown in the table
+      rewardSent: 1000000,
+      rewardTx: "https://orbmarkets.io/tx/NSv6AQAJnb4sHGkRx3U6H4jJm4ZgPtwn2tdzFj9J8sXuwhxFQmpvs9qudxCqCTYKL72fLczQPndLqKvEyVMTNfa"
+    }
+  ], // each entry: { date, wallet, burned, actualBurned, rewardSent, rewardTx } — only the reward tx is linked; the burn amount shown in the table is the amount sent (what the reward is based on), while actualBurned (net of the 3% transfer tax) feeds the site-wide remaining-supply total
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
   oathReserveBalance: 200000000 // dev wallet balance reserved to fund double-back rewards; drains as rewards are sent — update as it changes
 };
@@ -58,7 +67,8 @@ if(burnedToDateEl){ burnedToDateEl.textContent=fmt(DATA.vaultStart-DATA.vaultBal
 
 const communityBurnTotal = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnTotal = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
-const totalGodfatherBurned = communityBurnTotal + buybackBurnTotal;
+const oathBurnTotal = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.actualBurned) || 0), 0);
+const totalGodfatherBurned = communityBurnTotal + buybackBurnTotal + oathBurnTotal;
 const godfatherRemaining = Math.max(0, (Number(DATA.totalSupply) || 0) - totalGodfatherBurned);
 
 document.getElementById("godfatherRemainingSupply").textContent = fmt(godfatherRemaining);
@@ -103,6 +113,6 @@ if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
   DATA.oathLog.forEach(r=>body.insertAdjacentHTML("beforeend",`<tr>
     <td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
-    <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+    <td>${r.rewardTx?`<a href="${r.rewardTx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
 }
