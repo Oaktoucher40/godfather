@@ -106,3 +106,9 @@ Upload the whole folder/repository, not only index.html.
 - v34: removed every remaining Dexscreener reference site-wide for now (Official links button, footer link, DATA.links.dex, linkMap entry) — not just the nav icon. Add it back once a real Dexscreener URL exists post-graduation; a comment in script.js marks where.
 
 - v35: added a new FAQ entry, "What is $SIGMA?", right before "Why is $SIGMA the reward pair?" — a short answer with a link to https://x.com/SigmaOnSol69 for anyone who wants the full story. Added visible link styling (gold, underlined) inside FAQ answers since links there previously inherited the invisible default anchor style.
+
+- v36: reworked The Oath's numbers per the real program design:
+  - reward pool is now stated as 200,000,000 $GODFATHER (not 100,000,000) — 100,000,000 is the aggregate qualifying-burn target across all wallets; the pool pays double on that, hence 200M.
+  - added a hard per-wallet range: burn 50,000–1,000,000 $GODFATHER to qualify. Below 50,000 = not eligible (chosen deliberately over a "floor guarantee" reading, which would let someone Sybil the pool with many trivial burns across wallets — flagged to the user, confirmed this is the intended design). Above 1,000,000, only the first 1,000,000 counts.
+  - resulting reward range: 100,000–2,000,000 $GODFATHER per wallet (double the qualifying, clamped burn).
+  - updated: the intro paragraph, step 02, step 04, the oath-pool highlight, and the reserve-card note — all now consistent with the same figures.
