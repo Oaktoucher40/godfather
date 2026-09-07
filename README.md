@@ -104,3 +104,5 @@ Upload the whole folder/repository, not only index.html.
 - v33: replaced the Fomo nav icon with plain text ("fomo"), styled to match the header's unified Fraunces typography, since the actual Fomo icon asset wasn't available.
 
 - v34: removed every remaining Dexscreener reference site-wide for now (Official links button, footer link, DATA.links.dex, linkMap entry) — not just the nav icon. Add it back once a real Dexscreener URL exists post-graduation; a comment in script.js marks where.
+
+- v35: added a new FAQ entry, "What is $SIGMA?", right before "Why is $SIGMA the reward pair?" — a short answer with a link to https://x.com/SigmaOnSol69 for anyone who wants the full story. Added visible link styling (gold, underlined) inside FAQ answers since links there previously inherited the invisible default anchor style.
