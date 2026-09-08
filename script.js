@@ -32,6 +32,14 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/2TqMCJrBjAWSUHRSERJSjRGPF4LzDEGgh6jiuF983twHzr4A6mjFhryXQ4YdFMynbMQcRvScggZuFf8c9HXsUmk3"
+    },
+    {
+      date: "September 8, 2026",
+      wallet: "D7GVcm...kKCrir",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/3vNyKZth5qLhFZctLm3mWUVsDe3HTGv7qfhZmB8LRT9hrbRk5kop6pq3mW2c6vf3nBY8PwewMCMq7QJVMKjMUYid"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table, feeds the remaining-supply total); "sentAmount" is what the participant sent and what the reward is based on (kept for reference, not displayed as a separate column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
