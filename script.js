@@ -43,7 +43,7 @@ const DATA = {
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table, feeds the remaining-supply total); "sentAmount" is what the participant sent and what the reward is based on (kept for reference, not displayed as a separate column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
-  oathReserveBalance: 200000000 // dev wallet balance reserved to fund double-back rewards; drains as rewards are sent — update as it changes
+  oathReserveBalance: 200000000, // dev wallet's STARTING balance reserved to fund double-back rewards. Displayed balance is computed dynamically below (starting balance minus every rewardSent in oathLog) — do not hand-edit this number as rewards go out, just add entries to oathLog.
 };
 
 const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
@@ -62,8 +62,10 @@ Object.entries(linkMap).forEach(([k,ids])=>ids.forEach(id=>{
 document.getElementById("contractValue").textContent=DATA.contractAddress;
 const oathSubmitEl=document.getElementById("oathSubmit");
 if(oathSubmitEl){ oathSubmitEl.href=DATA.oathSubmitUrl||"#"; }
+const oathRewardsPaid = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.rewardSent) || 0), 0);
+const oathReserveRemaining = Math.max(0, (Number(DATA.oathReserveBalance) || 0) - oathRewardsPaid);
 const oathReserveEl=document.getElementById("oathReserveBalance");
-if(oathReserveEl){ oathReserveEl.textContent=fmt(DATA.oathReserveBalance); }
+if(oathReserveEl){ oathReserveEl.textContent=fmt(oathReserveRemaining); }
 
 // Phase 2 (Family Vault) detail elements are hidden until Phase 1 closes.
 // Guarded so the rest of the script keeps running even without them in the DOM.

@@ -124,3 +124,7 @@ Upload the whole folder/repository, not only index.html.
 - v41: added the second live "The Sworn" entry — wallet 55zCZh...HgfWrA, sent 1,000,000 $GODFATHER (the per-wallet cap), 970,000 net burned after the 3% transfer tax, rewarded 2,000,000 $GODFATHER (also the per-wallet cap), dated September 8, 2026, reward tx linked. Both the burn-side transfer and the reward-side transfer were verified on-chain (via orbmarkets.io/Helius) to land on the same wallet, per the Oath's "double sent back to the same wallet" rule.
 
 - v42: added the third live "The Sworn" entry — wallet D7GVcm...kKCrir, sent 1,000,000 $GODFATHER (cap), 970,000 net burned after the 3% tax, rewarded 2,000,000 $GODFATHER (cap), dated September 8, 2026, reward tx linked. Verified burn-side and reward-side transactions both land on the same wallet.
+
+- v43: two fixes to The Oath (Phase 1) section:
+  - the "Reward reserve — dev wallet" balance is now computed dynamically (200,000,000 starting pool minus the sum of every rewardSent in oathLog) instead of being a hardcoded number that had to be manually edited after each payout — it now drains automatically as new Sworn entries are added.
+  - renamed "The Sworn" ledger heading to "The Sworn — The Inner Family" for clarity, so it's immediately obvious this table lists the wallets that have been matched/rewarded, not just burned.
