@@ -976,7 +976,8 @@ const DATA = {
   oathReserveBalance: 200000000, // fallback shown only if the live on-chain fetch fails or times out
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
-  sigmaMint: "5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump"
+  sigmaMint: "5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump",
+  rpcUrl: "https://mainnet.helius-rpc.com/?api-key=35c710dc-bffc-4ac7-bb50-f52e302203a4"
 };
 
 const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
@@ -1006,7 +1007,7 @@ async function loadLiveReserveBalance(){
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), 6000);
   try{
-    const res = await fetch("https://api.mainnet-beta.solana.com", {
+    const res = await fetch(DATA.rpcUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
@@ -1059,7 +1060,7 @@ async function fetchTokenSupply(mint, timeoutMs){
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), timeoutMs || 6000);
   try{
-    const res = await fetch("https://api.mainnet-beta.solana.com", {
+    const res = await fetch(DATA.rpcUrl, {
       method:"POST",
       headers:{"Content-Type":"application/json"},
       signal:controller.signal,
