@@ -1012,6 +1012,14 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/3vNyKZth5qLhFZctLm3mWUVsDe3HTGv7qfhZmB8LRT9hrbRk5kop6pq3mW2c6vf3nBY8PwewMCMq7QJVMKjMUYid"
+    },
+    {
+      date: "September 9, 2026",
+      wallet: "FdtQ2v...KkbK8z",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/2x4fvUR3LMKyWBpg7sgHQaUsGQTbkTaX5izwo6KzUiAYXE71uKvtve4BqNAyNHtK7b9o7NPTBCXe5uQZ3Q3Egx7F"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
@@ -1022,7 +1030,7 @@ const DATA = {
   rpcUrl: "https://mainnet.helius-rpc.com/?api-key=35c710dc-bffc-4ac7-bb50-f52e302203a4"
 };
 
-const fmt = n => new Intl.NumberFormat("en-US").format(Number(n)||0);
+const fmt = n => new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(Number(n)||0);
 const linkMap = {
   x:["navX","footX","footerX"],
   chat:["navChat"],
