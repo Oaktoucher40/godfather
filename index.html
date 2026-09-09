@@ -727,17 +727,24 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   background:#070605;
   padding:26px 22px;
 }
+.engine-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
 .engine-label{
   display:block;
   font-size:.66rem;
   letter-spacing:.13em;
   text-transform:uppercase;
   color:var(--muted);
-  margin-bottom:10px;
 }
 .engine-card h3{
   font-family:Fraunces,serif;
-  font-size:1.25rem;
+  font-size:1.08rem;
+  line-height:1.25;
   color:var(--gold);
   margin-bottom:10px;
 }
@@ -869,27 +876,6 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   </div>
 </section>
 
-<section class="section mech-tracker-section">
-  <div class="shell">
-    <div class="phase-tracker">
-      <a href="#the-oath" class="phase-node is-active">
-        <span class="phase-name">The Oath</span>
-        <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
-      </a>
-      <div class="phase-line"></div>
-      <a href="#the-family-burn" class="phase-node is-active">
-        <span class="phase-name">The Family Burn</span>
-        <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
-      </a>
-      <div class="phase-line"></div>
-      <a href="#buyback-burn" class="phase-node is-active">
-        <span class="phase-name">Buyback &amp; Burn</span>
-        <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <section class="section engines-section">
   <div class="shell">
     <div class="eyebrow">Three Engines. One Supply.</div>
@@ -898,19 +884,28 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 
     <div class="engine-grid">
       <div class="engine-card">
-        <span class="engine-label">Mechanism #1</span>
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #1</span>
+          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+        </div>
         <h3>The Oath</h3>
-        <p>Commitment burns supply. 200,000,000 $GODFATHΣR allocation.</p>
+        <p>200,000,000 $GODFATHΣR allocation. Commitment burns supply — the mechanism runs until the pool is spent.</p>
       </div>
       <div class="engine-card">
-        <span class="engine-label">Mechanism #2</span>
-        <h3>The Family Burn</h3>
-        <p>Growth burns supply. 100,000,000 $GODFATHΣR allocation.</p>
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #2</span>
+          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+        </div>
+        <h3>The Recruitment — Family Burn</h3>
+        <p>100,000,000 $GODFATHΣR allocation. Growth burns supply — the mechanism runs until the allocation is gone.</p>
       </div>
       <div class="engine-card">
-        <span class="engine-label">Mechanism #3</span>
-        <h3>Buyback &amp; Burn</h3>
-        <p>Activity and rewards burn supply. Continuous, activity-driven.</p>
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #3</span>
+          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+        </div>
+        <h3>The Laundry — Buyback &amp; Burn</h3>
+        <p>No fixed allocation. Activity and rewards burn supply — continuous, scaling with the ecosystem.</p>
       </div>
     </div>
     <div class="engine-outcome">↓ Less $GODFATHΣR</div>
@@ -974,7 +969,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   <div class="shell">
     <details class="log gold oath-log">
       <summary>The Sworn</summary>
-      <div class="log-sub">Wallets that burned early and were matched, double, from the Oath pool</div>
+      <div class="log-sub">The first members of the Family — early, verified, and public. Wallets that burned early and were matched, double, from the Oath pool.</div>
       <div class="tablewrap">
         <table>
           <thead><tr><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Reward sent</th><th>Transaction</th></tr></thead>
@@ -986,10 +981,10 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 </section>
 
 
-<section class="section" id="the-family-burn">
+<section class="section" id="the-recruitment">
   <div class="shell">
     <div class="eyebrow-row">
-      <span class="eyebrow">The Family Burn</span>
+      <span class="eyebrow">The Recruitment — Family Burn</span>
       <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #2</span>
     </div>
     <h2>The Family grows. The supply shrinks.</h2>
@@ -1008,10 +1003,10 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   </div>
 </section>
 
-<section class="section" id="buyback-burn">
+<section class="section" id="the-laundry">
   <div class="shell">
     <div class="eyebrow-row">
-      <span class="eyebrow">Buyback &amp; Burn</span>
+      <span class="eyebrow">The Laundry — Buyback &amp; Burn</span>
       <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #3</span>
     </div>
     <h2>The Family decides where the fire burns.</h2>
