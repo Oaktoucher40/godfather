@@ -223,6 +223,23 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   .brand{font-size:1.15rem}
   .brand img{width:42px;height:42px}
   .iconlink{width:34px;height:34px}
+  .top-ca{
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    padding:14px;
+  }
+  .top-ca>span{text-align:center}
+  .top-ca code{
+    white-space:normal;
+    word-break:break-all;
+    text-align:center;
+    line-height:1.4;
+  }
+  .top-copy{
+    width:100%;
+    justify-content:center;
+  }
 }
 
 
@@ -1323,10 +1340,29 @@ loadLiveReserveBalance();
 const vaultWalletEl=document.getElementById("vaultWallet");
 if(vaultWalletEl){ vaultWalletEl.textContent=DATA.vaultWallet; }
 
+// Burn breakdown across all three mechanisms — purely additive from the three logs, so it
+// stays correct automatically as new entries are added to any of them. Computed here (before
+// the live supply fetch) so it can also serve as an accurate fallback if that fetch fails.
+const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
+const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum;
+
+const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
+if(oathBurnedTotalEl){ oathBurnedTotalEl.textContent = fmt(oathBurnedSum); }
+const familyBurnedTotalEl = document.getElementById("familyBurnedTotal");
+if(familyBurnedTotalEl){ familyBurnedTotalEl.textContent = fmt(familyBurnedSum); }
+const buybackBurnedTotalEl = document.getElementById("buybackBurnedTotal");
+if(buybackBurnedTotalEl){ buybackBurnedTotalEl.textContent = fmt(buybackBurnedSum); }
+const totalBurnedAllEl = document.getElementById("totalBurnedAll");
+if(totalBurnedAllEl){ totalBurnedAllEl.textContent = fmt(totalBurnedAllSum); }
+
 // Live remaining supply for both tokens, read directly from the blockchain (getTokenSupply).
 // This is the authoritative figure — it reflects every burn (Oath, Family Burn, Buyback & Burn,
-// or otherwise) automatically, with no manual log-keeping needed. Falls back to a static number
-// per token if the RPC call is slow, blocked, or errors out, so the page never gets stuck.
+// or otherwise) automatically, with no manual log-keeping needed. If the RPC call is slow,
+// blocked, or errors out, falls back to (starting supply − known logged burns) rather than the
+// raw starting supply, so even the fallback stays roughly accurate instead of looking like a
+// step backwards.
 async function fetchTokenSupply(mint, timeoutMs){
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), timeoutMs || 6000);
@@ -1355,19 +1391,21 @@ async function loadLiveSupplies(){
   const sigmaMetaEl = document.getElementById("sigmaSupplyMeta");
   const sigmaLiveDotEl = document.getElementById("sigmaLiveDot");
 
+  const gfFallback = Math.max(0, (Number(DATA.totalSupply) || 0) - totalBurnedAllSum);
+
   const [gfSupply, sigmaSupply] = await Promise.all([
     fetchTokenSupply(DATA.godfatherMint),
     fetchTokenSupply(DATA.sigmaMint)
   ]);
 
   if(gfEl){
-    gfEl.textContent = (typeof gfSupply === "number") ? fmt(gfSupply) : fmt(DATA.totalSupply);
+    gfEl.textContent = (typeof gfSupply === "number") ? fmt(gfSupply) : fmt(gfFallback);
   }
   if(typeof gfSupply === "number" && gfLiveDotEl){ gfLiveDotEl.classList.add("on"); }
   if(gfMetaEl){
     gfMetaEl.textContent = (typeof gfSupply === "number")
       ? "Live figure, read directly from the blockchain."
-      : "Live figure unavailable right now — showing the starting total supply.";
+      : "Live figure unavailable right now — showing supply minus logged burns.";
   }
   if(sigmaEl){
     sigmaEl.textContent = (typeof sigmaSupply === "number")
@@ -1414,22 +1452,6 @@ if(DATA.oathLog && DATA.oathLog.length){
     <td>${r.rewardTx?`<a href="${r.rewardTx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
 }
-
-// Burn breakdown across all three mechanisms — purely additive from the three logs above,
-// so it stays correct automatically as new entries are added to any of them.
-const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
-const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum;
-
-const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
-if(oathBurnedTotalEl){ oathBurnedTotalEl.textContent = fmt(oathBurnedSum); }
-const familyBurnedTotalEl = document.getElementById("familyBurnedTotal");
-if(familyBurnedTotalEl){ familyBurnedTotalEl.textContent = fmt(familyBurnedSum); }
-const buybackBurnedTotalEl = document.getElementById("buybackBurnedTotal");
-if(buybackBurnedTotalEl){ buybackBurnedTotalEl.textContent = fmt(buybackBurnedSum); }
-const totalBurnedAllEl = document.getElementById("totalBurnedAll");
-if(totalBurnedAllEl){ totalBurnedAllEl.textContent = fmt(totalBurnedAllSum); }
 </script>
 </body>
 </html>
