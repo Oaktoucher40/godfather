@@ -1061,8 +1061,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       <div class="log-sub">The first members of the Family — early, verified, and public. Wallets that burned early and were matched, double, from the Oath pool.</div>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Reward sent</th><th>Transaction</th></tr></thead>
-          <tbody id="oathRows"><tr><td colspan="6" class="empty">No sworn wallets yet — the first entry appears here.</td></tr></tbody>
+          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Reward sent</th><th>Current balance</th><th>Transaction</th></tr></thead>
+          <tbody id="oathRows"><tr><td colspan="7" class="empty">No sworn wallets yet — the first entry appears here.</td></tr></tbody>
         </table>
       </div>
     </details>
@@ -1308,6 +1308,7 @@ const DATA = {
     {
       date: "September 7, 2026",
       wallet: "99HwYT...ci4Apr",
+      walletFull: "99HwYTsC4vy7zHdb9oLubR49UYKpAAqX2awdB2ci4Apr",
       sentAmount: 500000, // amount the participant sent from their wallet — this is what the reward is calculated on, but NOT what's shown as "burned"
       burned: 485000, // net amount actually destroyed on-chain by the burn wallet's Burn instruction, after the 3% transfer tax — this is what's shown in the table and feeds the supply math
       rewardSent: 1000000,
@@ -1316,6 +1317,7 @@ const DATA = {
     {
       date: "September 8, 2026",
       wallet: "55zCZh...HgfWrA",
+      walletFull: "55zCZhPvJ5nfphM695tHCdGm5UpymvBPCGPSpJHgfWrA",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1324,6 +1326,7 @@ const DATA = {
     {
       date: "September 8, 2026",
       wallet: "D7GVcm...kKCrir",
+      walletFull: "D7GVcmTvA7qSg9cetoM2aTNPypYmnMtpcDVJ6YkKCrir",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1332,6 +1335,7 @@ const DATA = {
     {
       date: "September 9, 2026",
       wallet: "FdtQ2v...KkbK8z",
+      walletFull: "FdtQ2v9BCdA4dAv3dSEXVRm9kCUGJYi3Yf74wtKkbK8z",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1340,6 +1344,7 @@ const DATA = {
     {
       date: "September 9, 2026",
       wallet: "9sXeax...ix37Wh",
+      walletFull: "9sXeaxmYNHUvTzw5X3MHyQN3s8wCbuDtZKC9rWix37Wh",
       sentAmount: 999999,
       burned: 969999,
       rewardSent: 2000000,
@@ -1348,6 +1353,7 @@ const DATA = {
     {
       date: "September 9, 2026",
       wallet: "CVVSgk...RJS6Mo",
+      walletFull: "CVVSgku6znYV7mWfNtd6nAcg1hiJG9aBN2uW4JRJS6Mo",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1356,6 +1362,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "DBNuKz...2JViE5",
+      walletFull: "DBNuKzAX1rB98nXmFfbF4xWJPaVTzCuxt6KXr2JViE5",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1364,6 +1371,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "6s2CaE...G5tw2d",
+      walletFull: "6s2CaEskdjSCsaaDFGYpw2oivKypzqW2rkJEMrG5tw2d",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1372,6 +1380,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "FVT5hH...5wbdPP",
+      walletFull: "FVT5hHdgYgTLmaXuqD22rwimY8GGwrEUPDkwuT5wbdPP",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1380,6 +1389,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "sVEEgm...UXBj",
+      walletFull: "sVEEgmBm2FvgkgjU8Hg9ZkPAfnmVNnN4HFD2oqMUXBj",
       sentAmount: 998936.400855,
       burned: 968968.308829,
       rewardSent: 2000000,
@@ -1388,6 +1398,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "8RMVxX...mdrt",
+      walletFull: "8RMVxXLfavcvQE1Y74CC3aUJGS1gzDC8DiJTBkJ7mdrt",
       sentAmount: 976697.970983,
       burned: 947397.031853,
       rewardSent: 2000000,
@@ -1396,6 +1407,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "Hfcf1k...sSNK",
+      walletFull: "Hfcf1kjda47ysiucnhn21yVqU1MoD1Bpn51K9wmBsSNK",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1404,6 +1416,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "Dv2zMe...UqqF",
+      walletFull: "Dv2zMeimQthdzi87pQMW8ZQo1QBxrTRH5vdnPenWUqqF",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1412,6 +1425,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "EiAQCP...bDiM",
+      walletFull: "EiAQCPWKvk4U4tFURgPYdrPcR1UoBwBjgwwQ7xknbDiM",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1420,6 +1434,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "ALDroZ...YLnM",
+      walletFull: "ALDroZiiwWEsr6rRRdgu7QgABWbd1H81ru3E67jSYLnM",
       sentAmount: 1001538.194218,
       burned: 971492.048391,
       rewardSent: 2000000,
@@ -1428,6 +1443,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "45Fr7s...wQFc",
+      walletFull: "45Fr7sB51NvwYxkdTYtmFDdQaf8JgdEQzoXGJBRowQFc",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1436,6 +1452,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "2nq2je...WuZn",
+      walletFull: "2nq2jeCKNnN5Ky7SWz7PrxcsiMAkakKUG87BzthiWuZn",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1444,6 +1461,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "DjhPd2...wc9R",
+      walletFull: "DjhPd2Tj1y4GDnvwFWnmYgK5xpyL5MuEFeUzBHpvwc9R",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1452,6 +1470,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "4S8aQr...3aQ79H",
+      walletFull: "4S8aQro4Zqk4yS8vFgpQCzcefDx3aXVKjFKk9K3aQ79H",
       sentAmount: 1033000,
       burned: 1002010,
       rewardSent: 2000000,
@@ -1460,6 +1479,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "3P2jeE...UFnTFu",
+      walletFull: "3P2jeEC2cUUPKvzaXUhs4kphcYifBc3cT7vTywUFnTFu",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1468,6 +1488,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "CPJQ3G...PGx6B6",
+      walletFull: "CPJQ3GEtDGif2gGuPJhowC9NWU4NQN3bjUXhd1PGx6B6",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1476,6 +1497,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "8RJLzY...EFvAD2",
+      walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1484,6 +1506,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "CjUrHE...BTd9Lz",
+      walletFull: "CjUrHEopSHtt3vxds76Kz2h2FrgaHJEB9WDBNNBTd9Lz",
       sentAmount: 1087739.323235,
       burned: 1055107.143537,
       rewardSent: 2000000,
@@ -1492,6 +1515,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "DUha7g...BxN9xx",
+      walletFull: "DUha7gxZScjBGtExbB5TK8qjem7B5QSDgrhLkjBxN9xx",
       sentAmount: 1000001,
       burned: 970000.97,
       rewardSent: 2000000,
@@ -1500,6 +1524,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "EVcNxo...FQwiR9",
+      walletFull: "EVcNxohwWU77DF75AogHSMyseo5VwEnaPVpW1aFQwiR9",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1508,6 +1533,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "AQjA8x...ZaUraL",
+      walletFull: "AQjA8xhZD6p1KXVbWqUAwdR8sSHmRxf9MZxp5FZaUraL",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1516,6 +1542,7 @@ const DATA = {
     {
       date: "September 10, 2026",
       wallet: "7T4HAS...kDnEpg",
+      walletFull: "7T4HAS8ows9orntRtHYZ78wwGpPe4YddmzWetbkDnEpg",
       sentAmount: 1000000,
       burned: 970000,
       rewardSent: 2000000,
@@ -1713,9 +1740,56 @@ if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
   DATA.oathLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
     <td>${i+1}</td><td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
+    <td id="swornBal${i}">Loading…</td>
     <td>${r.rewardTx?`<a href="${r.rewardTx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
 }
+
+// Live "currently holds" balance per Sworn wallet — one batched RPC call covering every wallet at
+// once (a single JSON-RPC array request), rather than one request per row. This keeps page load
+// fast no matter how many entries the Oath log grows to. Falls back to "—" per row if the batch
+// call fails or times out, so a slow/blocked RPC never leaves rows stuck on "Loading…".
+async function loadSwornBalances(){
+  const rows = DATA.oathLog || [];
+  if(!rows.length) return;
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 8000);
+  const setCell = (i, text) => {
+    const cell = document.getElementById(`swornBal${i}`);
+    if(cell) cell.textContent = text;
+  };
+  try{
+    const batch = rows.map((r,i)=>({
+      jsonrpc: "2.0",
+      id: i,
+      method: "getTokenAccountsByOwner",
+      params: [ r.walletFull, { mint: DATA.godfatherMint }, { encoding: "jsonParsed" } ]
+    }));
+    const res = await fetch(DATA.rpcUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify(batch)
+    });
+    const json = await res.json();
+    const results = Array.isArray(json) ? json : [];
+    const byId = {};
+    results.forEach(item => { if(item && typeof item.id === "number") byId[item.id] = item; });
+    rows.forEach((r, i) => {
+      const item = byId[i];
+      const accounts = item && item.result && item.result.value;
+      const amount = accounts && accounts.length
+        ? accounts[0].account.data.parsed.info.tokenAmount.uiAmount
+        : 0;
+      setCell(i, fmt(amount || 0));
+    });
+  }catch(e){
+    rows.forEach((r, i) => setCell(i, "—"));
+  }finally{
+    clearTimeout(timeout);
+  }
+}
+loadSwornBalances();
 </script>
 </body>
 </html>
