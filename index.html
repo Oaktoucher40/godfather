@@ -985,6 +985,31 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   border:1px solid var(--line);
   background:#070605;
 }
+.dev-wallet-card.split{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:24px;
+}
+.dev-wallet-half{
+  flex:1 1 200px;
+  min-width:0;
+}
+.dev-wallet-divider{
+  width:1px;
+  align-self:stretch;
+  background:var(--line);
+  flex:0 0 auto;
+}
+@media(max-width:560px){
+  .dev-wallet-card.split{gap:18px}
+  .dev-wallet-divider{display:none}
+}
+.dev-wallet-card.split .dev-wallet-note{
+  flex-basis:100%;
+  margin:6px 0 0;
+  max-width:none;
+}
 .dev-wallet-label{
   display:block;
   font-size:.7rem;
@@ -1157,10 +1182,17 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       </div>
     </div>
 
-    <div class="dev-wallet-card">
-      <span class="dev-wallet-label">Dev wallet — live $GODFATHΣR balance</span>
-      <strong class="dev-wallet-number"><span id="devWalletBalance">Loading…</span><span class="live-dot" id="devWalletLiveDot" title="Live on-chain data"></span></strong>
-      <p class="dev-wallet-note">Shown here for transparency, since this wallet funds Oath rewards along with other $GODFATHΣR-related activity — its balance isn't a stand-in for any single mechanism's allocation.</p>
+    <div class="dev-wallet-card split">
+      <div class="dev-wallet-half">
+        <span class="dev-wallet-label">Dev wallet — live $GODFATHΣR balance</span>
+        <strong class="dev-wallet-number"><span id="devWalletBalance">Loading…</span><span class="live-dot" id="devWalletLiveDot" title="Live on-chain data"></span></strong>
+      </div>
+      <div class="dev-wallet-divider"></div>
+      <div class="dev-wallet-half">
+        <span class="dev-wallet-label">Dev wallet — live $SIGMA balance</span>
+        <strong class="dev-wallet-number"><span id="devWalletSigmaBalance">Loading…</span><span class="live-dot" id="devWalletSigmaLiveDot" title="Live on-chain data"></span></strong>
+      </div>
+      <p class="dev-wallet-note">Shown here for transparency, since this wallet funds Oath rewards along with other $GODFATHΣR-related activity. The $SIGMA held here is a war chest for the Family — set aside to strengthen $GODFATHΣR further down the line.</p>
     </div>
   </div>
 </section>
@@ -1201,11 +1233,6 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
             <span>Copy</span>
           </button>
         </div>
-      </div>
-
-      <div class="oath-cta">
-        <a id="oathSubmit" class="btn primary" href="#" target="_blank">Submit in the Family Chat</a>
-        <span class="oath-cta-note">Opens a chat — send your wallet address and a Solscan (or other explorer) link there. Verified manually.</span>
       </div>
 
       <div class="closing">Every accepted Oath becomes part of the public record, and the Family remembers who came early.</div>
@@ -1842,6 +1869,24 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/48n2tfQb5kKkkJJKkSfAEKQjCWWyLXiYXUEp7qW46kzSwadQZTkHeTtjomdrCTD1i7r9uPzULrWtJ5aNft8Kb1sX"
+    },
+    {
+      date: "September 12, 2026",
+      wallet: "HonteK...WnMvuJ",
+      walletFull: "HonteKAZbXtXMvdMvwRke5ZbWtFgrVxoF3KkwZWnMvuJ",
+      sentAmount: 1051800.763101,
+      burned: 1020246.740207,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/469vwi12LTm7SVCp3Ah4xSNQugmSDwnqTkuP2g82Vk2T6LUnU9cruUtmCKYY65BaE1G3GHsgR2CBBtNac5g2bqcM"
+    },
+    {
+      date: "September 12, 2026",
+      wallet: "7q4Cza...m5NU6N",
+      walletFull: "7q4CzauzZya9LmSKutvCsmBBHKro4yqDeQQArvm5NU6N",
+      sentAmount: 1039000,
+      burned: 1007830,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/2zqa8rRm7fcR5zGzArj5Jf7uvgL3PiFhCZ14MsFPBBhrR2dJCMnSvyfyPHH8sgyUMutrLboePueY1yFmMeS3df5b"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
@@ -1874,8 +1919,7 @@ Object.entries(linkMap).forEach(([k,ids])=>ids.forEach(id=>{
 }));
 
 document.getElementById("contractValue").textContent=DATA.contractAddress;
-const oathSubmitEl=document.getElementById("oathSubmit");
-if(oathSubmitEl){ oathSubmitEl.href=DATA.oathSubmitUrl||"#"; }
+// Family Chat submit button was removed from the page; DATA.oathSubmitUrl kept in case it's reintroduced.
 // The remaining Oath pool CANNOT be read from the dev wallet's live balance — that wallet is
 // also used for purchases unrelated to this pool, so its raw balance isn't a meaningful figure
 // here. Instead, this is simple arithmetic: the fixed 200,000,000 pool minus every reward
@@ -1886,13 +1930,17 @@ const oathPoolRemaining = Math.max(0, (Number(DATA.oathReserveBalance) || 0) - o
 const oathPoolRemainingEl = document.getElementById("oathPoolRemaining");
 if(oathPoolRemainingEl){ oathPoolRemainingEl.textContent = fmt(oathPoolRemaining); }
 
-// Separately, the dev wallet's live $GODFATHER balance IS shown elsewhere on the page — as
-// general transparency info in the Remaining Supply section, not tied to the Oath pool specifically
-// (since this wallet also holds funds for other, unrelated $GODFATHER activity).
+// Separately, the dev wallet's live $GODFATHER and $SIGMA balances are shown elsewhere on the
+// page — as general transparency info in the Remaining Supply section, not tied to the Oath pool
+// specifically (since this wallet also holds funds for other, unrelated activity). Fetched together
+// in one batched RPC call to keep this to a single round-trip.
 const devWalletBalanceEl = document.getElementById("devWalletBalance");
 const devWalletLiveDotEl = document.getElementById("devWalletLiveDot");
+const devWalletSigmaBalanceEl = document.getElementById("devWalletSigmaBalance");
+const devWalletSigmaLiveDotEl = document.getElementById("devWalletSigmaLiveDot");
+
 async function loadDevWalletBalance(){
-  if(!devWalletBalanceEl) return;
+  if(!devWalletBalanceEl && !devWalletSigmaBalanceEl) return;
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), 6000);
   try{
@@ -1900,30 +1948,50 @@ async function loadDevWalletBalance(){
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
-      body: JSON.stringify({
-        jsonrpc: "2.0",
-        id: 1,
-        method: "getTokenAccountsByOwner",
-        params: [
-          DATA.devWalletAddress,
-          { mint: DATA.godfatherMint },
-          { encoding: "jsonParsed" }
-        ]
-      })
+      body: JSON.stringify([
+        {
+          jsonrpc: "2.0", id: 0, method: "getTokenAccountsByOwner",
+          params: [ DATA.devWalletAddress, { mint: DATA.godfatherMint }, { encoding: "jsonParsed" } ]
+        },
+        {
+          jsonrpc: "2.0", id: 1, method: "getTokenAccountsByOwner",
+          params: [ DATA.devWalletAddress, { mint: DATA.sigmaMint }, { encoding: "jsonParsed" } ]
+        }
+      ])
     });
     const json = await res.json();
-    const accounts = json && json.result && json.result.value;
-    const amount = accounts && accounts.length
-      ? accounts[0].account.data.parsed.info.tokenAmount.uiAmount
+    const results = Array.isArray(json) ? json : [];
+    const byId = {};
+    results.forEach(item => { if(item && typeof item.id === "number") byId[item.id] = item; });
+
+    const gfAccounts = byId[0] && byId[0].result && byId[0].result.value;
+    const gfAmount = gfAccounts && gfAccounts.length
+      ? gfAccounts[0].account.data.parsed.info.tokenAmount.uiAmount
       : null;
-    if(typeof amount === "number"){
-      devWalletBalanceEl.textContent = fmt(amount);
-      if(devWalletLiveDotEl) devWalletLiveDotEl.classList.add("on");
-    }else{
-      devWalletBalanceEl.textContent = "Unavailable";
+    if(devWalletBalanceEl){
+      if(typeof gfAmount === "number"){
+        devWalletBalanceEl.textContent = fmt(gfAmount);
+        if(devWalletLiveDotEl) devWalletLiveDotEl.classList.add("on");
+      }else{
+        devWalletBalanceEl.textContent = "Unavailable";
+      }
+    }
+
+    const sigmaAccounts = byId[1] && byId[1].result && byId[1].result.value;
+    const sigmaAmount = sigmaAccounts && sigmaAccounts.length
+      ? sigmaAccounts[0].account.data.parsed.info.tokenAmount.uiAmount
+      : null;
+    if(devWalletSigmaBalanceEl){
+      if(typeof sigmaAmount === "number"){
+        devWalletSigmaBalanceEl.textContent = fmt(sigmaAmount);
+        if(devWalletSigmaLiveDotEl) devWalletSigmaLiveDotEl.classList.add("on");
+      }else{
+        devWalletSigmaBalanceEl.textContent = "Unavailable";
+      }
     }
   }catch(e){
-    devWalletBalanceEl.textContent = "Unavailable";
+    if(devWalletBalanceEl) devWalletBalanceEl.textContent = "Unavailable";
+    if(devWalletSigmaBalanceEl) devWalletSigmaBalanceEl.textContent = "Unavailable";
   }finally{
     clearTimeout(timeout);
   }
