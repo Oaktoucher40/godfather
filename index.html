@@ -1759,10 +1759,61 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/nH9bqgcPnbheQYrmpaie9vrSXbCftuptfjrXWUFeDRczeZHWWsmugdbfVY1FuceAgdqE4wDFjxqjuDsjeKEA6os"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "4ti2Bg...X8gYuV",
+      walletFull: "4ti2BgS2TUcMXTXPyJLYJHgaBnyVX4rRqwUc4eX8gYuV",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/saYFwerVjjRxzYuWfx4BJSyAidWBVhWWZpMnPN8fdMAfBL1cSpMptpBW5LHqScTUiDyoitepiScmJRpEh9Trtzk"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "62jjtV...WMNyxD",
+      walletFull: "62jjtV1LUPfsqcjnsWhZy4NXM3gM44tRqbviDRWMNyxD",
+      sentAmount: 999999,
+      burned: 969999.03,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/4JE99RNqf2cTrEgMJjaZ1aGsvq8xhZ5MvA2Su1nuSVbEvHfTxs57zSnhFg1eUgh8EAWbxFkH7vXmCGSPqg6cXaae"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "AjZArE...JyVjia",
+      walletFull: "AjZArE4XAPRMxwKF87xHqN7JmzX6p8VD35PmkbJyVjia",
+      sentAmount: 1036000,
+      burned: 1004920,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/GF2kp1L2a1kmcMjFrCmhcqhvXYX84dRnZdNL3mxrWhpif8MbS8APfbyaxD5R1LoKpDy1AGzqXMxhKwaNDDZscFb"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "Dj9D4p...TReqbh",
+      walletFull: "Dj9D4pHvtxirdoKC4c8mCVjEYcTVrN2gLq68J5TReqbh",
+      sentAmount: 1050000,
+      burned: 1018500,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/cXQCApgKCALyQomgVwH7tvoc7P9ohanmnRhc3ZUdsHEpRRGM8MiBWjDXQ3kDThdycx9Rx8vSgD6kwysBvYgecAu"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "8TTwGD...jK7ZcA",
+      walletFull: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA",
+      sentAmount: 197005.610306,
+      burned: 191095.441996,
+      rewardSent: 400000,
+      rewardTx: "https://orbmarkets.io/tx/2bKXYKJC5biKfq87HPLsiL3pY3R4dSunNwUmgUSYHPRTiCtDNH5qgXUf9LZZquzcespN5M5vpG59XDiUWyQi2ipE"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
   oathReserveBalance: 200000000, // fallback shown only if the live on-chain fetch fails or times out
+  // Burns that are real and confirmed on-chain, but intentionally excluded from The Sworn table
+  // (e.g. a repeat participant whose owner already has a row and was only refunded their principal,
+  // not given a new matched reward). Each entry still counts toward the total-burned figures.
+  oathExtraBurns: [
+    { date: "September 10, 2026", wallet: "8RvnvM...VMtvh1RJE", burned: 724462.93, note: "Repeat sender (already listed as @DiverbeaX, entry 28) — refunded principal only, no new reward row." }
+  ],
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
   sigmaMint: "5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump",
@@ -1848,7 +1899,8 @@ if(vaultWalletEl){ vaultWalletEl.textContent=DATA.vaultWallet; }
 // Burn breakdown across all three mechanisms — purely additive from the three logs, so it
 // stays correct automatically as new entries are added to any of them. Computed here (before
 // the live supply fetch) so it can also serve as an accurate fallback if that fetch fails.
-const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0)
+  + (DATA.oathExtraBurns || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
 const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum;
