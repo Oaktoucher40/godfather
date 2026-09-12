@@ -1218,8 +1218,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       <div class="log-sub">The first members of the Family — early, verified, and public. Wallets that burned early and were matched, double, from the Oath pool.</div>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Reward sent</th><th>Current balance</th><th>Transaction</th></tr></thead>
-          <tbody id="oathRows"><tr><td colspan="7" class="empty">No sworn wallets yet — the first entry appears here.</td></tr></tbody>
+          <thead><tr><th>#</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Reward sent</th><th>Current balance</th><th>Transaction</th></tr></thead>
+          <tbody id="oathRows"><tr><td colspan="6" class="empty">No sworn wallets yet — the first entry appears here.</td></tr></tbody>
         </table>
       </div>
     </details>
@@ -1804,6 +1804,42 @@ const DATA = {
       burned: 191095.441996,
       rewardSent: 400000,
       rewardTx: "https://orbmarkets.io/tx/2bKXYKJC5biKfq87HPLsiL3pY3R4dSunNwUmgUSYHPRTiCtDNH5qgXUf9LZZquzcespN5M5vpG59XDiUWyQi2ipE"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "FYwqkU...7r4W9U",
+      walletFull: "FYwqkU3UcQCsYVhpsf2r7rzcoP5yi4DNYo8peG7r4W9U",
+      sentAmount: 1000100,
+      burned: 970097,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/5AQwUwn3gTcMjrs9j9YBPRGEVSZEeKXtw1ti3LQJYn2ptBoi1kDe3R6AcgKz1N25Uojg3FUTQVTggCJx3zxvkrir"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "9CiBWg...u2tFQX",
+      walletFull: "9CiBWg5vwSgebNBbFnC4zrCLSYXDi9erXKWNZhu2tFQX",
+      sentAmount: 944000,
+      burned: 915680,
+      rewardSent: 1900000,
+      rewardTx: "https://orbmarkets.io/tx/2ncG8TvYaNJPHg5KrWcUFBxePbx5Cuz9yytGTw4xo6XGACQxT34Q1UZu4J4ieW5s24XkS6nrP1YAFBSPrZU7mkQb"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "GsP1F2...eStWuT",
+      walletFull: "GsP1F2wWALG4SiKdpVskUN361WKfpuKHSfjebteStWuT",
+      sentAmount: 819407.437952,
+      burned: 794825.214813,
+      rewardSent: 1650000,
+      rewardTx: "https://orbmarkets.io/tx/5h62AE5wffn6Ytmu8famRqvuHJWmtB9iixEQFXmwNiuyhQmGunetoPjvY7dmQKH1ntmAvLPd6NapvsC2nk2eVnrG"
+    },
+    {
+      date: "September 10, 2026",
+      wallet: "HHeTgK...GiFAGq",
+      walletFull: "HHeTgKE53nonrzibWifdbaKVi35RuPHwYDz8f7GiFAGq",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/48n2tfQb5kKkkJJKkSfAEKQjCWWyLXiYXUEp7qW46kzSwadQZTkHeTtjomdrCTD1i7r9uPzULrWtJ5aNft8Kb1sX"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
@@ -2005,7 +2041,7 @@ if(DATA.buybackLog.length){
 if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
   DATA.oathLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
-    <td>${i+1}</td><td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
+    <td>${i+1}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
     <td id="swornBal${i}">Loading…</td>
     <td>${r.rewardTx?`<a href="${r.rewardTx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
