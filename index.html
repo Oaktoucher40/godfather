@@ -2325,31 +2325,16 @@ async function loadSwornBalances(){
     if(cached){ setSwornCell(i, { amount: cached.amount, ts: cached.ts, fresh: false }); }
   });
 
-  // Step 2: fetch fresh values in small chunks (avoids tripping the RPC's rate limit — firing
-  // everything at once caused sporadic failures on later rows).
-  const chunkSize = 6;
-  const failedIndexes = [];
-  for(let start = 0; start < rows.length; start += chunkSize){
-    const chunk = rows.slice(start, start + chunkSize);
-    const results = await Promise.allSettled(chunk.map(r => fetchOneSwornBalance(r.walletFull)));
-    results.forEach((result, j) => {
-      const i = start + j;
-      const amount = result.status === "fulfilled" ? result.value : null;
-      if(typeof amount === "number"){
-        writeSwornCache(rows[i].walletFull, amount);
-        setSwornCell(i, { amount, ts: Date.now(), fresh: true });
-      }else{
-        failedIndexes.push(i);
-        // leave whatever is already on screen (cache, or the initial "Loading…") — do not blank it
-      }
-    });
-  }
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-  // Step 3: one retry pass for rows that failed the first attempt.
-  if(failedIndexes.length){
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    for(let start = 0; start < failedIndexes.length; start += chunkSize){
-      const chunkIdxs = failedIndexes.slice(start, start + chunkSize);
+  // Runs one pass over a list of row-indexes, in small chunks, with a short pause BETWEEN chunks
+  // (not just before a retry) — without this, a longer wallet list keeps firing requests back-to-
+  // back and the rate limit accumulates toward the end of the list, so later rows fail more often
+  // than earlier ones even though every row uses the exact same request.
+  async function runPass(indexes, chunkSize, pauseMs){
+    const stillFailed = [];
+    for(let start = 0; start < indexes.length; start += chunkSize){
+      const chunkIdxs = indexes.slice(start, start + chunkSize);
       const results = await Promise.allSettled(chunkIdxs.map(i => fetchOneSwornBalance(rows[i].walletFull)));
       results.forEach((result, j) => {
         const i = chunkIdxs[j];
@@ -2358,14 +2343,37 @@ async function loadSwornBalances(){
           writeSwornCache(rows[i].walletFull, amount);
           setSwornCell(i, { amount, ts: Date.now(), fresh: true });
         }else{
-          // still no luck — fall back to cache if we have one, otherwise show a plain dash
-          const cached = readSwornCache(rows[i].walletFull);
-          if(cached){ setSwornCell(i, { amount: cached.amount, ts: cached.ts, fresh: false }); }
-          else { setSwornCell(i, { amount: null }); }
+          stillFailed.push(i);
         }
       });
+      if(start + chunkSize < indexes.length) await sleep(pauseMs);
     }
+    return stillFailed;
   }
+
+  // Pass 1: everyone, 6 at a time, short pause between chunks.
+  const allIndexes = rows.map((_, i) => i);
+  let failed = await runPass(allIndexes, 6, 350);
+
+  // Pass 2: retry only what failed, a bit slower.
+  if(failed.length){
+    await sleep(1500);
+    failed = await runPass(failed, 4, 600);
+  }
+
+  // Pass 3: one more retry for anything still failing after pass 2 — by now the rate limit should
+  // have settled, so this catches stragglers (e.g. rows near the end of a long list).
+  if(failed.length){
+    await sleep(2500);
+    failed = await runPass(failed, 3, 800);
+  }
+
+  // Anything left after all three passes falls back to cache (if any) rather than a bare dash.
+  failed.forEach(i => {
+    const cached = readSwornCache(rows[i].walletFull);
+    if(cached){ setSwornCell(i, { amount: cached.amount, ts: cached.ts, fresh: false }); }
+    else { setSwornCell(i, { amount: null }); }
+  });
 }
 loadSwornBalances();
 </script>
