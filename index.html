@@ -2137,49 +2137,50 @@ if(DATA.oathLog && DATA.oathLog.length){
   if(swornCountEl){ swornCountEl.textContent = DATA.oathLog.length; }
 }
 
-// Live "currently holds" balance per Sworn wallet — one batched RPC call covering every wallet at
-// once (a single JSON-RPC array request), rather than one request per row. This keeps page load
-// fast no matter how many entries the Oath log grows to. Falls back to "—" per row if the batch
-// call fails or times out, so a slow/blocked RPC never leaves rows stuck on "Loading…".
-async function loadSwornBalances(){
-  const rows = DATA.oathLog || [];
-  if(!rows.length) return;
+// Live "currently holds" balance per Sworn wallet. Originally implemented as a single batched
+// JSON-RPC array request, but this Helius endpoint/API key doesn't support batch requests (single
+// RPC calls work fine; the batch always failed silently). Switched to individual requests fired
+// in parallel (Promise.allSettled) — still one fast round-trip in wall-clock time, just not one
+// HTTP request. Each row falls back to "—" independently if its own request fails.
+async function fetchOneSwornBalance(walletFull){
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), 8000);
-  const setCell = (i, text) => {
-    const cell = document.getElementById(`swornBal${i}`);
-    if(cell) cell.textContent = text;
-  };
   try{
-    const batch = rows.map((r,i)=>({
-      jsonrpc: "2.0",
-      id: i,
-      method: "getTokenAccountsByOwner",
-      params: [ r.walletFull, { mint: DATA.godfatherMint }, { encoding: "jsonParsed" } ]
-    }));
     const res = await fetch(DATA.rpcUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
-      body: JSON.stringify(batch)
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method: "getTokenAccountsByOwner",
+        params: [ walletFull, { mint: DATA.godfatherMint }, { encoding: "jsonParsed" } ]
+      })
     });
     const json = await res.json();
-    const results = Array.isArray(json) ? json : [];
-    const byId = {};
-    results.forEach(item => { if(item && typeof item.id === "number") byId[item.id] = item; });
-    rows.forEach((r, i) => {
-      const item = byId[i];
-      const accounts = item && item.result && item.result.value;
-      const amount = accounts && accounts.length
-        ? accounts[0].account.data.parsed.info.tokenAmount.uiAmount
-        : 0;
-      setCell(i, fmt(amount || 0));
-    });
+    const accounts = json && json.result && json.result.value;
+    return accounts && accounts.length
+      ? accounts[0].account.data.parsed.info.tokenAmount.uiAmount
+      : 0;
   }catch(e){
-    rows.forEach((r, i) => setCell(i, "—"));
+    return null;
   }finally{
     clearTimeout(timeout);
   }
+}
+
+async function loadSwornBalances(){
+  const rows = DATA.oathLog || [];
+  if(!rows.length) return;
+  const setCell = (i, text) => {
+    const cell = document.getElementById(`swornBal${i}`);
+    if(cell) cell.textContent = text;
+  };
+  const results = await Promise.allSettled(rows.map(r => fetchOneSwornBalance(r.walletFull)));
+  results.forEach((result, i) => {
+    const amount = result.status === "fulfilled" ? result.value : null;
+    setCell(i, typeof amount === "number" ? fmt(amount) : "—");
+  });
 }
 loadSwornBalances();
 </script>
