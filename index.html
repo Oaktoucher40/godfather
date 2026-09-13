@@ -2176,11 +2176,39 @@ async function loadSwornBalances(){
     const cell = document.getElementById(`swornBal${i}`);
     if(cell) cell.textContent = text;
   };
-  const results = await Promise.allSettled(rows.map(r => fetchOneSwornBalance(r.walletFull)));
-  results.forEach((result, i) => {
-    const amount = result.status === "fulfilled" ? result.value : null;
-    setCell(i, typeof amount === "number" ? fmt(amount) : "—");
-  });
+  // Firing all lookups at once tends to trip the RPC's rate limit (some wallets would silently
+  // fail and show "—" while most succeeded). Processing in small chunks, with each chunk running
+  // in parallel but chunks going one after another, stays fast while staying under the limit.
+  const chunkSize = 6;
+  const failedIndexes = [];
+  for(let start = 0; start < rows.length; start += chunkSize){
+    const chunk = rows.slice(start, start + chunkSize);
+    const results = await Promise.allSettled(chunk.map(r => fetchOneSwornBalance(r.walletFull)));
+    results.forEach((result, j) => {
+      const i = start + j;
+      const amount = result.status === "fulfilled" ? result.value : null;
+      if(typeof amount === "number"){
+        setCell(i, fmt(amount));
+      }else{
+        setCell(i, "—");
+        failedIndexes.push(i);
+      }
+    });
+  }
+  // One retry pass for anything that failed the first time (e.g. a transient rate-limit hit) —
+  // small pause first to let the RPC settle, then the same chunked approach on just those rows.
+  if(failedIndexes.length){
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    for(let start = 0; start < failedIndexes.length; start += chunkSize){
+      const chunkIdxs = failedIndexes.slice(start, start + chunkSize);
+      const results = await Promise.allSettled(chunkIdxs.map(i => fetchOneSwornBalance(rows[i].walletFull)));
+      results.forEach((result, j) => {
+        const i = chunkIdxs[j];
+        const amount = result.status === "fulfilled" ? result.value : null;
+        if(typeof amount === "number"){ setCell(i, fmt(amount)); }
+      });
+    }
+  }
 }
 loadSwornBalances();
 </script>
