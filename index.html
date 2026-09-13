@@ -620,6 +620,19 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   opacity:1;
   transform:scale(1);
 }
+.live-dot.stale{
+  opacity:1;
+  transform:scale(1);
+  background:#8a8072;
+  box-shadow:0 0 5px rgba(138,128,114,.6);
+}
+.sworn-bal-age{
+  display:block;
+  font-size:.68rem;
+  color:var(--muted);
+  margin-top:2px;
+  white-space:nowrap;
+}
 .reserve-token{
   display:block;
   margin-top:6px;
@@ -2130,18 +2143,61 @@ if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
   DATA.oathLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
     <td>${i+1}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td><td>${fmt(r.rewardSent)}</td>
-    <td id="swornBal${i}">Loading…</td>
+    <td>
+      <span class="sworn-bal-value" id="swornBalVal${i}">Loading…</span><span class="live-dot" id="swornBalDot${i}"></span>
+      <span class="sworn-bal-age" id="swornBalAge${i}"></span>
+    </td>
     <td>${r.rewardTx?`<a href="${r.rewardTx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
   const swornCountEl = document.getElementById("swornCount");
   if(swornCountEl){ swornCountEl.textContent = DATA.oathLog.length; }
 }
 
-// Live "currently holds" balance per Sworn wallet. Originally implemented as a single batched
-// JSON-RPC array request, but this Helius endpoint/API key doesn't support batch requests (single
-// RPC calls work fine; the batch always failed silently). Switched to individual requests fired
-// in parallel (Promise.allSettled) — still one fast round-trip in wall-clock time, just not one
-// HTTP request. Each row falls back to "—" independently if its own request fails.
+// Live "currently holds" balance per Sworn wallet, with a local cache so repeat visits show a
+// number instantly instead of waiting on 40+ RPC calls every time. Flow: on load, any cached
+// value for a wallet is shown immediately (gray dot, "X ago" label); then fresh lookups run in
+// the background and overwrite each cell as they land (green dot, "just now"). If a fresh lookup
+// fails and a cache exists, the cache stays on screen rather than reverting to "—" — a slightly
+// stale real number is far more useful than a dash.
+const SWORN_CACHE_PREFIX = "godfather_sworn_bal:";
+
+function readSwornCache(walletFull){
+  try{
+    const raw = localStorage.getItem(SWORN_CACHE_PREFIX + walletFull);
+    if(!raw) return null;
+    const parsed = JSON.parse(raw);
+    if(typeof parsed.amount !== "number" || typeof parsed.ts !== "number") return null;
+    return parsed;
+  }catch(e){ return null; }
+}
+function writeSwornCache(walletFull, amount){
+  try{
+    localStorage.setItem(SWORN_CACHE_PREFIX + walletFull, JSON.stringify({ amount, ts: Date.now() }));
+  }catch(e){ /* localStorage unavailable (private mode, quota, etc.) — cache is a nice-to-have, skip silently */ }
+}
+function timeAgo(ts){
+  const diffSec = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+  if(diffSec < 60) return "just now";
+  const diffMin = Math.floor(diffSec / 60);
+  if(diffMin < 60) return `${diffMin} min${diffMin === 1 ? "" : "s"} ago`;
+  const diffHr = Math.floor(diffMin / 60);
+  if(diffHr < 24) return `${diffHr} hour${diffHr === 1 ? "" : "s"} ago`;
+  const diffDay = Math.floor(diffHr / 24);
+  return `data is ${diffDay} day${diffDay === 1 ? "" : "s"} old`;
+}
+
+function setSwornCell(i, { amount, ts, fresh }){
+  const valEl = document.getElementById(`swornBalVal${i}`);
+  const dotEl = document.getElementById(`swornBalDot${i}`);
+  const ageEl = document.getElementById(`swornBalAge${i}`);
+  if(valEl) valEl.textContent = typeof amount === "number" ? fmt(amount) : "—";
+  if(dotEl){
+    dotEl.classList.remove("on","stale");
+    if(typeof amount === "number") dotEl.classList.add(fresh ? "on" : "stale");
+  }
+  if(ageEl) ageEl.textContent = (typeof amount === "number" && typeof ts === "number") ? timeAgo(ts) : "";
+}
+
 async function fetchOneSwornBalance(walletFull){
   const controller = new AbortController();
   const timeout = setTimeout(()=>controller.abort(), 8000);
@@ -2172,13 +2228,15 @@ async function fetchOneSwornBalance(walletFull){
 async function loadSwornBalances(){
   const rows = DATA.oathLog || [];
   if(!rows.length) return;
-  const setCell = (i, text) => {
-    const cell = document.getElementById(`swornBal${i}`);
-    if(cell) cell.textContent = text;
-  };
-  // Firing all lookups at once tends to trip the RPC's rate limit (some wallets would silently
-  // fail and show "—" while most succeeded). Processing in small chunks, with each chunk running
-  // in parallel but chunks going one after another, stays fast while staying under the limit.
+
+  // Step 1: paint instantly from cache, wherever we have one.
+  rows.forEach((r, i) => {
+    const cached = readSwornCache(r.walletFull);
+    if(cached){ setSwornCell(i, { amount: cached.amount, ts: cached.ts, fresh: false }); }
+  });
+
+  // Step 2: fetch fresh values in small chunks (avoids tripping the RPC's rate limit — firing
+  // everything at once caused sporadic failures on later rows).
   const chunkSize = 6;
   const failedIndexes = [];
   for(let start = 0; start < rows.length; start += chunkSize){
@@ -2188,15 +2246,16 @@ async function loadSwornBalances(){
       const i = start + j;
       const amount = result.status === "fulfilled" ? result.value : null;
       if(typeof amount === "number"){
-        setCell(i, fmt(amount));
+        writeSwornCache(rows[i].walletFull, amount);
+        setSwornCell(i, { amount, ts: Date.now(), fresh: true });
       }else{
-        setCell(i, "—");
         failedIndexes.push(i);
+        // leave whatever is already on screen (cache, or the initial "Loading…") — do not blank it
       }
     });
   }
-  // One retry pass for anything that failed the first time (e.g. a transient rate-limit hit) —
-  // small pause first to let the RPC settle, then the same chunked approach on just those rows.
+
+  // Step 3: one retry pass for rows that failed the first attempt.
   if(failedIndexes.length){
     await new Promise(resolve => setTimeout(resolve, 1500));
     for(let start = 0; start < failedIndexes.length; start += chunkSize){
@@ -2205,7 +2264,15 @@ async function loadSwornBalances(){
       results.forEach((result, j) => {
         const i = chunkIdxs[j];
         const amount = result.status === "fulfilled" ? result.value : null;
-        if(typeof amount === "number"){ setCell(i, fmt(amount)); }
+        if(typeof amount === "number"){
+          writeSwornCache(rows[i].walletFull, amount);
+          setSwornCell(i, { amount, ts: Date.now(), fresh: true });
+        }else{
+          // still no luck — fall back to cache if we have one, otherwise show a plain dash
+          const cached = readSwornCache(rows[i].walletFull);
+          if(cached){ setSwornCell(i, { amount: cached.amount, ts: cached.ts, fresh: false }); }
+          else { setSwornCell(i, { amount: null }); }
+        }
       });
     }
   }
