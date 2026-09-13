@@ -1038,6 +1038,12 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   color:var(--gold);
   line-height:1;
 }
+.dev-wallet-usd{
+  display:block;
+  margin-top:6px;
+  font-size:.82rem;
+  color:var(--muted);
+}
 .dev-wallet-note{
   margin:12px 0 0;
   color:var(--muted);
@@ -1204,6 +1210,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       <div class="dev-wallet-half">
         <span class="dev-wallet-label">Dev wallet — live $SIGMA balance</span>
         <strong class="dev-wallet-number"><span id="devWalletSigmaBalance">Loading…</span><span class="live-dot" id="devWalletSigmaLiveDot" title="Live on-chain data"></span></strong>
+        <span class="dev-wallet-usd" id="devWalletSigmaUsd"></span>
       </div>
       <p class="dev-wallet-note">Shown here for transparency, since this wallet funds Oath rewards along with other $GODFATHΣR-related activity. The $SIGMA held here is a war chest for the Family — set aside to strengthen $GODFATHΣR further down the line.</p>
     </div>
@@ -1945,6 +1952,24 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/2DEazLpjEKAQEd2k1a9kDfWXTVGW6PZZabcfYHGeiZoDTLhgeoSeacya6Cb5qTbCdzmiFbgdfnReNWsArfHS542v"
+    },
+    {
+      date: "September 12, 2026",
+      wallet: "6jJ9XC...8S9opp",
+      walletFull: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/4tjPo5DYtf7zoa11YWUSoLf5JypZRbHwCUv27ZRnHRRYi2au5nyyN4NvxmsFZqGZ8K8aLJmW3reCKBwVfYZhjoWo"
+    },
+    {
+      date: "September 12, 2026",
+      wallet: "61sSQM...81FjHG",
+      walletFull: "61sSQMFxqzFjNJofJC6b8QMdhvyopcPaVn3GUj81FjHG",
+      sentAmount: 1082705.536802,
+      burned: 1050224.370697,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/m9bM5zPn6Pkp9trX7GSfV274oafXLXsEfq5JVK1LCyGYXEz7b8SC8N5cWmNsiTozHXsMpaTdzAt7pSAyTubziAz"
     }
   ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
@@ -1996,6 +2021,35 @@ const devWalletBalanceEl = document.getElementById("devWalletBalance");
 const devWalletLiveDotEl = document.getElementById("devWalletLiveDot");
 const devWalletSigmaBalanceEl = document.getElementById("devWalletSigmaBalance");
 const devWalletSigmaLiveDotEl = document.getElementById("devWalletSigmaLiveDot");
+const devWalletSigmaUsdEl = document.getElementById("devWalletSigmaUsd");
+
+// Live $SIGMA price in USD, via Dexscreener's public token API — used only to show an
+// approximate USD value next to the dev wallet's $SIGMA balance. Best-effort: if this fails,
+// the raw $SIGMA balance still displays fine, just without the USD line.
+async function fetchSigmaUsdPrice(){
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 6000);
+  try{
+    const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${DATA.sigmaMint}`, {
+      signal: controller.signal
+    });
+    const json = await res.json();
+    const pairs = json && json.pairs;
+    if(!pairs || !pairs.length) return null;
+    // Prefer the pair with the highest liquidity for the most reliable price.
+    const best = pairs.reduce((a, b) => {
+      const aLiq = (a.liquidity && a.liquidity.usd) || 0;
+      const bLiq = (b.liquidity && b.liquidity.usd) || 0;
+      return bLiq > aLiq ? b : a;
+    });
+    const price = parseFloat(best.priceUsd);
+    return isNaN(price) ? null : price;
+  }catch(e){
+    return null;
+  }finally{
+    clearTimeout(timeout);
+  }
+}
 
 async function loadDevWalletBalance(){
   if(!devWalletBalanceEl && !devWalletSigmaBalanceEl) return;
@@ -2043,6 +2097,15 @@ async function loadDevWalletBalance(){
       if(typeof sigmaAmount === "number"){
         devWalletSigmaBalanceEl.textContent = fmt(sigmaAmount);
         if(devWalletSigmaLiveDotEl) devWalletSigmaLiveDotEl.classList.add("on");
+        // USD value is a nice-to-have on top of the balance — fetched separately so a slow/failed
+        // price lookup never blocks or breaks the balance display itself.
+        if(devWalletSigmaUsdEl){
+          const priceUsd = await fetchSigmaUsdPrice();
+          if(typeof priceUsd === "number"){
+            const usdValue = sigmaAmount * priceUsd;
+            devWalletSigmaUsdEl.textContent = `≈ $${fmt(usdValue)} USD`;
+          }
+        }
       }else{
         devWalletSigmaBalanceEl.textContent = "Unavailable";
       }
