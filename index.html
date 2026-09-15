@@ -539,6 +539,25 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   border:1px solid rgba(200,155,75,.4);
   background:#0d0a06;
 }
+.oath-deadline-notice{
+  width:100%;
+  margin:16px 0 22px;
+  padding:20px 26px;
+  border:1px solid rgba(212,60,60,.55);
+  background:rgba(60,10,10,.35);
+}
+.oath-deadline-headline{
+  font-family:Fraunces,serif;
+  font-size:clamp(1.05rem,2.2vw,1.35rem);
+  color:#e8b4b4;
+  margin-bottom:8px;
+}
+.oath-deadline-notice p{
+  color:var(--muted);
+  font-size:.85rem;
+  line-height:1.6;
+  margin:0;
+}
 .pool-badge{
   display:flex;
   align-items:center;
@@ -1142,8 +1161,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
           <span class="engine-label">Mechanism #3</span>
           <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
         </div>
-        <h3>The Laundry — Buyback &amp; Burn</h3>
-        <p>With no fixed allocation, activity and rewards burn supply continuously, scaling with the ecosystem.</p>
+        <h3>The Laundry — Burn &amp; Reward</h3>
+        <p>Do the Godfather a few favors, and he'll pay you back in $SIGMA.</p>
       </div>
     </div>
   </div>
@@ -1182,7 +1201,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       <div class="burn-breakdown-rows">
         <div class="burn-breakdown-row"><span>The Oath</span><strong id="oathBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>The Family Burn</span><strong id="familyBurnedTotal">0</strong></div>
-        <div class="burn-breakdown-row"><span>Buyback &amp; Burn</span><strong id="buybackBurnedTotal">0</strong></div>
+        <div class="burn-breakdown-row"><span>The Laundry</span><strong id="buybackBurnedTotal">0</strong></div>
       </div>
     </div>
 
@@ -1210,6 +1229,10 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
         <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #1</span>
       </div>
       <h2>Kiss the ring, burn early, and earn double.</h2>
+      <div class="oath-deadline-notice">
+        <div class="oath-deadline-headline">The Oath closes September 16, 2026 — 8:00 PM ET. Only 30 spots left.</div>
+        <p>Until then, you can still take the Oath and secure your place in the Inner Family. After the deadline, every rewarded wallet is reviewed: a wallet holding 0 $GODFATHΣR is removed immediately; any wallet still holding some gets 48 hours to reach at least 2,200,000 $GODFATHΣR and keep its seat. At the same moment, the dev wallet's entire remaining $GODFATHΣR balance is burned — and The Laundry begins.</p>
+      </div>
       <div class="pool-badge">
         <span id="oathPoolRemaining">200,000,000</span>
         <small>$GODFATHΣR left of the 200,000,000 pool</small>
@@ -1284,23 +1307,10 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 <section class="section" id="the-laundry">
   <div class="shell">
     <div class="eyebrow-row">
-      <span class="eyebrow">The Laundry — Buyback &amp; Burn</span>
+      <span class="eyebrow">The Laundry — Burn &amp; Reward</span>
       <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #3</span>
     </div>
-    <h2>The Family decides where the fire burns.</h2>
-    <p class="phase-teaser-copy">The $GODFATHΣR ecosystem generates $SIGMA rewards. Before each burn event, the Family votes on how the accumulated $SIGMA is split: part burned directly, part used to buy $GODFATHΣR on the open market and burn it. No fixed allocation, no fixed split — the mechanism scales with activity, and the Family decides the balance.</p>
-    <div class="flow-line">$SIGMA reward &rarr; Family vote &rarr; $SIGMA burn + $GODFATHΣR buyback &amp; burn</div>
-
-    <details class="log red" style="margin-top:28px;">
-      <summary>Buyback &amp; Burn Ledger</summary>
-      <div class="log-sub">Community-voted split of accumulated $SIGMA rewards, each event recorded on-chain</div>
-      <div class="tablewrap">
-        <table>
-          <thead><tr><th>#</th><th>Date</th><th>Vote result</th><th>$SIGMA burned</th><th>$GODFATHΣR bought</th><th>$GODFATHΣR burned</th><th>Transactions</th></tr></thead>
-          <tbody id="buybackRows"><tr><td colspan="7" class="empty">No entries yet — the first one appears here.</td></tr></tbody>
-        </table>
-      </div>
-    </details>
+    <h2>Do the Godfather a few favors, and he'll pay you back in $SIGMA.</h2>
   </div>
 </section>
 
@@ -1387,16 +1397,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
         <div class="detail-body">All-time-high, not live count, so the mechanism can't be gamed by following and unfollowing to farm repeated burns. Only genuine new growth above the previous peak counts.</div>
       </details>
       <details>
-        <summary>How does Buyback &amp; Burn work?</summary>
-        <div class="detail-body">The $GODFATHΣR ecosystem accumulates $SIGMA rewards over time. Before each burn event, the Family votes on how that accumulated $SIGMA should be split between a direct $SIGMA burn and a $GODFATHΣR buyback-and-burn.</div>
-      </details>
-      <details>
-        <summary>Who decides the $SIGMA / $GODFATHΣR burn ratio?</summary>
-        <div class="detail-body">The Family votes before each event. There's no standing formula — the split is decided fresh, every time.</div>
-      </details>
-      <details>
-        <summary>Is the split fixed?</summary>
-        <div class="detail-body">Unlike the Oath and the Family Burn, Buyback &amp; Burn has no fixed allocation and no fixed split — it scales with ecosystem activity and accumulated rewards, and the ratio is community-voted each time.</div>
+        <summary>How does The Laundry work?</summary>
+        <div class="detail-body">Details are still being finalized. For now: do the Godfather a few favors, and he'll pay you back in $SIGMA.</div>
       </details>
       <details>
         <summary>Can burns be verified?</summary>
@@ -1496,7 +1498,7 @@ const DATA = {
   burnLog: [
     { date: "September 12, 2026", x: 76, fomo: 15, combined: 91, delta: 91, burned: 910000, tx: "https://orbmarkets.io/tx/5AspVdxFpNFWGvTsYeAL5CyLoPdMnYUSpHoNHTp5VvhYCQyGtGJ4k6u7bc5cxBcDkSjGZuxyZ8Mp1WfWJWJkdy7b" }
   ],
-  buybackLog: [],
+  buybackLog: [], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 500,000/day). Of that, "burned" is 50%, "sigmaConverted" is the 35% turned into $SIGMA, "toTreasury" is the 15% kept as $GODFATHΣR in the Family Treasury (future follower-burns/airdrops), and "sigmaReward" is the 120%-of-value $SIGMA paid back to the sender.
   oathLog: [
     {
       date: "September 7, 2026",
@@ -2241,7 +2243,7 @@ if(vaultWalletEl){ vaultWalletEl.textContent=DATA.vaultWallet; }
 const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0)
   + (DATA.oathExtraBurns || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.godfatherBurned) || 0), 0);
+const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum;
 
 const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
@@ -2335,11 +2337,14 @@ if(DATA.burnLog.length){
   </tr>`));
 }
 if(DATA.buybackLog.length){
-  const body=document.getElementById("buybackRows"); body.innerHTML="";
-  DATA.buybackLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
-    <td>${i+1}</td><td>${r.date}</td><td>${r.voteResult||"—"}</td><td>${fmt(r.sigmaBurned)}</td><td>${fmt(r.godfatherBought)}</td><td>${fmt(r.godfatherBurned)}</td>
-    <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
-  </tr>`));
+  const body=document.getElementById("buybackRows");
+  if(body){
+    body.innerHTML="";
+    DATA.buybackLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
+      <td>${i+1}</td><td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.sent)}</td><td>${fmt(r.burned)}</td><td>${fmt(r.sigmaConverted)}</td><td>${fmt(r.toTreasury)}</td><td>${fmt(r.sigmaReward)}</td>
+      <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+    </tr>`));
+  }
 }
 if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
