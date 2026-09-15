@@ -1042,6 +1042,21 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   max-width:520px;
 }
 
+/* Desktop: let the header row break out of the 1120px shell so the CA box can reach the true
+   right edge of the viewport, while the brand/nav-icons keep the same left inset as the rest of
+   the page's content (recreated manually here, since .nav no longer relies on .shell centering
+   for its width). Mobile (<=900px) is untouched — it already stacks via the existing rules. */
+@media(min-width:901px){
+  header .nav{
+    width:100%;
+    max-width:none;
+    margin:0;
+    box-sizing:border-box;
+    padding-left:max(18px, calc((100vw - 1120px) / 2));
+    padding-right:0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1341,7 +1356,6 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
           <p>$SIGMA is discipline, independence and self-mastery. $GODFATHΣR keeps all of that, but adds a new layer: responsibility — for the Family, for what you build, and for the people who stand with you.</p>
           <p>It isn't a coin that asks to be trusted. It's a coin that shows its ledger.</p>
           <p>The word <em>mafia</em> was born in Sicily long before it became synonymous with organized crime. In the 19th century, it carried ideas of pride, boldness, presence and respect. Over time, the word became tied to secret networks built on loyalty, protection and influence. The Godfather comes from the Italian <em>padrino</em> — originally a godfather, but also a patron: a man who protects, connects, settles disputes and commands respect. That is the spirit behind $GODFATHΣR.</p>
-          <p><strong>Welcome to the Valdieri Family.</strong></p>
         </div>
       </details>
       <details>
