@@ -1202,6 +1202,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
         <div class="burn-breakdown-row"><span>The Oath</span><strong id="oathBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>The Family Burn</span><strong id="familyBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>The Laundry</span><strong id="buybackBurnedTotal">0</strong></div>
+        <div class="burn-breakdown-row"><span>Protection Money</span><strong id="tributeBurnedTotal">0</strong></div>
       </div>
     </div>
 
@@ -1298,6 +1299,28 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
         <table>
           <thead><tr><th>#</th><th>Date</th><th>X ATH</th><th>Fomo ATH</th><th>Combined ATH</th><th>Increase</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
           <tbody id="burnRows"><tr><td colspan="8" class="empty">No burns recorded yet — the first entry appears here.</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="section" id="protection-money">
+  <div class="shell">
+    <div class="eyebrow-row">
+      <span class="eyebrow">Protection Money</span>
+      <span class="phase-pill active"><span class="phase-dot"></span>Voluntary</span>
+    </div>
+    <h2>No cap. No formula. Just tribute.</h2>
+    <p class="phase-teaser-copy">Some in the Family send $GODFATHΣR to the burn wallet for no reason at all — no mechanism triggers it, no reward is owed. Just a wallet, choosing to burn, and letting the Godfather know. Loyalty like that tends to be remembered.</p>
+
+    <details class="log gold" style="margin-top:28px;">
+      <summary>The Protection Money Ledger</summary>
+      <div class="log-sub">Unprompted tribute burns, sent and destroyed with nothing asked in return</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
+          <tbody id="tributeRows"><tr><td colspan="5" class="empty">No entries yet — the first one appears here.</td></tr></tbody>
         </table>
       </div>
     </details>
@@ -1499,6 +1522,7 @@ const DATA = {
     { date: "September 12, 2026", x: 76, fomo: 15, combined: 91, delta: 91, burned: 910000, tx: "https://orbmarkets.io/tx/5AspVdxFpNFWGvTsYeAL5CyLoPdMnYUSpHoNHTp5VvhYCQyGtGJ4k6u7bc5cxBcDkSjGZuxyZ8Mp1WfWJWJkdy7b" }
   ],
   buybackLog: [], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 500,000/day). Of that, "burned" is 50%, "sigmaConverted" is the 35% turned into $SIGMA, "toTreasury" is the 15% kept as $GODFATHΣR in the Family Treasury (future follower-burns/airdrops), and "sigmaReward" is the 120%-of-value $SIGMA paid back to the sender.
+  tributeLog: [], // each entry: { date, wallet, burned, tx } — "Protection Money": wallets that burn $GODFATHΣR entirely on their own initiative, with no cap, no formula and no reward attached — a pure tribute to the Godfather, logged here for transparency alongside the other three mechanisms.
   oathLog: [
     {
       date: "September 7, 2026",
@@ -2280,7 +2304,8 @@ const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.bu
   + (DATA.oathExtraBurns || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum;
+const tributeBurnedSum = (DATA.tributeLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum;
 
 const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
 if(oathBurnedTotalEl){ oathBurnedTotalEl.textContent = fmt(oathBurnedSum); }
@@ -2288,8 +2313,11 @@ const familyBurnedTotalEl = document.getElementById("familyBurnedTotal");
 if(familyBurnedTotalEl){ familyBurnedTotalEl.textContent = fmt(familyBurnedSum); }
 const buybackBurnedTotalEl = document.getElementById("buybackBurnedTotal");
 if(buybackBurnedTotalEl){ buybackBurnedTotalEl.textContent = fmt(buybackBurnedSum); }
+const tributeBurnedTotalEl = document.getElementById("tributeBurnedTotal");
+if(tributeBurnedTotalEl){ tributeBurnedTotalEl.textContent = fmt(tributeBurnedSum); }
 const totalBurnedAllEl = document.getElementById("totalBurnedAll");
 if(totalBurnedAllEl){ totalBurnedAllEl.textContent = fmt(totalBurnedAllSum); }
+
 
 // Live remaining supply for both tokens, read directly from the blockchain (getTokenSupply).
 // This is the authoritative figure — it reflects every burn (Oath, Family Burn, Buyback & Burn,
@@ -2371,6 +2399,16 @@ if(DATA.burnLog.length){
     <td>+${fmt(r.delta)}</td><td>${fmt(r.burned)}</td>
     <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
+}
+if(DATA.tributeLog && DATA.tributeLog.length){
+  const body=document.getElementById("tributeRows");
+  if(body){
+    body.innerHTML="";
+    DATA.tributeLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
+      <td>${i+1}</td><td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.burned)}</td>
+      <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+    </tr>`));
+  }
 }
 if(DATA.buybackLog.length){
   const body=document.getElementById("buybackRows");
