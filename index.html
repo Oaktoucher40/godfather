@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#100D0B">
-<meta name="description" content="$GODFATHΣR — a deflationary reward token built around $SIGMA. Three active burn mechanisms, one direction: less supply.">
+<meta name="description" content="$GODFATHΣR — a deflationary reward token built around $SIGMA. Four active burn mechanisms, one direction: less supply.">
 
 <!-- Open Graph (used by X, Telegram, Facebook, Discord, etc.) -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="$GODFATHΣR">
-<meta property="og:title" content="$GODFATHΣR — Three burn mechanisms. One relentless direction.">
-<meta property="og:description" content="A deflationary reward token built around $SIGMA. Every transfer creates $SIGMA buy pressure, while three active burn mechanisms continuously reduce $GODFATHΣR supply.">
+<meta property="og:title" content="$GODFATHΣR — Four burn mechanisms. One relentless direction.">
+<meta property="og:description" content="A deflationary reward token built around $SIGMA. Every transfer creates $SIGMA buy pressure, while four active burn mechanisms continuously reduce $GODFATHΣR supply.">
 <meta property="og:image" content="https://www.godfatheronsf.com/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,8 +18,8 @@
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="$GODFATHΣR — Three burn mechanisms. One relentless direction.">
-<meta name="twitter:description" content="A deflationary reward token built around $SIGMA. Every transfer creates $SIGMA buy pressure, while three active burn mechanisms continuously reduce $GODFATHΣR supply.">
+<meta name="twitter:title" content="$GODFATHΣR — Four burn mechanisms. One relentless direction.">
+<meta name="twitter:description" content="A deflationary reward token built around $SIGMA. Every transfer creates $SIGMA buy pressure, while four active burn mechanisms continuously reduce $GODFATHΣR supply.">
 <meta name="twitter:image" content="https://www.godfatheronsf.com/assets/og-image.jpg">
 
 <!-- Favicons -->
@@ -1149,7 +1149,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 
 <section class="section hero-copy-section">
   <div class="shell">
-    <h1 class="hero-h1">Three mechanisms, one relentless direction.</h1>
+    <h1 class="hero-h1">Four mechanisms, one relentless direction.</h1>
     <p class="hero-desc">Every $GODFATHΣR transfer creates $SIGMA buy pressure for holders — while the total supply keeps shrinking underneath them.</p>
     <div class="stat-line">
       <b>1,000,000,000</b> supply &nbsp;·&nbsp; <b>3%</b> transfer tribute &rarr; $SIGMA rewards
@@ -1380,7 +1380,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 
       <div class="steps">
         <div class="step"><b>01</b><p>Every $GODFATHΣR transfer creates $SIGMA buy pressure — a 3% tribute the protocol uses to buy $SIGMA on the open market.</p></div>
-        <div class="step"><b>02</b><p>That $SIGMA is distributed pro rata to $GODFATHΣR holders. This mechanism is always active, independent of the three burn mechanisms above.</p></div>
+        <div class="step"><b>02</b><p>That $SIGMA is distributed pro rata to $GODFATHΣR holders. This mechanism is always active, independent of the four burn mechanisms above.</p></div>
       </div>
 
       <div class="closing">$SIGMA is conviction, and $GODFATHΣR turns that conviction into Family — two communities, pulling the same rope.</div>
@@ -1408,7 +1408,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
     <div class="details-wrap">
       <details open>
         <summary>How does $GODFATHΣR define itself?</summary>
-        <div class="detail-body">$GODFATHΣR is a deflationary reward token built around discipline, not hype. Its visual world is elegance, masculinity, loyalty, strategy and resolve — expressed through three active burn mechanisms, a standing $SIGMA reward, and public on-chain execution.</div>
+        <div class="detail-body">$GODFATHΣR is a deflationary reward token built around discipline, not hype. Its visual world is elegance, masculinity, loyalty, strategy and resolve — expressed through four active burn mechanisms, a standing $SIGMA reward, and public on-chain execution.</div>
       </details>
       <details>
         <summary>What's the narrative?</summary>
@@ -1429,7 +1429,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
       </details>
       <details>
         <summary>How does $GODFATHΣR create $SIGMA buy pressure?</summary>
-        <div class="detail-body">3% of every $GODFATHΣR transfer is used to buy $SIGMA. The purchased $SIGMA is then distributed pro rata to $GODFATHΣR holders. This runs continuously and is independent of the three burn mechanisms.</div>
+        <div class="detail-body">3% of every $GODFATHΣR transfer is used to buy $SIGMA. The purchased $SIGMA is then distributed pro rata to $GODFATHΣR holders. This runs continuously and is independent of the four burn mechanisms.</div>
       </details>
       <details>
         <summary>How does The Oath work?</summary>
@@ -1550,7 +1550,9 @@ const DATA = {
     { date: "September 12, 2026", x: 76, fomo: 15, combined: 91, delta: 91, burned: 910000, tx: "https://orbmarkets.io/tx/5AspVdxFpNFWGvTsYeAL5CyLoPdMnYUSpHoNHTp5VvhYCQyGtGJ4k6u7bc5cxBcDkSjGZuxyZ8Mp1WfWJWJkdy7b" }
   ],
   buybackLog: [], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 500,000/day). Of that, "burned" is 50%, "sigmaConverted" is the 35% turned into $SIGMA, "toTreasury" is the 15% kept as $GODFATHΣR in the Family Treasury (future follower-burns/airdrops), and "sigmaReward" is the 120%-of-value $SIGMA paid back to the sender.
-  tributeLog: [], // each entry: { date, wallet, burned, tx } — "Protection Money": wallets that burn $GODFATHΣR entirely on their own initiative, with no cap, no formula and no reward attached — a pure tribute to the Godfather, logged here for transparency alongside the other three mechanisms.
+  tributeLog: [
+    { date: "September 16, 2026", wallet: "Dev Wallet", burned: 6165125.675911, tx: "https://orbmarkets.io/tx/TXGjWyV6fceoEpAghtStpSNuxLnb7AQmL7mL9Q8M63cNsBvMscSgiQtLEE46sjTwDNos6nHiupwvfdR9T1fXJYL" }
+  ], // each entry: { date, wallet, burned, tx } — "Protection Money": wallets that burn $GODFATHΣR entirely on their own initiative, with no cap, no formula and no reward attached — a pure tribute to the Godfather, logged here for transparency alongside the other three mechanisms.
   oathLog: [
     {
       date: "September 7, 2026",
