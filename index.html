@@ -2084,8 +2084,44 @@ const DATA = {
       burned: 970000,
       rewardSent: 2000000,
       rewardTx: "https://orbmarkets.io/tx/4mxUdtyqMBB3ZZKeDnMXb29PfWQJA3dTQSJqv4tAkXAGDyoRb4mw94dxKk8MX3jbTUzBbT1PiNhierHA4rz3trWW"
+    },
+    {
+      date: "September 15, 2026",
+      wallet: "ZLP2i9...iXvkfo",
+      walletFull: "ZLP2i9D1hkxbZ7ZYRHdLu75X41LdCmUxgxcRUiXvkfo",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/2qFQWH641Pn2VjctBNoX4BNEYijqV5aC38LmtPxioPq1aQyzthy7PhFBJQkq172MNaB4PzQDuS7zrAbN6XdpAjw5"
+    },
+    {
+      date: "September 15, 2026",
+      wallet: "DYeYBd...MKLMEA",
+      walletFull: "DYeYBdDucsPm37DyJgx7RueSJf3Zm9nwgmqTTkMKLMEA",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/3Ep1AqXjwoZydBFGNZgCdrpDrReKWwMq3mL21MXnHhHh7qHSMh4qAerv9X5GP9X62jpiq4HBZ3CqzrVBV7eJdB2H"
+    },
+    {
+      date: "September 15, 2026",
+      wallet: "9Mzbuv...YGhaUH",
+      walletFull: "9MzbuvtxAwpY427Q3T3hPuZX2U81h8WwaDZssKYGhaUH",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/4BBo9QiA3xsW7xfaGaPT29162EgKBvrmnUhfTSUW5tYtsxUvUvxcNQXZKPgpr2f6b77XFbzcmSeP2YbQNRTTNJzS"
+    },
+    {
+      date: "September 15, 2026",
+      wallet: "5uWvTq...Snr7J6",
+      walletFull: "5uWvTqxLun3DFDKdN6aRMb4FiecUFpUZGrm8mbSnr7J6",
+      sentAmount: 1000000,
+      burned: 970000,
+      rewardSent: 2000000,
+      rewardTx: "https://orbmarkets.io/tx/4YCCN9wD4oZBiJu9Z4tGtjXSdG1wAbYoenwCFkkKX4XN3F9D27f1ZrJByjANeDa3SThLqPmAMNSMgPK5Ez75z1V1"
     }
-  ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column)
+  ], // each entry: { date, wallet, sentAmount, burned, rewardSent, rewardTx } — only the reward tx is linked. "burned" is the net amount after the 3% transfer tax (shown in the table); "sentAmount" is what the reward is calculated on (kept for reference, not shown as its own column). "rewardSent" is the gross amount the dev wallet sends (2x sentAmount) — the recipient's actual net-received amount is ~3% lower due to the transfer tax applying to the reward payout too, same as any other transfer.
   oathSubmitUrl: "https://x.com/i/chat/group_join/g2096619881479147790/N0V3NB1Gpv",
   oathReserveBalance: 200000000, // fallback shown only if the live on-chain fetch fails or times out
   // Burns that are real and confirmed on-chain, but intentionally excluded from The Sworn table
