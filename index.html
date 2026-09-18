@@ -1392,6 +1392,11 @@ details.compact td{
       <text x="510" y="162" text-anchor="middle" fill="#E7C77B" font-size="11">in $SIGMA</text>
     </svg>
 
+    <div class="pool-badge">
+      <span id="laundryCapacity">—</span>
+      <small>full 1,000,000-$GODFATHΣR payouts the dev wallet's current $SIGMA can still cover, at today's prices</small>
+    </div>
+
     <details class="log gold" style="margin-top:22px;">
       <summary>See how it works behind the scenes</summary>
       <div class="log-sub">What happens inside the dev wallet to every $GODFATHΣR it receives</div>
@@ -2036,6 +2041,65 @@ async function fetchSigmaUsdPrice(){
   }
 }
 
+// Same lookup, for $GODFATHΣR — needed for the Laundry capacity counter, which has to value
+// an incoming 1,000,000-$GODFATHΣR transfer in USD before it can work out the $SIGMA cost of
+// paying back 120% of that value.
+async function fetchGodfatherUsdPrice(){
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 6000);
+  try{
+    const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${DATA.godfatherMint}`, {
+      signal: controller.signal
+    });
+    const json = await res.json();
+    const pairs = json && json.pairs;
+    if(!pairs || !pairs.length) return null;
+    const best = pairs.reduce((a, b) => {
+      const aLiq = (a.liquidity && a.liquidity.usd) || 0;
+      const bLiq = (b.liquidity && b.liquidity.usd) || 0;
+      return bLiq > aLiq ? b : a;
+    });
+    const price = parseFloat(best.priceUsd);
+    return isNaN(price) ? null : price;
+  }catch(e){
+    return null;
+  }finally{
+    clearTimeout(timeout);
+  }
+}
+
+// The Laundry capacity counter: given the dev wallet's live $SIGMA balance, how many full
+// 1,000,000-$GODFATHΣR Laundry transactions could it still pay out at today's prices? Each such
+// transaction owes the sender 120% of the USD value of 1,000,000 $GODFATHΣR, paid in $SIGMA —
+// so this needs three live inputs: the dev wallet's $SIGMA balance, $GODFATHΣR's price, and
+// $SIGMA's price. All three are already fetched elsewhere on the page for other purposes; this
+// just combines them once all three are in hand.
+const laundryCapacityEl = document.getElementById("laundryCapacity");
+async function loadLaundryCapacity(sigmaBalance){
+  if(!laundryCapacityEl) return;
+  if(typeof sigmaBalance !== "number"){
+    laundryCapacityEl.textContent = "Unavailable";
+    return;
+  }
+  try{
+    const [godfatherPrice, sigmaPrice] = await Promise.all([
+      fetchGodfatherUsdPrice(),
+      fetchSigmaUsdPrice()
+    ]);
+    if(typeof godfatherPrice !== "number" || typeof sigmaPrice !== "number" || sigmaPrice <= 0){
+      laundryCapacityEl.textContent = "Unavailable";
+      return;
+    }
+    const valuePerTxUsd = 1000000 * godfatherPrice;
+    const rewardPerTxUsd = valuePerTxUsd * 1.2;
+    const sigmaNeededPerTx = rewardPerTxUsd / sigmaPrice;
+    const capacity = Math.floor(sigmaBalance / sigmaNeededPerTx);
+    laundryCapacityEl.textContent = fmt(Math.max(0, capacity));
+  }catch(e){
+    laundryCapacityEl.textContent = "Unavailable";
+  }
+}
+
 async function loadDevWalletBalance(){
   if(!devWalletBalanceEl && !devWalletSigmaBalanceEl) return;
   const controller = new AbortController();
@@ -2091,13 +2155,16 @@ async function loadDevWalletBalance(){
             devWalletSigmaUsdEl.textContent = `≈ $${fmt(usdValue)} USD`;
           }
         }
+        loadLaundryCapacity(sigmaAmount);
       }else{
         devWalletSigmaBalanceEl.textContent = "Unavailable";
+        loadLaundryCapacity(null);
       }
     }
   }catch(e){
     if(devWalletBalanceEl) devWalletBalanceEl.textContent = "Unavailable";
     if(devWalletSigmaBalanceEl) devWalletSigmaBalanceEl.textContent = "Unavailable";
+    if(laundryCapacityEl) laundryCapacityEl.textContent = "Unavailable";
   }finally{
     clearTimeout(timeout);
   }
