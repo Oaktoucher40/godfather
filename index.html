@@ -1410,6 +1410,22 @@ details.compact td{
       </div>
     </div>
 
+    <div class="pool-badge">
+      <span id="laundrySigmaSentTotal">—</span>
+      <small>$SIGMA sent back to Family members through The Laundry so far</small>
+    </div>
+
+    <details class="log gold" style="margin-top:22px;">
+      <summary>The Laundry Ledger</summary>
+      <div class="log-sub">Every wallet that sent $GODFATHΣR through The Laundry, and the $SIGMA it received back</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR sent</th><th>$SIGMA sent back</th><th>Transaction</th></tr></thead>
+          <tbody id="laundryRows"><tr><td colspan="6" class="empty">No entries yet — the first one appears here.</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+
     <details class="log gold" style="margin-top:22px;">
       <summary>See how it works behind the scenes</summary>
       <div class="log-sub">What happens inside the dev wallet to every $GODFATHΣR it receives</div>
@@ -1734,7 +1750,15 @@ const DATA = {
   burnLog: [
     { date: "September 12, 2026", x: 76, fomo: 15, combined: 91, delta: 91, burned: 910000, tx: "https://orbmarkets.io/tx/5AspVdxFpNFWGvTsYeAL5CyLoPdMnYUSpHoNHTp5VvhYCQyGtGJ4k6u7bc5cxBcDkSjGZuxyZ8Mp1WfWJWJkdy7b" }
   ],
-  buybackLog: [], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, toLiquidity, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 1,000,000/day per wallet). Of that, "sigmaConverted" is the 50% turned into $SIGMA, "toTreasury" is the 20% kept in the dev wallet, "burned" is the 20% destroyed, and "toLiquidity" is the 10% moved into liquidity. "sigmaReward" is the 120%-of-value $SIGMA paid back to the sender. This split is now public, shown on the site behind a "See how it works behind the scenes" toggle (Part 1 = simple flow always visible, Part 2 = this 4-way split, click-to-reveal).
+  buybackLog: [
+    { date: "September 18, 2026", wallet: "Laundry batch (4 wallets)", burned: 634166.6, tx: "https://orbmarkets.io/tx/aNvHy8xB8dsNJ3fsaRkMS9xTb1tdvNJPXTLAo9JVwPppKjNULcdEXsKsBtWTCfc7gq9spk9yLnAqjdwJcNAEGz7" }
+  ], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, toLiquidity, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 1,000,000/day per wallet). Of that, "sigmaConverted" is the 50% turned into $SIGMA, "toTreasury" is the 20% kept in the dev wallet, "burned" is the 20% destroyed, and "toLiquidity" is the 10% moved into liquidity. "sigmaReward" is the 120%-of-value $SIGMA paid back to the sender. This split is now public, shown on the site behind a "See how it works behind the scenes" toggle (Part 1 = simple flow always visible, Part 2 = this 4-way split, click-to-reveal).
+  laundryLog: [
+    { date: "September 18, 2026", wallet: "ESnb...aBVd9", walletFull: "ESnbMGfwpx3ZrzvmSsLE6bHRwih5ovsCgWq9mm1aBVd9", sent: 1000000, sigmaReward: 14950, tx: "https://orbmarkets.io/tx/3mtCRNGcsYxVN2gPjzGAUJHzcvnpqrLSTmby46E8i523jUHUrvZPXsUQD5rCvK5ByguhzHbVE9oTkBw3qdYUvLza" },
+    { date: "September 18, 2026", wallet: "FVT5...wbdPP", walletFull: "FVT5hHdgYgTLmaXuqD22rwimY8GGwrEUPDkwuT5wbdPP", sent: 620000, sigmaReward: 9325, tx: "https://orbmarkets.io/tx/rsNyjujD4xD4XrKnwW4TPqjjSEMNVrggkfbwtoBViS2Z5g99K3sY7bUBdBzWai1xwJyZZhBYfygG2rCML5gaNdU" },
+    { date: "September 18, 2026", wallet: "DjhP...wc9R", walletFull: "DjhPd2Tj1y4GDnvwFWnmYgK5xpyL5MuEFeUzBHpvwc9R", sent: 750000, sigmaReward: 11300, tx: "https://orbmarkets.io/tx/LF2k3FqvCpyApkTvRKDYqWmPzo6Q3aLCJDo3aWM53G9ZdaoCVpG9e1wwjnMwQqtnA1VJTcTUN8BmTUeBABrh7Qf" },
+    { date: "September 18, 2026", wallet: "8RJL...EFvAD2", walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2", sent: 1000000, sigmaReward: 15064, tx: "https://orbmarkets.io/tx/4FzxhjrhXdnC3ahAozXnikLJcp4FqBebCchc4We8Jr5e53vQzwdyzqn7EKCaYBsDoiYaSmGLjUu9CjH9Grt2SFR1" }
+  ], // each entry: { date, wallet, walletFull, sent, sigmaReward, tx } — the public, per-wallet Laundry ledger. "sent" is the gross $GODFATHΣR the wallet sent; "sigmaReward" is the $SIGMA actually paid back (120% of the value sent, at the time of the transfer); "tx" links the reward payout. The corresponding aggregate burn for each batch is tracked separately in buybackLog.
   tributeLog: [
     { date: "September 16, 2026", wallet: "Dev Wallet", burned: 6165125.675911, tx: "https://orbmarkets.io/tx/TXGjWyV6fceoEpAghtStpSNuxLnb7AQmL7mL9Q8M63cNsBvMscSgiQtLEE46sjTwDNos6nHiupwvfdR9T1fXJYL" }
   ], // each entry: { date, wallet, burned, tx } — "Protection Money": wallets that burn $GODFATHΣR entirely on their own initiative, with no cap, no formula and no reward attached — a pure tribute to the Godfather, logged here for transparency alongside the other three mechanisms.
@@ -2310,6 +2334,19 @@ if(DATA.buybackLog.length){
       <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
     </tr>`));
   }
+}
+if(DATA.laundryLog && DATA.laundryLog.length){
+  const body=document.getElementById("laundryRows");
+  if(body){
+    body.innerHTML="";
+    DATA.laundryLog.forEach((r,i)=>body.insertAdjacentHTML("beforeend",`<tr>
+      <td>${i+1}</td><td>${r.date}</td><td>${r.wallet}</td><td>${fmt(r.sent)}</td><td>${fmt(r.sigmaReward)}</td>
+      <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+    </tr>`));
+  }
+  const sigmaSentTotal = DATA.laundryLog.reduce((sum, r) => sum + (Number(r.sigmaReward) || 0), 0);
+  const sigmaSentTotalEl = document.getElementById("laundrySigmaSentTotal");
+  if(sigmaSentTotalEl){ sigmaSentTotalEl.textContent = fmt(sigmaSentTotal); }
 }
 if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
