@@ -971,8 +971,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   background:#070605;
 }
 .burn-breakdown-head{
-  font-size:.7rem;
-  letter-spacing:.13em;
+  font-size:1rem;
+  letter-spacing:.1em;
   text-transform:uppercase;
   color:var(--muted);
   margin-bottom:8px;
@@ -1054,8 +1054,8 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 }
 .dev-wallet-label{
   display:block;
-  font-size:.7rem;
-  letter-spacing:.13em;
+  font-size:1rem;
+  letter-spacing:.1em;
   text-transform:uppercase;
   color:var(--muted);
   margin-bottom:8px;
@@ -1416,7 +1416,7 @@ details.compact td{
     </div>
 
     <details class="log gold" style="margin-top:22px;">
-      <summary>The Laundry Ledger</summary>
+      <summary><span>The Laundry Ledger <span class="summary-tag">— <span id="laundryDealCount">0</span> deals closed, and the Family never forgets a favor</span></span></summary>
       <div class="log-sub">Every wallet that sent $GODFATHΣR through The Laundry, and the $SIGMA it received back</div>
       <div class="tablewrap">
         <table>
@@ -2353,6 +2353,8 @@ if(DATA.laundryLog && DATA.laundryLog.length){
   const sigmaSentTotal = DATA.laundryLog.reduce((sum, r) => sum + (Number(r.sigmaReward) || 0), 0);
   const sigmaSentTotalEl = document.getElementById("laundrySigmaSentTotal");
   if(sigmaSentTotalEl){ sigmaSentTotalEl.textContent = fmt(sigmaSentTotal); }
+  const dealCountEl = document.getElementById("laundryDealCount");
+  if(dealCountEl){ dealCountEl.textContent = fmt(DATA.laundryLog.length); }
 }
 if(DATA.oathLog && DATA.oathLog.length){
   const body=document.getElementById("oathRows"); body.innerHTML="";
