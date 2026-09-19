@@ -1396,7 +1396,7 @@ details.compact td{
 
     <div class="pool-badge">
       <span id="laundryCapacity">—</span>
-      <small>full 1,000,000-$GODFATHΣR payouts the dev wallet's current $SIGMA can still cover, at today's prices</small>
+      <small>full 1,000,000-$GODFATHΣR payouts the dev wallet's current $SIGMA can still cover, at today's prices — net of the $SIGMA regained from each transfer's own 50% conversion</small>
     </div>
 
     <div class="burnwallet-card top-spaced">
@@ -2080,10 +2080,17 @@ async function loadLaundryCapacity(sigmaBalance){
       laundryCapacityEl.textContent = "Unavailable";
       return;
     }
-    const valuePerTxUsd = 1000000 * godfatherPrice;
-    const rewardPerTxUsd = valuePerTxUsd * 1.2;
-    const sigmaNeededPerTx = rewardPerTxUsd / sigmaPrice;
-    const capacity = Math.floor(sigmaBalance / sigmaNeededPerTx);
+    // Every transaction both drains and partly refills the dev wallet's $SIGMA: the 120% reward
+    // (on the gross amount sent) goes out, but 50% of the net amount received gets converted
+    // straight back into $SIGMA. Only the difference is a real net drain on the reserve.
+    const grossPerTx = 1000000;
+    const netReceivedPerTx = grossPerTx * 0.97; // after the 3% transfer fee
+    const sigmaConvertedPerTx = netReceivedPerTx * 0.5; // the 50% share converted to $SIGMA
+    const rewardValueUsd = grossPerTx * godfatherPrice * 1.2;
+    const sigmaConvertedValueUsd = sigmaConvertedPerTx * godfatherPrice;
+    const netDrainUsdPerTx = rewardValueUsd - sigmaConvertedValueUsd;
+    const netSigmaNeededPerTx = netDrainUsdPerTx / sigmaPrice;
+    const capacity = Math.floor(sigmaBalance / netSigmaNeededPerTx);
     laundryCapacityEl.textContent = fmt(Math.max(0, capacity));
   }catch(e){
     laundryCapacityEl.textContent = "Unavailable";
