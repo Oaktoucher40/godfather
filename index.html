@@ -2372,28 +2372,26 @@ async function loadLiveSupplies(){
   const sigmaMetaEl = document.getElementById("sigmaSupplyMeta");
   const sigmaLiveDotEl = document.getElementById("sigmaLiveDot");
 
-  const gfFallback = Math.max(0, (Number(DATA.totalSupply) || 0) - totalBurnedAllSum - (Number(DATA.lockedForever) || 0));
+  const gfFallback = Math.max(0, (Number(DATA.totalSupply) || 0) - totalBurnedAllSum);
 
   const [gfSupply, sigmaSupply] = await Promise.all([
     fetchTokenSupply(DATA.godfatherMint),
     fetchTokenSupply(DATA.sigmaMint)
   ]);
 
-  // gfSupply (live, from getTokenSupply) reflects the on-chain total supply after burns,
-  // but locked-forever tokens still physically exist on-chain (just inaccessible), so they
-  // are NOT already excluded by the RPC call — subtract them here too, for both paths.
-  const gfLiveAdjusted = (typeof gfSupply === "number")
-    ? Math.max(0, gfSupply - (Number(DATA.lockedForever) || 0))
-    : null;
-
+  // gfSupply (live, from getTokenSupply) reflects the on-chain total supply after burns —
+  // this matches the blockchain exactly. Locked-forever tokens are NOT subtracted here:
+  // they still physically exist on-chain (just permanently inaccessible), so excluding them
+  // would make this number diverge from what a block explorer shows. The lock is disclosed
+  // separately via its own card instead.
   if(gfEl){
-    gfEl.textContent = (gfLiveAdjusted !== null) ? fmt(gfLiveAdjusted) : fmt(gfFallback);
+    gfEl.textContent = (typeof gfSupply === "number") ? fmt(gfSupply) : fmt(gfFallback);
   }
   if(typeof gfSupply === "number" && gfLiveDotEl){ gfLiveDotEl.classList.add("on"); }
   if(gfMetaEl){
     gfMetaEl.textContent = (typeof gfSupply === "number")
-      ? "Live on-chain supply, minus 51,500,000 locked forever."
-      : "Live figure unavailable right now — showing supply minus logged burns and the permanent lock.";
+      ? "Live on-chain supply. Note: the 51,500,000 $GODFATHΣR locked forever (below) is not subtracted from this figure — it still exists on-chain, just permanently inaccessible."
+      : "Live figure unavailable right now — showing supply minus logged burns. The 51,500,000 $GODFATHΣR locked forever (below) is not subtracted from this figure.";
   }
   if(sigmaEl){
     sigmaEl.textContent = (typeof sigmaSupply === "number")
