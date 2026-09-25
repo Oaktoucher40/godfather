@@ -1320,13 +1320,13 @@ details.compact td{
     <div class="burnwallet-card top-spaced">
       <span class="reserve-label">Locked forever from dev wallet</span>
       <div class="burnwallet-row">
-        <code id="devLockedAmount">51,500,000 $GODFATHΣR</code>
+        <strong class="dev-wallet-number" id="devLockedAmount" style="flex:1;min-width:220px;">51,500,000 $GODFATHΣR</strong>
         <a href="https://stakepoint.app/locks/cmufxci2i0000gm0bmzpp5ylu" target="_blank" rel="noopener noreferrer" class="copybtn top-copy">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
           <span>Verify Lock ↗</span>
         </a>
       </div>
-      <p style="margin-top:12px;color:#B4A891;font-size:13px;line-height:1.6;">Locked on @StakePointApp. These $GODFATHΣR are locked forever — but the $SIGMA they earn can still be claimed.</p>
+      <p class="dev-wallet-note">Locked on @StakePointApp. These $GODFATHΣR are locked forever — but the $SIGMA they earn can still be claimed.</p>
     </div>
 
     <div class="dev-wallet-card split">
@@ -1787,6 +1787,7 @@ const DATA = {
   contractAddress: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
   vaultWallet: "6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y",
   totalSupply: 1000000000,
+  lockedForever: 51500000, // permanently locked on StakePoint (never unlocks) — still exists on-chain, so it must be subtracted from remaining supply alongside actual burns
   sigmaRemainingSupply: 899682749,
   links: {
     x: "https://x.com/godfatheronsf",
@@ -2371,21 +2372,28 @@ async function loadLiveSupplies(){
   const sigmaMetaEl = document.getElementById("sigmaSupplyMeta");
   const sigmaLiveDotEl = document.getElementById("sigmaLiveDot");
 
-  const gfFallback = Math.max(0, (Number(DATA.totalSupply) || 0) - totalBurnedAllSum);
+  const gfFallback = Math.max(0, (Number(DATA.totalSupply) || 0) - totalBurnedAllSum - (Number(DATA.lockedForever) || 0));
 
   const [gfSupply, sigmaSupply] = await Promise.all([
     fetchTokenSupply(DATA.godfatherMint),
     fetchTokenSupply(DATA.sigmaMint)
   ]);
 
+  // gfSupply (live, from getTokenSupply) reflects the on-chain total supply after burns,
+  // but locked-forever tokens still physically exist on-chain (just inaccessible), so they
+  // are NOT already excluded by the RPC call — subtract them here too, for both paths.
+  const gfLiveAdjusted = (typeof gfSupply === "number")
+    ? Math.max(0, gfSupply - (Number(DATA.lockedForever) || 0))
+    : null;
+
   if(gfEl){
-    gfEl.textContent = (typeof gfSupply === "number") ? fmt(gfSupply) : fmt(gfFallback);
+    gfEl.textContent = (gfLiveAdjusted !== null) ? fmt(gfLiveAdjusted) : fmt(gfFallback);
   }
   if(typeof gfSupply === "number" && gfLiveDotEl){ gfLiveDotEl.classList.add("on"); }
   if(gfMetaEl){
     gfMetaEl.textContent = (typeof gfSupply === "number")
-      ? "Live figure, read directly from the blockchain."
-      : "Live figure unavailable right now — showing supply minus logged burns.";
+      ? "Live on-chain supply, minus 51,500,000 locked forever."
+      : "Live figure unavailable right now — showing supply minus logged burns and the permanent lock.";
   }
   if(sigmaEl){
     sigmaEl.textContent = (typeof sigmaSupply === "number")
