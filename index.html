@@ -1320,10 +1320,14 @@ details.compact td{
     <div class="burnwallet-card top-spaced">
       <span class="reserve-label">Locked forever from dev wallet</span>
       <div class="burnwallet-row">
-        <strong class="dev-wallet-number" id="devLockedAmount" style="flex:1;min-width:220px;">51,500,000 $GODFATHΣR</strong>
+        <strong class="dev-wallet-number" id="devLockedAmount" style="flex:1;min-width:220px;">60,000,000 $GODFATHΣR</strong>
         <a href="https://stakepoint.app/locks/cmufxci2i0000gm0bmzpp5ylu" target="_blank" rel="noopener noreferrer" class="copybtn top-copy">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-          <span>Verify Lock ↗</span>
+          <span>Lock #1 · 51.5M ↗</span>
+        </a>
+        <a href="https://stakepoint.app/locks/cmukttslf0000l704rkdew2ir" target="_blank" rel="noopener noreferrer" class="copybtn top-copy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          <span>Lock #2 · 8.5M ↗</span>
         </a>
       </div>
       <p class="dev-wallet-note">Locked on @StakePointApp. These $GODFATHΣR are locked forever — but the $SIGMA they earn can still be claimed.</p>
@@ -1787,7 +1791,7 @@ const DATA = {
   contractAddress: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
   vaultWallet: "6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y",
   totalSupply: 1000000000,
-  lockedForever: 51500000, // permanently locked on StakePoint (never unlocks) — still exists on-chain, so it must be subtracted from remaining supply alongside actual burns
+  lockedForever: 60000000, // permanently locked on StakePoint (never unlocks) — still exists on-chain, so it must be subtracted from remaining supply alongside actual burns
   sigmaRemainingSupply: 899682749,
   links: {
     x: "https://x.com/godfatheronsf",
@@ -2430,8 +2434,8 @@ async function loadLiveSupplies(){
   if(typeof gfSupply === "number" && gfLiveDotEl){ gfLiveDotEl.classList.add("on"); }
   if(gfMetaEl){
     gfMetaEl.textContent = (typeof gfSupply === "number")
-      ? "Live on-chain supply. Note: the 51,500,000 $GODFATHΣR locked forever (below) is not subtracted from this figure — it still exists on-chain, just permanently inaccessible."
-      : "Live figure unavailable right now — showing supply minus logged burns. The 51,500,000 $GODFATHΣR locked forever (below) is not subtracted from this figure.";
+      ? "Live on-chain supply. Note: the 60,000,000 $GODFATHΣR locked forever (below) is not subtracted from this figure — it still exists on-chain, just permanently inaccessible."
+      : "Live figure unavailable right now — showing supply minus logged burns. The 60,000,000 $GODFATHΣR locked forever (below) is not subtracted from this figure.";
   }
   if(sigmaEl){
     sigmaEl.textContent = (typeof sigmaSupply === "number")
