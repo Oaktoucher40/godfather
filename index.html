@@ -1190,6 +1190,10 @@ details.compact td{
     </a>
 
     <nav class="navlinks">
+      <button id="muteBtn" class="iconlink" type="button" aria-label="Mute music" title="Mute / unmute music" style="background:none;cursor:pointer;padding:0;">
+        <svg id="icoSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+        <svg id="icoSoundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M16 9.5l5 5"/><path d="M21 9.5l-5 5"/></svg>
+      </button>
       <a id="navX" class="iconlink" href="#" aria-label="X" title="X">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.9L4.8 22H1.7l8.2-9.3L1 2h7.1l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
       </a>
@@ -2549,6 +2553,50 @@ async function loadSwornBalances(){
   });
 }
 loadSwornBalances();
+</script>
+<audio id="bgm" src="theme.mp3" loop preload="auto"></audio>
+<script>
+// Background music. Browsers block audible autoplay until the visitor interacts with the page, so we
+// try to start immediately and, if blocked, start on the very first click / key press / tap.
+(function(){
+  const audio = document.getElementById("bgm");
+  const btn = document.getElementById("muteBtn");
+  if(!audio || !btn) return;
+  const icoOn = document.getElementById("icoSoundOn");
+  const icoOff = document.getElementById("icoSoundOff");
+  audio.volume = 0.35;
+  let muted = false;
+  try{ muted = localStorage.getItem("bgmMuted") === "1"; }catch(e){}
+
+  function render(){
+    icoOn.style.display = muted ? "none" : "";
+    icoOff.style.display = muted ? "" : "none";
+    btn.setAttribute("aria-label", muted ? "Unmute music" : "Mute music");
+  }
+  function start(){
+    if(muted) return;
+    const p = audio.play();
+    if(p && p.then){ p.then(removeUnlock).catch(()=>{}); }
+  }
+  const unlockEvents = ["click","keydown","touchend","pointerup"];
+  function onUnlock(e){
+    if(btn.contains(e.target)) return; // a click on the speaker itself only toggles mute
+    start();
+  }
+  function removeUnlock(){ unlockEvents.forEach(ev => document.removeEventListener(ev, onUnlock, true)); }
+  unlockEvents.forEach(ev => document.addEventListener(ev, onUnlock, true));
+
+  btn.addEventListener("click", function(){
+    muted = !muted;
+    try{ localStorage.setItem("bgmMuted", muted ? "1" : "0"); }catch(e){}
+    if(muted){ audio.pause(); }
+    else{ audio.play().catch(()=>{}); }
+    render();
+  });
+
+  render();
+  start(); // works if the browser allows autoplay; otherwise the first interaction above starts it
+})();
 </script>
 </body>
 </html>
