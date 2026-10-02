@@ -1337,7 +1337,7 @@ details.compact td{
       <h2 class="section-title-laundry" style="margin:0;">The Laundry — Burn &amp; Reward</h2>
       <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #3</span>
     </div>
-    <p class="phase-teaser-copy">Send $GODFATHΣR to the dev wallet, and get back 115% of what you sent — paid in $SIGMA. One wallet can do this once a day, up to 500,000 $GODFATHΣR. Only wallets holding at least 4,000,000 $GODFATHΣR after the transfer receive the reward. <em>Effective September 27, 2026 — previously the cap was 1,000,000/day and the reward was 120%.</em></p>
+    <p class="phase-teaser-copy">Send $GODFATHΣR to the dev wallet, and get back 115% of what you sent — paid in $SIGMA. One wallet can do this once a day, up to 500,000 $GODFATHΣR. Only wallets holding at least 4,000,000 $GODFATHΣR after the transfer receive the reward.</p>
 
     <svg class="laundry-diagram" viewBox="0 -26 680 392" role="img" aria-label="Your wallet and the dev wallet, connected by a loop: send GODFATHER down one side, get 115% back in SIGMA up the other side. The dev wallet also locks GODFATHER forever on StakePointApp, and the SIGMA reward on the locked tokens flows back to the dev wallet">
       <defs>
@@ -1445,11 +1445,11 @@ details.compact td{
       <rect x="539.5" y="223.5" width="121" height="69" rx="8" fill="none" stroke="rgba(242,216,154,.26)" stroke-width="0.8"/>
       <circle cx="546" cy="230" r="1.7" fill="#F2D89A" opacity=".7"/><circle cx="654" cy="230" r="1.7" fill="#F2D89A" opacity=".7"/>
       <circle cx="546" cy="286" r="1.7" fill="#F2D89A" opacity=".7"/><circle cx="654" cy="286" r="1.7" fill="#F2D89A" opacity=".7"/>
+      <text x="600" y="237" text-anchor="middle" fill="#F2E9D4" font-family="Fraunces,serif" font-size="13">Locked forever</text>
       <!-- keyhole -->
-      <circle cx="600" cy="236" r="6" fill="#0c0a08" stroke="url(#ldGold)" stroke-width="1.1"/>
-      <path d="M597.2,239.5 L602.8,239.5 L604.4,252 L595.6,252 Z" fill="#0c0a08" stroke="url(#ldGold)" stroke-width="1.1" stroke-linejoin="round"/>
-      <text x="600" y="271" text-anchor="middle" fill="#F2E9D4" font-family="Fraunces,serif" font-size="13">Locked forever</text>
-      <text x="600" y="286" text-anchor="middle" fill="#C9BCA4" font-size="10">on StakePointApp</text>
+      <path d="M597.18,254.72 A5.5,5.5 0 1 1 602.82,254.72 L604.2,263 L595.8,263 Z" fill="#0c0a08" stroke="#C89B4B" stroke-width="1.1" stroke-linejoin="round"/>
+      
+      <text id="lockAmountSvg" x="600" y="287" text-anchor="middle" fill="#E7C77B" font-family="Fraunces,serif" font-size="16">60M</text>
 
       <!-- $SIGMA reward on locked tokens flows back to the dev wallet (half-circle below) -->
       <path d="M600,302 A110,44 0 0 1 390,288" fill="none" stroke="rgba(231,199,123,.85)" stroke-width="1.2" stroke-dasharray="3 4"/>
@@ -1720,7 +1720,7 @@ details.compact td{
       </details>
       <details>
         <summary>How does The Laundry work?</summary>
-        <div class="detail-body">Send $GODFATHΣR to the dev wallet — up to 500,000 per wallet, per day — and get 115% of what you sent back in $SIGMA, as long as your wallet still holds at least 4,000,000 $GODFATHΣR after the transfer. Of what you send: 50% is converted to $SIGMA, 20% stays in the dev wallet, 20% is burned forever, and 10% moves into liquidity. Effective September 27, 2026 — the cap was previously 1,000,000/day with a 120% reward.</div>
+        <div class="detail-body">Send $GODFATHΣR to the dev wallet — up to 500,000 per wallet, per day — and get 115% of what you sent back in $SIGMA, as long as your wallet still holds at least 4,000,000 $GODFATHΣR after the transfer. Of what you send: 50% is converted to $SIGMA, 20% stays in the dev wallet, 20% is burned forever, and 10% moves into liquidity.</div>
       </details>
       <details>
         <summary>Can burns be verified?</summary>
@@ -2630,6 +2630,21 @@ loadSwornBalances();
 
   render();
   start(); // works if the browser allows autoplay; otherwise the first interaction above starts it
+})();
+</script>
+<script>
+// Locked amount shown on the padlock and on the lock card, taken from DATA.lockedForever.
+(function(){
+  try{
+    const total = Number(DATA.lockedForever) || 0;
+    if(!total) return;
+    const m = Math.round(total / 1e5) / 10; // millions, one decimal
+    const short = String(m).replace(/\.0$/, "") + "M";
+    const a = document.getElementById("lockAmountSvg");
+    if(a) a.textContent = short;
+    const c = document.getElementById("devLockedAmount");
+    if(c) c.textContent = total.toLocaleString("en-US") + " $GODFATH\u03a3R";
+  }catch(e){}
 })();
 </script>
 </body>
