@@ -1199,6 +1199,13 @@ details.compact td{
 .laundry-paused-note strong{ color:var(--gold); }
 
 .phase-pill.active .phase-dot{ background:#6FBE7A; box-shadow:0 0 6px rgba(111,190,122,.75); }
+
+.offering-card{ margin-top:18px; padding:22px 24px; border:1px solid var(--line); background:#070605; display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; }
+.offering-head{ flex:2 1 320px; min-width:0; }
+.offering-copy{ margin:8px 0 0; color:#c0b4a2; font-size:.92rem; line-height:1.6; max-width:560px; }
+.offering-rule{ margin-top:12px; font-family:Fraunces,serif; font-size:1.08rem; color:var(--gold); }
+.offering-next{ flex:1 1 200px; min-width:0; }
+.offering-next .supply-meta{ margin-top:8px; display:block; }
 </style>
 </head>
 <body>
@@ -1297,7 +1304,7 @@ details.compact td{
           <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
         </div>
         <h3>The SIGMA Fund</h3>
-        <p>$SIGMA is bought only below a $5M market cap. At every $5M $SIGMA market-cap step, 10% of the Fund buys $GODFATHΣR — and burns it.</p>
+        <p>Every Sunday, 1 $GODFATHΣR burns for every $SIGMA in the Fund. $SIGMA is bought only below $5M; at each $5M step, 10% of the Fund buys $GODFATHΣR and burns it.</p>
       </div>
       <div class="engine-card">
         <div class="engine-top">
@@ -1373,6 +1380,30 @@ details.compact td{
         <strong class="dev-wallet-number"><span id="sigmaFundBalance">Loading…</span><span class="live-dot" id="sigmaFundLiveDot" title="Live on-chain data"></span></strong>
       </div>
     </div>
+
+    <div class="offering-card">
+      <div class="offering-head">
+        <span class="dev-wallet-label">The Sunday Offering</span>
+        <p class="offering-copy">Every Sunday, the Family makes its offering. For every $SIGMA the Fund holds, one $GODFATHΣR is given to the fire — in honor of the token that carries the Family forward.</p>
+        <div class="offering-rule">1 $SIGMA in the Fund = 1 $GODFATHΣR burned. Every Sunday.</div>
+      </div>
+      <div class="offering-next">
+        <span class="dev-wallet-label">Next offering in</span>
+        <strong class="dev-wallet-number" id="offeringCountdown">—</strong>
+        <span class="supply-meta" id="offeringWhen"></span>
+      </div>
+    </div>
+
+    <details class="log gold" style="margin-top:14px;">
+      <summary>The Sunday Offering Ledger</summary>
+      <div class="log-sub">Every Sunday: the Fund's $SIGMA balance, and the $GODFATHΣR burned in its honor</div>
+      <div class="tablewrap">
+        <table style="min-width:560px;">
+          <thead><tr><th>#</th><th>Date</th><th>$SIGMA in the Fund</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
+          <tbody id="offeringRows"><tr><td colspan="5" class="empty">No offering yet — the first one appears here.</td></tr></tbody>
+        </table>
+      </div>
+    </details>
 
     <div class="burn-breakdown" style="margin-top:26px;">
       <div class="burn-breakdown-rows three">
@@ -1871,6 +1902,16 @@ const DATA = {
   vaultWallet: "6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y",
   totalSupply: 1000000000,
   lockedForever: 60000000, // permanently locked on StakePoint (never unlocks) — still exists on-chain, so it must be subtracted from remaining supply alongside actual burns
+  offering: {          // The Sunday Offering: every week, 1 $GODFATHΣR burns for every $SIGMA the Fund holds
+    weekday: 0,        // 0 = Sunday
+    hour: 20,          // placeholder time — confirm
+    minute: 0,
+    timeZone: "Europe/Budapest",
+    label: "Sunday 20:00, Budapest time"
+  },
+  offeringLog: [
+    // { date: "Month D, 2026", fundSigma: 0, burned: 0, tx: "https://orbmarkets.io/tx/..." }
+  ],
   sigmaFund: {
     sharePct: 10,       // % of the Fund's $SIGMA swapped for $GODFATHΣR and burned at every step
     stepUsd: 5000000,   // $SIGMA market-cap step, in USD ($5M, $10M, $15M, ...)
@@ -1916,7 +1957,8 @@ const DATA = {
     { date: "September 29, 2026", wallet: "Laundry batch (12 wallets)", burned: 1129080, tx: "https://orbmarkets.io/tx/5MezKHjewmyNXAxHyUA7fjxtXSMD3tGDXMHm1nLyyndDPxtwrH3wsXLqd3igAKkUsiyYkJFRy7GVRGL5ZmB4vF2P" },
     { date: "October 2, 2026", wallet: "Laundry batch (12 wallets)", burned: 1129080, tx: "https://orbmarkets.io/tx/45t4knPZKYocwpbqNJgJHkDYy2jhj6rRVi9Nip8uMNbMPUm3oqweFA5HyVQqUfbTC5HWfRZ3KfLzvanbo3A9Udmc" },
     { date: "October 3, 2026", wallet: "Laundry batch (9 wallets)", burned: 846810, tx: "https://orbmarkets.io/tx/5NDoZbxSwLGd4FY7MaM7gUh8oERRAuZutVKcJRdh7dZ2DZLNUvwbo3uQDfe885SS8SmQddNzDjiLHTrxptwqazq2" },
-    { date: "October 4, 2026", wallet: "Laundry batch (10 wallets)", burned: 940900, tx: "https://orbmarkets.io/tx/5RzW1Hh2AgKLoMKeTzy1vvRfmGSYaY913ssUC29iYThZzUc9W182TYSxgoipLrV3Z2LPu9hfD6TN7oaRVCNpUZBu" }
+    { date: "October 4, 2026", wallet: "Laundry batch (10 wallets)", burned: 940900, tx: "https://orbmarkets.io/tx/5RzW1Hh2AgKLoMKeTzy1vvRfmGSYaY913ssUC29iYThZzUc9W182TYSxgoipLrV3Z2LPu9hfD6TN7oaRVCNpUZBu" },
+    { date: "October 6, 2026", wallet: "Laundry batch (10 wallets)", burned: 940900, tx: "https://orbmarkets.io/tx/4FTM1VmHtrjQGpk5JTH8MWY3bUmMhS8r8KLZGu8HKg4juNV5NuFHUHMDR52mfinK7P3oS27NMGom1x7AHAHQTr2d" }
   ], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, toLiquidity, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 1,000,000/day per wallet through Sept 26, 2026; max 500,000/day from Sept 27, 2026). Of that, "sigmaConverted" is the 50% turned into $SIGMA, "toTreasury" is the 20% kept in the dev wallet, "burned" is the 20% destroyed, and "toLiquidity" is the 10% moved into liquidity. "sigmaReward" is the $SIGMA paid back to the sender — 120% of value through Sept 26, 2026, then 115% from Sept 27, 2026 onward. This split is now public, shown on the site behind a "See how it works behind the scenes" toggle (Part 1 = simple flow always visible, Part 2 = this 4-way split, click-to-reveal).
   laundryLog: [
     { date: "September 18, 2026", wallet: "ESnb...aBVd9", walletFull: "ESnbMGfwpx3ZrzvmSsLE6bHRwih5ovsCgWq9mm1aBVd9", sent: 1000000, sigmaReward: 14950, tx: "https://orbmarkets.io/tx/3mtCRNGcsYxVN2gPjzGAUJHzcvnpqrLSTmby46E8i523jUHUrvZPXsUQD5rCvK5ByguhzHbVE9oTkBw3qdYUvLza" },
@@ -2096,7 +2138,17 @@ const DATA = {
     { date: "October 4, 2026", wallet: "6jJ9...9opp", walletFull: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/5Q5iCXMrDJz3Sg11bDEfRY8W7mWPfT398HgYmFRwKGL39FhBfmymd36tFWvCYvhwnFLgXD1EXDFgxcAoZyCT3123" },
     { date: "October 4, 2026", wallet: "8TTw...7ZcA", walletFull: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2cYNJhv4TbBQWx6DkPMwy8LtmH1Ty8TJCWEXjV3XX8wKDw7ZRWRL8ES9UT3AgKwMeXtS492pZZifGL9hL2NmA9uN" },
     { date: "October 4, 2026", wallet: "8RJL...vAD2", walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/4gpqKmiaSKSFmV3JVHHFMdnLYvcunJ133iCgoykfKCvSw68wNgSnmMFYeQf8YLrKd5pgQVR8norGt4w8qywyN5qL" },
-    { date: "October 4, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2aA9tGL56FAeymcuP1UtmYi5KsogQTQTRW8n87SE1PvQN3uVBCdgq89fvAJK2892D13vBJudYUg3G5N5AZaYxhyL" }
+    { date: "October 4, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2aA9tGL56FAeymcuP1UtmYi5KsogQTQTRW8n87SE1PvQN3uVBCdgq89fvAJK2892D13vBJudYUg3G5N5AZaYxhyL" },
+    { date: "October 6, 2026", wallet: "8TTw...7ZcA", walletFull: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", sent: 500000, sigmaReward: 13100, tx: "https://orbmarkets.io/tx/41ncekVepp5eqh6U7T9PbhzywiTxaVHiqDJSmYCt734LLVcRtXdKMxTs8fnR2fctQwyNS3QrvE9FDbo9RsHAqj7q" },
+    { date: "October 6, 2026", wallet: "8RJL...vAD2", walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2", sent: 500000, sigmaReward: 13100, tx: "https://orbmarkets.io/tx/2kHXWzi32JCNv3K6RiBKofnzWr7Aj1eybK4jmBRAHcsyJ3JQE93XnQysHtUorSVrrhZX9E7BoofaNV8w1FNM4S6J" },
+    { date: "October 6, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 13100, tx: "https://orbmarkets.io/tx/5Zn7zFZYYaBXFHyLFb8YDTTALKQFCkXcntyzA7TiXBRUs5L5mpv9zjKzS7pZL5yb1CnETd2vR4BS6PnB9DHuLYeD" },
+    { date: "October 6, 2026", wallet: "5uWv...r7J6", walletFull: "5uWvTqxLun3DFDKdN6aRMb4FiecUFpUZGrm8mbSnr7J6", sent: 500000, sigmaReward: 12900, tx: "https://orbmarkets.io/tx/2ockjLF4wW3grkoPhwgHrZq1Bv2RsktGKSdtHiDqHLfyisZk8AqdZyuJAc9fDHpVZLrZ5FsSPYvmiC1vwNLmjm2t" },
+    { date: "October 6, 2026", wallet: "6jJ9...9opp", walletFull: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", sent: 500000, sigmaReward: 12900, tx: "https://orbmarkets.io/tx/5uHKbxUEX2zg1WZTP7ckhCjDQN3uwspadw9fwNZndJrHrKXA8aZN1vBKCG1JyPkQAa3SP2ZWcRCEQ7imkdCcKKTu" },
+    { date: "October 6, 2026", wallet: "ESnb...BVd9", walletFull: "ESnbMGfwpx3ZrzvmSsLE6bHRwih5ovsCgWq9mm1aBVd9", sent: 500000, sigmaReward: 12900, tx: "https://orbmarkets.io/tx/2AuEcF7cSWZMWi5nEsuEjRJ1eiER5gbEKyhd8HpyAQ33VyE6nQNwVD2Bn2bpGf9MZceRs138ad6J65sc96PfSUNv" },
+    { date: "October 6, 2026", wallet: "9Mzb...haUH", walletFull: "9MzbuvtxAwpY427Q3T3hPuZX2U81h8WwaDZssKYGhaUH", sent: 500000, sigmaReward: 12900, tx: "https://orbmarkets.io/tx/4a7icfP6JKNTmqRzAdX6ciZ9eFxLe9utkqDZYmLoy6fFANh3g64HtQtbe83JrVZR3LL9RzGhhFFmiXrUoHNCSJJR" },
+    { date: "October 6, 2026", wallet: "Beof...fTo6", walletFull: "BeofmoWBC1iYBi9HsqwnJRjn6qeUYfp1kMnWf6E2fTo6", sent: 500000, sigmaReward: 12900, tx: "https://orbmarkets.io/tx/3iiRXYHDDZ2uEKijamBouWqqcyNU38eDSx4HqqyBoeCzsvwALmHTNRk9fEz26JEZggcxJMphTTu8Z28Cd6aukQc7" },
+    { date: "October 6, 2026", wallet: "4ti2...gYuV", walletFull: "4ti2BgS2TUcMXTXPyJLYJHgaBnyVX4rRqwUc4eX8gYuV", sent: 500000, sigmaReward: 12700, tx: "https://orbmarkets.io/tx/2HS5Sk2cWjhTknwQ6hiqmWuMv5Uw3VES6dyhhPVeMUyTAKnAKWmaabfxGsKArXgjmLTXcZh1noLoxWGUQSR1NWgM" },
+    { date: "October 6, 2026", wallet: "EBtQ...Qqds", walletFull: "EBtQ912uYYzzRs9BfWpoPNZPMGwSoALqZ9edbZsDQqds", sent: 500000, sigmaReward: 12700, tx: "https://orbmarkets.io/tx/2n9kCS6zCP2uYEqx8qHSUNyfMhbkZzcSkoKYN7rrYWmowUmNviuKQKEDK3KRznyaGrfQ213beYJKxMBhr7UjZuYm" }
   ], // each entry: { date, wallet, walletFull, sent, sigmaReward, tx } — the public, per-wallet Laundry ledger. "sent" is the gross $GODFATHΣR the wallet sent (max 1,000,000/day through Sept 26, 2026; max 500,000/day from Sept 27, 2026); "sigmaReward" is the $SIGMA actually paid back (120% of the value sent through Sept 26, 2026, then 115% from Sept 27, 2026 onward, at the time of the transfer); "tx" links the reward payout. The corresponding aggregate burn for each batch is tracked separately in buybackLog.
   tributeLog: [
     { date: "September 16, 2026", wallet: "Dev Wallet", burned: 6165125.675911, tx: "https://orbmarkets.io/tx/TXGjWyV6fceoEpAghtStpSNuxLnb7AQmL7mL9Q8M63cNsBvMscSgiQtLEE46sjTwDNos6nHiupwvfdR9T1fXJYL" }
@@ -2448,7 +2500,9 @@ const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Numbe
 const tributeBurnedSum = (DATA.tributeLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const sigmaFundCfg = DATA.sigmaFund || {};
 const sigmaFundExecuted = sigmaFundCfg.executed || [];
-const sigmaFundBurnedSum = sigmaFundExecuted.reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const offeringLog = DATA.offeringLog || [];
+const sigmaFundBurnedSum = sigmaFundExecuted.reduce((sum, r) => sum + (Number(r.burned) || 0), 0)
+  + offeringLog.reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum + sigmaFundBurnedSum;
 
 const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
@@ -2490,6 +2544,56 @@ if(sigmaFundBurnedTotalEl){ sigmaFundBurnedTotalEl.textContent = fmt(sigmaFundBu
   if(burnedEl) burnedEl.textContent = fmt(sigmaFundBurnedSum);
   const nextEl = document.getElementById("sfNextStep");
   if(nextEl) nextEl.textContent = usd(step * (Math.floor(Math.max(reached, maxExec) / step) + 1));
+})();
+
+// The Sunday Offering: ledger rows + a live countdown to the next Sunday.
+(function renderOffering(){
+  const rows = document.getElementById("offeringRows");
+  if(rows && offeringLog.length){
+    rows.innerHTML = "";
+    offeringLog.forEach((r, i) => rows.insertAdjacentHTML("beforeend", `<tr>
+      <td>${i + 1}</td><td>${r.date}</td><td>${fmt(r.fundSigma)}</td><td>${fmt(r.burned)}</td>
+      <td>${r.tx ? `<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>` : "—"}</td>
+    </tr>`));
+  }
+  const cfg = DATA.offering || {};
+  const cd = document.getElementById("offeringCountdown");
+  const when = document.getElementById("offeringWhen");
+  if(!cd) return;
+  const tz = cfg.timeZone || "Europe/Budapest";
+  if(when) when.textContent = cfg.label || "";
+
+  // The UTC instant of a wall-clock time in the given time zone (handles daylight saving).
+  function zonedToUtc(y, m, d, hh, mi){
+    const guess = Date.UTC(y, m - 1, d, hh, mi);
+    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, hour12: false,
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" })
+      .formatToParts(new Date(guess)).map(p => [p.type, p.value]));
+    const asUtc = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour % 24, +parts.minute, +parts.second);
+    return guess - (asUtc - guess);
+  }
+  function nextOffering(now){
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "short",
+      year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now).map(x => [x.type, x.value]));
+    const dow = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.weekday);
+    const wd = Number(cfg.weekday) || 0, hh = Number(cfg.hour) || 0, mi = Number(cfg.minute) || 0;
+    let add = (wd - dow + 7) % 7;
+    for(let tries = 0; tries < 2; tries++){
+      const base = new Date(Date.UTC(+p.year, +p.month - 1, +p.day + add));
+      const t = zonedToUtc(base.getUTCFullYear(), base.getUTCMonth() + 1, base.getUTCDate(), hh, mi);
+      if(t > now.getTime()) return t;
+      add += 7;
+    }
+  }
+  function tick(){
+    const left = nextOffering(new Date()) - Date.now();
+    if(!(left > 0)){ cd.textContent = "—"; return; }
+    const s = Math.floor(left / 1000);
+    const d = Math.floor(s / 86400), hh = Math.floor((s % 86400) / 3600), mm = Math.floor((s % 3600) / 60), ss = s % 60;
+    cd.textContent = `${d}d ${String(hh).padStart(2, "0")}h ${String(mm).padStart(2, "0")}m ${String(ss).padStart(2, "0")}s`;
+  }
+  tick();
+  setInterval(tick, 1000);
 })();
 
 const totalBurnedAllEl = document.getElementById("totalBurnedAll");
