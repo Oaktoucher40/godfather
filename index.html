@@ -986,7 +986,7 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
 }
 .burn-breakdown-rows{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
   gap:10px;
 }
 .burn-breakdown-row{
@@ -1179,6 +1179,24 @@ details.compact td{
   display:block;
 }
 
+
+/* ---------- SIGMA FUND PANEL ---------- */
+.sigma-fund-title{margin:0}
+.burn-breakdown-rows.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:700px){.burn-breakdown-rows.three{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:420px){.burn-breakdown-rows.three{grid-template-columns:1fr}}
+.sf-executed{color:var(--gold);font-weight:600}
+.sf-reached{color:#9fd18b}
+.sf-pending{color:var(--muted)}
+.sf-note{margin-top:14px;color:var(--muted);font-size:.78rem;line-height:1.55;max-width:640px}
+
+.phase-pill.paused{ border-color:rgba(201,183,143,.45); color:#c9b78f; }
+.phase-pill.paused .phase-dot{ background:#c9b78f; }
+.engine-grid{ grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }
+@media(max-width:980px){ .engine-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:560px){ .engine-grid{grid-template-columns:1fr} }
+.laundry-paused-note{ margin-top:10px; max-width:640px; color:#d8ccb8; line-height:1.6; }
+.laundry-paused-note strong{ color:var(--gold); }
 </style>
 </head>
 <body>
@@ -1266,10 +1284,18 @@ details.compact td{
       <div class="engine-card">
         <div class="engine-top">
           <span class="engine-label">Mechanism #3</span>
-          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+          <span class="phase-pill paused"><span class="phase-dot"></span>Paused</span>
         </div>
         <h3>The Laundry — Burn &amp; Reward</h3>
-        <p>Send up to 500,000 $GODFATHΣR a day to the dev wallet, and get 115% of the value back in $SIGMA — if your wallet holds 4,000,000+ $GODFATHΣR after.</p>
+        <p>Paused. Restarts when the $SIGMA market cap reaches $5M.</p>
+      </div>
+      <div class="engine-card">
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #4</span>
+          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+        </div>
+        <h3>The SIGMA Fund</h3>
+        <p>$SIGMA is bought only below a $5M market cap. At every $5M $SIGMA market-cap step, 10% of the Fund buys $GODFATHΣR — and burns it.</p>
       </div>
       <div class="engine-card">
         <div class="engine-top">
@@ -1286,8 +1312,7 @@ details.compact td{
 <section class="supply-section" id="remaining-supply">
   <div class="shell">
     <div class="supply-head">
-      <div class="eyebrow">Remaining Supply</div>
-      <h2>One supply, moving in one direction.</h2>
+      <h2>The Numbers</h2>
     </div>
     <div class="supply-grid" style="grid-template-columns:1fr;">
       <article class="supply-card">
@@ -1309,6 +1334,7 @@ details.compact td{
         <div class="burn-breakdown-row"><span>The Family Burn</span><strong id="familyBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>The Laundry</span><strong id="buybackBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>Protection Money</span><strong id="tributeBurnedTotal">0</strong></div>
+        <div class="burn-breakdown-row"><span>SIGMA Fund</span><strong id="sigmaFundBurnedTotal">0</strong></div>
       </div>
     </div>
 
@@ -1331,15 +1357,48 @@ details.compact td{
   </div>
 </section>
 
+<section class="section" id="sigma-fund">
+  <div class="shell">
+    <div class="eyebrow-row" style="margin-bottom:14px;">
+      <h2 class="sigma-fund-title">The SIGMA Fund</h2>
+      <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #4</span>
+    </div>
+    <p class="phase-teaser-copy" style="max-width:640px;">$SIGMA is bought and accumulated in the Fund only while the $SIGMA market cap is below $5M. Above that, no more $SIGMA is bought. Every time the $SIGMA market cap reaches the next $5M step — $5M, $10M, $15M and so on — 10% of the Fund's $SIGMA is swapped for $GODFATHΣR and burned. Fixed in advance. No discretion.</p>
+
+    <div class="dev-wallet-card split" style="margin-top:22px;">
+      <div class="dev-wallet-half">
+        <span class="dev-wallet-label">The Fund — live $SIGMA balance on the dev wallet</span>
+        <strong class="dev-wallet-number"><span id="sigmaFundBalance">Loading…</span><span class="live-dot" id="sigmaFundLiveDot" title="Live on-chain data"></span></strong>
+      </div>
+    </div>
+
+    <div class="burn-breakdown" style="margin-top:26px;">
+      <div class="burn-breakdown-rows three">
+        <div class="burn-breakdown-row"><span>Steps executed</span><strong id="sfExecutedCount">0</strong></div>
+        <div class="burn-breakdown-row"><span>$GODFATHΣR burned by the Fund</span><strong id="sfBurnedTotal">0</strong></div>
+        <div class="burn-breakdown-row"><span>Next step</span><strong id="sfNextStep">—</strong></div>
+      </div>
+    </div>
+
+    <div class="tablewrap" style="margin-top:18px;border:1px solid var(--line);">
+      <table style="min-width:560px;">
+        <thead><tr><th>$SIGMA market cap</th><th>Swapped &amp; burned</th><th>Status</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
+        <tbody id="sigmaFundRows"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+      </table>
+    </div>
+    <p class="sf-note">A rule, not a price promise. Every step is published here with its transaction.</p>
+  </div>
+</section>
+
 <section class="section" id="the-laundry">
   <div class="shell">
     <div class="eyebrow-row" style="margin-bottom:14px;">
       <h2 class="section-title-laundry" style="margin:0;">The Laundry — Burn &amp; Reward</h2>
-      <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #3</span>
+      <span class="phase-pill paused"><span class="phase-dot"></span>Paused — Mechanism #3</span>
     </div>
-    <p class="phase-teaser-copy">Send $GODFATHΣR to the dev wallet, and get back 115% of what you sent — paid in $SIGMA. One wallet can do this once a day, up to 500,000 $GODFATHΣR. Only wallets holding at least 4,000,000 $GODFATHΣR after the transfer receive the reward.</p>
+    <p class="phase-teaser-copy laundry-paused-note"><strong>The Laundry is paused</strong> and restarts when the $SIGMA market cap reaches $5M. Please don't send $GODFATHΣR to the dev wallet — transfers during the pause receive no $SIGMA reward. How it worked: up to 500,000 $GODFATHΣR a day, 115% back in $SIGMA, for wallets holding 4,000,000+ $GODFATHΣR after the transfer.</p>
 
-    <svg class="laundry-diagram" viewBox="0 -26 680 392" role="img" aria-label="Your wallet and the dev wallet, connected by a loop: send GODFATHER down one side, get 115% back in SIGMA up the other side. The dev wallet also locks GODFATHER forever on StakePointApp, and the SIGMA reward on the locked tokens flows back to the dev wallet">
+    <svg class="laundry-diagram" style="opacity:.5" viewBox="0 -26 680 392" role="img" aria-label="Your wallet and the dev wallet, connected by a loop: send GODFATHER down one side, get 115% back in SIGMA up the other side. The dev wallet also locks GODFATHER forever on StakePointApp, and the SIGMA reward on the locked tokens flows back to the dev wallet">
       <defs>
         <filter id="ldGlow" x="-80%" y="-80%" width="260%" height="260%">
           <feGaussianBlur stdDeviation="7" result="blur"/>
@@ -1469,7 +1528,8 @@ details.compact td{
     </div>
 
 
-    <div class="burnwallet-card top-spaced">
+    <!-- Hidden while the Laundry is paused. Remove style="display:none" when it restarts. -->
+    <div class="burnwallet-card top-spaced" style="display:none">
       <span class="reserve-label">Dev wallet — send $GODFATHΣR here</span>
       <div class="burnwallet-row">
         <code id="laundryDevWallet">ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn</code>
@@ -1720,7 +1780,7 @@ details.compact td{
       </details>
       <details>
         <summary>How does The Laundry work?</summary>
-        <div class="detail-body">Send $GODFATHΣR to the dev wallet — up to 500,000 per wallet, per day — and get 115% of what you sent back in $SIGMA, as long as your wallet still holds at least 4,000,000 $GODFATHΣR after the transfer. Of what you send: 50% is converted to $SIGMA, 20% stays in the dev wallet, 20% is burned forever, and 10% moves into liquidity.</div>
+        <div class="detail-body">The Laundry is currently paused and restarts when the $SIGMA market cap reaches $5M. When active: send $GODFATHΣR to the dev wallet — up to 500,000 per wallet, per day — and get 115% of what you sent back in $SIGMA, as long as your wallet still holds at least 4,000,000 $GODFATHΣR after the transfer. Of what you send: 50% is converted to $SIGMA, 20% stays in the dev wallet, 20% is burned forever, and 10% moves into liquidity.</div>
       </details>
       <details>
         <summary>Can burns be verified?</summary>
@@ -1809,6 +1869,15 @@ const DATA = {
   vaultWallet: "6i9rmzmz1khmLH5j1sjkQdEAaziZVT7Ryo6KCYomuo5y",
   totalSupply: 1000000000,
   lockedForever: 60000000, // permanently locked on StakePoint (never unlocks) — still exists on-chain, so it must be subtracted from remaining supply alongside actual burns
+  sigmaFund: {
+    sharePct: 10,       // % of the Fund's $SIGMA swapped for $GODFATHΣR and burned at every step
+    stepUsd: 5000000,   // $SIGMA market-cap step, in USD ($5M, $10M, $15M, ...)
+    stepsShown: 6,      // how many steps the table lists
+    reachedMcap: 0,     // highest step reached so far — update by hand; a step at or below this that is not yet executed shows "Reached"
+    executed: [
+      // { mcap: 5000000, date: "Month D, 2026", burned: 0, tx: "https://orbmarkets.io/tx/..." }
+    ]
+  },
   links: {
     x: "https://x.com/godfatheronsf",
     telegram: "https://t.me/godfatheronsf",
@@ -1844,7 +1913,8 @@ const DATA = {
     { date: "September 28, 2026", wallet: "Laundry batch (11 wallets)", burned: 1034990, tx: "https://orbmarkets.io/tx/4HpjmWxvX1E5SH8XaJtDty7mhG7yswfcEYte8uvtNcdXJi3UFx8QHoo6r1d2gQvSVNxaLNAXuyWGSjvcYXRkBMJS" },
     { date: "September 29, 2026", wallet: "Laundry batch (12 wallets)", burned: 1129080, tx: "https://orbmarkets.io/tx/5MezKHjewmyNXAxHyUA7fjxtXSMD3tGDXMHm1nLyyndDPxtwrH3wsXLqd3igAKkUsiyYkJFRy7GVRGL5ZmB4vF2P" },
     { date: "October 2, 2026", wallet: "Laundry batch (12 wallets)", burned: 1129080, tx: "https://orbmarkets.io/tx/45t4knPZKYocwpbqNJgJHkDYy2jhj6rRVi9Nip8uMNbMPUm3oqweFA5HyVQqUfbTC5HWfRZ3KfLzvanbo3A9Udmc" },
-    { date: "October 3, 2026", wallet: "Laundry batch (9 wallets)", burned: 846810, tx: "https://orbmarkets.io/tx/5NDoZbxSwLGd4FY7MaM7gUh8oERRAuZutVKcJRdh7dZ2DZLNUvwbo3uQDfe885SS8SmQddNzDjiLHTrxptwqazq2" }
+    { date: "October 3, 2026", wallet: "Laundry batch (9 wallets)", burned: 846810, tx: "https://orbmarkets.io/tx/5NDoZbxSwLGd4FY7MaM7gUh8oERRAuZutVKcJRdh7dZ2DZLNUvwbo3uQDfe885SS8SmQddNzDjiLHTrxptwqazq2" },
+    { date: "October 4, 2026", wallet: "Laundry batch (10 wallets)", burned: 940900, tx: "https://orbmarkets.io/tx/5RzW1Hh2AgKLoMKeTzy1vvRfmGSYaY913ssUC29iYThZzUc9W182TYSxgoipLrV3Z2LPu9hfD6TN7oaRVCNpUZBu" }
   ], // each entry: { date, wallet, sent, burned, sigmaConverted, toTreasury, toLiquidity, sigmaReward, tx } — The Laundry is automated (no vote): "sent" is the $GODFATHΣR the wallet sent (max 1,000,000/day per wallet through Sept 26, 2026; max 500,000/day from Sept 27, 2026). Of that, "sigmaConverted" is the 50% turned into $SIGMA, "toTreasury" is the 20% kept in the dev wallet, "burned" is the 20% destroyed, and "toLiquidity" is the 10% moved into liquidity. "sigmaReward" is the $SIGMA paid back to the sender — 120% of value through Sept 26, 2026, then 115% from Sept 27, 2026 onward. This split is now public, shown on the site behind a "See how it works behind the scenes" toggle (Part 1 = simple flow always visible, Part 2 = this 4-way split, click-to-reveal).
   laundryLog: [
     { date: "September 18, 2026", wallet: "ESnb...aBVd9", walletFull: "ESnbMGfwpx3ZrzvmSsLE6bHRwih5ovsCgWq9mm1aBVd9", sent: 1000000, sigmaReward: 14950, tx: "https://orbmarkets.io/tx/3mtCRNGcsYxVN2gPjzGAUJHzcvnpqrLSTmby46E8i523jUHUrvZPXsUQD5rCvK5ByguhzHbVE9oTkBw3qdYUvLza" },
@@ -2014,7 +2084,17 @@ const DATA = {
     { date: "October 3, 2026", wallet: "DZSo...Z5iy", walletFull: "DZSondTLpb3jWPXX227Ahxjevu1irYZFMaFoy2GDZ5iy", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/3tteBcrYYv2eg6o5hJC1nT6weqRbMRQtd9hdn99N8rCuogJjA8VHHEohZaQbqYBnXCXqeNSVNAQfVLMJDsLYuorA" },
     { date: "October 3, 2026", wallet: "8TTw...7ZcA", walletFull: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", sent: 500000, sigmaReward: 13900, tx: "https://orbmarkets.io/tx/Lvn8Kpfx6TmBfRJEbkwiVkVYyeBbRRCtE7w422HvccvUrbcnAqGgHEjrXvQnp2FkythzWYPsRDTvnHgw2X4qjsP" },
     { date: "October 3, 2026", wallet: "8RJL...vAD2", walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2", sent: 500000, sigmaReward: 13900, tx: "https://orbmarkets.io/tx/2tjaBtoXrGDncsCmdTzJXnmUwCpYoi6fQZ5yAZitBowK18WBuZPDdbDLb7Pfe57Gqbwx5nytbrNRA6rQXM78d4yW" },
-    { date: "October 3, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 13900, tx: "https://orbmarkets.io/tx/5psRUa1kzjKkSbmp38mJTvg5dJejuYaic4mkRM7SzSkwpDs5VA5cQqvVdHydN2nznkpExGAJKx3zZyZYGcLR1UMU" }
+    { date: "October 3, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 13900, tx: "https://orbmarkets.io/tx/5psRUa1kzjKkSbmp38mJTvg5dJejuYaic4mkRM7SzSkwpDs5VA5cQqvVdHydN2nznkpExGAJKx3zZyZYGcLR1UMU" },
+    { date: "October 4, 2026", wallet: "EBtQ...Qqds", walletFull: "EBtQ912uYYzzRs9BfWpoPNZPMGwSoALqZ9edbZsDQqds", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/qkjDFkZSo8WRk1p9kDsZpUDN8ShnxHaP2pQSemZnS1ywt7QqMHp6SS7jCfpBehEhZdjJjeudpJLVWyQTpsqPB1w" },
+    { date: "October 4, 2026", wallet: "4ti2...gYuV", walletFull: "4ti2BgS2TUcMXTXPyJLYJHgaBnyVX4rRqwUc4eX8gYuV", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2bjUf12J6aqvAyo7MsQ3yMfF56aHFKGY1h2GHSTWFinV4f1ub9CaR33B35vwsguWVjDGN6GzafSTS7D9WnxBzJXu" },
+    { date: "October 4, 2026", wallet: "ESnb...BVd9", walletFull: "ESnbMGfwpx3ZrzvmSsLE6bHRwih5ovsCgWq9mm1aBVd9", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/4Sr7DsWZhJsJMSGxH5oNcG9FoWGMGQyqcNh4zxmGjXfunPaUZwdyMcLa6YhjxZaqMNH5FbamKz17WDNsniLJR5gw" },
+    { date: "October 4, 2026", wallet: "9Mzb...haUH", walletFull: "9MzbuvtxAwpY427Q3T3hPuZX2U81h8WwaDZssKYGhaUH", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/3iB1vopo36W5fhqJKGBJQftqeaCrh3p2AuqQwX4zNeNfuihGtNxXCRBYNc6HogrqKJj9s9FmcEYaE3jGxMDWiPy5" },
+    { date: "October 4, 2026", wallet: "Beof...fTo6", walletFull: "BeofmoWBC1iYBi9HsqwnJRjn6qeUYfp1kMnWf6E2fTo6", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/Kg7RkBWTTrGSYzpyvk6hyfwD8o2CLCnUqFxe2VPtETUmY8Y2EXAjVTyPsaJMgNkQtxAKysHkxoyAZGgPPpCJKZ2" },
+    { date: "October 4, 2026", wallet: "5uWv...r7J6", walletFull: "5uWvTqxLun3DFDKdN6aRMb4FiecUFpUZGrm8mbSnr7J6", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/5HGkFtZh8ZC3sL6KDdhRPmc9aToFze76EL5LjYMonp85H3MVyHmWQQZVYLffAFeHRAanScdNULr8Z7SLieChgFfz" },
+    { date: "October 4, 2026", wallet: "6jJ9...9opp", walletFull: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/5Q5iCXMrDJz3Sg11bDEfRY8W7mWPfT398HgYmFRwKGL39FhBfmymd36tFWvCYvhwnFLgXD1EXDFgxcAoZyCT3123" },
+    { date: "October 4, 2026", wallet: "8TTw...7ZcA", walletFull: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2cYNJhv4TbBQWx6DkPMwy8LtmH1Ty8TJCWEXjV3XX8wKDw7ZRWRL8ES9UT3AgKwMeXtS492pZZifGL9hL2NmA9uN" },
+    { date: "October 4, 2026", wallet: "8RJL...vAD2", walletFull: "8RJLzY94Lc7B5CgLwfHPBwbdgtFsxw9r5SRuMBEFvAD2", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/4gpqKmiaSKSFmV3JVHHFMdnLYvcunJ133iCgoykfKCvSw68wNgSnmMFYeQf8YLrKd5pgQVR8norGt4w8qywyN5qL" },
+    { date: "October 4, 2026", wallet: "2WDY...9gug", walletFull: "2WDYX5cw7pe7EoxJxTfcvZePhWR89VdrY8jV2at49gug", sent: 500000, sigmaReward: 14000, tx: "https://orbmarkets.io/tx/2aA9tGL56FAeymcuP1UtmYi5KsogQTQTRW8n87SE1PvQN3uVBCdgq89fvAJK2892D13vBJudYUg3G5N5AZaYxhyL" }
   ], // each entry: { date, wallet, walletFull, sent, sigmaReward, tx } — the public, per-wallet Laundry ledger. "sent" is the gross $GODFATHΣR the wallet sent (max 1,000,000/day through Sept 26, 2026; max 500,000/day from Sept 27, 2026); "sigmaReward" is the $SIGMA actually paid back (120% of the value sent through Sept 26, 2026, then 115% from Sept 27, 2026 onward, at the time of the transfer); "tx" links the reward payout. The corresponding aggregate burn for each batch is tracked separately in buybackLog.
   tributeLog: [
     { date: "September 16, 2026", wallet: "Dev Wallet", burned: 6165125.675911, tx: "https://orbmarkets.io/tx/TXGjWyV6fceoEpAghtStpSNuxLnb7AQmL7mL9Q8M63cNsBvMscSgiQtLEE46sjTwDNos6nHiupwvfdR9T1fXJYL" }
@@ -2320,6 +2400,38 @@ async function loadDevWalletBalance(){
 }
 loadDevWalletBalance();
 
+// The SIGMA Fund lives on the dev wallet: show its live $SIGMA balance.
+async function loadSigmaFundBalance(){
+  const el = document.getElementById("sigmaFundBalance");
+  if(!el) return;
+  const dot = document.getElementById("sigmaFundLiveDot");
+  const controller = new AbortController();
+  const timeout = setTimeout(()=>controller.abort(), 6000);
+  try{
+    const res = await fetch(DATA.rpcUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        jsonrpc: "2.0", id: 1, method: "getTokenAccountsByOwner",
+        params: [ DATA.devWalletAddress, { mint: DATA.sigmaMint }, { encoding: "jsonParsed" } ]
+      })
+    });
+    const json = await res.json();
+    const accounts = (json && json.result && json.result.value) || [];
+    if(!accounts.length) throw new Error("no $SIGMA account");
+    const amount = accounts.reduce((sum, a) => sum + (Number(a.account.data.parsed.info.tokenAmount.uiAmount) || 0), 0);
+    el.textContent = fmt(amount) + " $SIGMA";
+    if(dot) dot.classList.add("on");
+  }catch(e){
+    el.textContent = "Unavailable";
+  }finally{
+    clearTimeout(timeout);
+  }
+}
+loadSigmaFundBalance();
+
+
 // The Godfather Burn Wallet address shown in The Oath section.
 const vaultWalletEl=document.getElementById("vaultWallet");
 if(vaultWalletEl){ vaultWalletEl.textContent=DATA.vaultWallet; }
@@ -2332,7 +2444,10 @@ const oathBurnedSum = (DATA.oathLog || []).reduce((sum, r) => sum + (Number(r.bu
 const familyBurnedSum = (DATA.burnLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const buybackBurnedSum = (DATA.buybackLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
 const tributeBurnedSum = (DATA.tributeLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum;
+const sigmaFundCfg = DATA.sigmaFund || {};
+const sigmaFundExecuted = sigmaFundCfg.executed || [];
+const sigmaFundBurnedSum = sigmaFundExecuted.reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum + sigmaFundBurnedSum;
 
 const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
 if(oathBurnedTotalEl){ oathBurnedTotalEl.textContent = fmt(oathBurnedSum); }
@@ -2342,6 +2457,39 @@ const buybackBurnedTotalEl = document.getElementById("buybackBurnedTotal");
 if(buybackBurnedTotalEl){ buybackBurnedTotalEl.textContent = fmt(buybackBurnedSum); }
 const tributeBurnedTotalEl = document.getElementById("tributeBurnedTotal");
 if(tributeBurnedTotalEl){ tributeBurnedTotalEl.textContent = fmt(tributeBurnedSum); }
+const sigmaFundBurnedTotalEl = document.getElementById("sigmaFundBurnedTotal");
+if(sigmaFundBurnedTotalEl){ sigmaFundBurnedTotalEl.textContent = fmt(sigmaFundBurnedSum); }
+
+// The SIGMA Fund panel: one row per $SIGMA market-cap step, driven by DATA.sigmaFund.
+(function renderSigmaFund(){
+  const body = document.getElementById("sigmaFundRows");
+  if(!body) return;
+  const step = Number(sigmaFundCfg.stepUsd) || 5000000;
+  const share = Number(sigmaFundCfg.sharePct) || 10;
+  const reached = Number(sigmaFundCfg.reachedMcap) || 0;
+  const maxExec = sigmaFundExecuted.reduce((m, r) => Math.max(m, Number(r.mcap) || 0), 0);
+  const rows = Math.max(Number(sigmaFundCfg.stepsShown) || 6, Math.round(maxExec / step) + 2);
+  const usd = v => "$" + (v >= 1e6 ? (v / 1e6) + "M" : fmt(v));
+  body.innerHTML = "";
+  for(let i = 1; i <= rows; i++){
+    const m = step * i;
+    const ex = sigmaFundExecuted.find(r => Number(r.mcap) === m);
+    const status = ex ? "Executed" : (m <= reached ? "Reached" : "Pending");
+    body.insertAdjacentHTML("beforeend", `<tr>
+      <td>${usd(m)}</td><td>${share}% of the Fund's $SIGMA</td><td class="sf-${status.toLowerCase()}">${status}</td>
+      <td>${ex ? fmt(ex.burned) : "—"}</td>
+      <td>${ex && ex.tx ? `<a href="${ex.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>` : "—"}</td>
+    </tr>`);
+  }
+  body.insertAdjacentHTML("beforeend", `<tr><td colspan="5" class="empty">…and every further ${usd(step)} after that.</td></tr>`);
+  const countEl = document.getElementById("sfExecutedCount");
+  if(countEl) countEl.textContent = fmt(sigmaFundExecuted.length);
+  const burnedEl = document.getElementById("sfBurnedTotal");
+  if(burnedEl) burnedEl.textContent = fmt(sigmaFundBurnedSum);
+  const nextEl = document.getElementById("sfNextStep");
+  if(nextEl) nextEl.textContent = usd(step * (Math.floor(Math.max(reached, maxExec) / step) + 1));
+})();
+
 const totalBurnedAllEl = document.getElementById("totalBurnedAll");
 if(totalBurnedAllEl){ totalBurnedAllEl.textContent = fmt(totalBurnedAllSum); }
 
