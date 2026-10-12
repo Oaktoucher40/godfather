@@ -1384,13 +1384,8 @@ details.compact td{
     <div class="offering-card">
       <div class="offering-head">
         <span class="dev-wallet-label">The Sunday Offering</span>
-        <p class="offering-copy">Every Sunday, the Family makes its offering. For every $SIGMA the Fund holds, one $GODFATHΣR is given to the fire — in honor of the token that carries the Family forward.</p>
+        <p class="offering-copy">Every Sunday, the Family makes its offering. For every $SIGMA the Fund holds, one $GODFATHΣR is given to the fire — an act of respect for $SIGMA, and in honor of the token that carries the Family forward.</p>
         <div class="offering-rule">1 $SIGMA in the Fund = 1 $GODFATHΣR burned. Every Sunday.</div>
-      </div>
-      <div class="offering-next">
-        <span class="dev-wallet-label">Next offering in</span>
-        <strong class="dev-wallet-number" id="offeringCountdown">—</strong>
-        <span class="supply-meta" id="offeringWhen"></span>
       </div>
     </div>
 
@@ -2547,7 +2542,7 @@ if(sigmaFundBurnedTotalEl){ sigmaFundBurnedTotalEl.textContent = fmt(sigmaFundBu
   if(nextEl) nextEl.textContent = usd(step * (Math.floor(Math.max(reached, maxExec) / step) + 1));
 })();
 
-// The Sunday Offering: ledger rows + a live countdown to the next Sunday.
+// The Sunday Offering: ledger rows.
 (function renderOffering(){
   const rows = document.getElementById("offeringRows");
   if(rows && offeringLog.length){
@@ -2557,44 +2552,6 @@ if(sigmaFundBurnedTotalEl){ sigmaFundBurnedTotalEl.textContent = fmt(sigmaFundBu
       <td>${r.tx ? `<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>` : "—"}</td>
     </tr>`));
   }
-  const cfg = DATA.offering || {};
-  const cd = document.getElementById("offeringCountdown");
-  const when = document.getElementById("offeringWhen");
-  if(!cd) return;
-  const tz = cfg.timeZone || "Europe/Budapest";
-  if(when) when.textContent = cfg.label || "";
-
-  // The UTC instant of a wall-clock time in the given time zone (handles daylight saving).
-  function zonedToUtc(y, m, d, hh, mi){
-    const guess = Date.UTC(y, m - 1, d, hh, mi);
-    const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, hour12: false,
-      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" })
-      .formatToParts(new Date(guess)).map(p => [p.type, p.value]));
-    const asUtc = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour % 24, +parts.minute, +parts.second);
-    return guess - (asUtc - guess);
-  }
-  function nextOffering(now){
-    const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "short",
-      year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now).map(x => [x.type, x.value]));
-    const dow = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(p.weekday);
-    const wd = Number(cfg.weekday) || 0, hh = Number(cfg.hour) || 0, mi = Number(cfg.minute) || 0;
-    let add = (wd - dow + 7) % 7;
-    for(let tries = 0; tries < 2; tries++){
-      const base = new Date(Date.UTC(+p.year, +p.month - 1, +p.day + add));
-      const t = zonedToUtc(base.getUTCFullYear(), base.getUTCMonth() + 1, base.getUTCDate(), hh, mi);
-      if(t > now.getTime()) return t;
-      add += 7;
-    }
-  }
-  function tick(){
-    const left = nextOffering(new Date()) - Date.now();
-    if(!(left > 0)){ cd.textContent = "—"; return; }
-    const s = Math.floor(left / 1000);
-    const d = Math.floor(s / 86400), hh = Math.floor((s % 86400) / 3600), mm = Math.floor((s % 3600) / 60), ss = s % 60;
-    cd.textContent = `${d}d ${String(hh).padStart(2, "0")}h ${String(mm).padStart(2, "0")}m ${String(ss).padStart(2, "0")}s`;
-  }
-  tick();
-  setInterval(tick, 1000);
 })();
 
 const totalBurnedAllEl = document.getElementById("totalBurnedAll");
