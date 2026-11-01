@@ -428,6 +428,18 @@ footer{padding:38px 0 48px;border-top:1px solid rgba(255,255,255,.05)}
   .numbers-art{ max-width:420px; margin:0 auto; }
   .numbers-stack .supply-ca code{ white-space:normal; word-break:break-all; overflow:visible; }
 }
+
+/* The Discipline Burn */
+.db-lead{ margin:0 0 14px; font-family:Fraunces,serif; font-size:clamp(1.3rem,2.6vw,1.8rem); color:var(--gold); line-height:1.3; }
+.db-copy{ max-width:720px; }
+.db-copy p{ margin:0 0 12px; color:#c0b4a2; line-height:1.65; }
+.db-formula{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:22px; }
+.db-tile{ border:1px solid var(--line); background:#070605; padding:14px 16px; }
+.db-k{ display:block; color:var(--muted); font-size:.74rem; text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.db-tile strong{ font-family:Fraunces,serif; font-size:1.25rem; color:var(--gold); }
+.db-note{ margin:14px 0 0; max-width:760px; color:#7f7568; font-size:.82rem; line-height:1.6; }
+.db-motto{ margin:18px 0 0; font-family:Fraunces,serif; color:var(--gold); font-size:1.05rem; line-height:1.5; }
+@media(max-width:700px){ .db-formula{ grid-template-columns:repeat(2,1fr); } }
 .cinematic-break{
   padding:18px 0 70px;
   background:#000;
@@ -1339,6 +1351,14 @@ details.compact td{
       </div>
       <div class="engine-card">
         <div class="engine-top">
+          <span class="engine-label">Mechanism #5</span>
+          <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
+        </div>
+        <h3>The Discipline Burn</h3>
+        <p>Every week, the Don's steps, active calories and sleep decide how much $GODFATHΣR is permanently burned.</p>
+      </div>
+      <div class="engine-card">
+        <div class="engine-top">
           <span class="engine-label">Voluntary</span>
           <span class="phase-pill active"><span class="phase-dot"></span>Active</span>
         </div>
@@ -1377,6 +1397,7 @@ details.compact td{
         <div class="burn-breakdown-row"><span>The Laundry</span><strong id="buybackBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>Protection Money</span><strong id="tributeBurnedTotal">0</strong></div>
         <div class="burn-breakdown-row"><span>SIGMA Fund</span><strong id="sigmaFundBurnedTotal">0</strong></div>
+        <div class="burn-breakdown-row"><span>Discipline Burn</span><strong id="disciplineBurnedTotal">0</strong></div>
       </div>
     </div>
 
@@ -1397,6 +1418,45 @@ details.compact td{
     </div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="section" id="discipline-burn">
+  <div class="shell">
+    <div class="eyebrow-row" style="margin-bottom:14px;">
+      <h2 class="sigma-fund-title">The Discipline Burn</h2>
+      <span class="phase-pill active"><span class="phase-dot"></span>Active — Mechanism #5</span>
+    </div>
+    <p class="db-lead">Discipline builds the man. The man builds his presence.</p>
+    <div class="db-copy">
+      <p>Charisma is more than appearance. It comes from self-respect, confidence, composure and the discipline to keep improving yourself.</p>
+      <p>A strong presence is built through daily choices. Training the body, maintaining your health, developing endurance, protecting your recovery and staying consistent even when motivation fades.</p>
+      <p>The Don believes that discipline begins with oneself. That is why he puts his own routine under the same standard he expects from the Family.</p>
+      <p>Through his smartwatch, daily steps, active calories and sleep performance are tracked throughout the week. At the end of each week, that effort determines the amount of $GODFATHΣR permanently burned.</p>
+      <p>The watch does not measure charisma. It measures part of the work behind it.</p>
+      <p>With this, I want to make the project more personal — and to work for it every single day. The burn happens every Sunday as the result of the week's work, alongside the Sunday Offering but separate from it. More work, more burn.</p>
+      <p>And the Don doesn't forget: every week since $GODFATHΣR launched will be burned retroactively, based on the data the watch recorded.</p>
+    </div>
+
+    <div class="db-formula">
+      <div class="db-tile"><span class="db-k">1 step</span><strong>1 $GODFATHΣR</strong></div>
+      <div class="db-tile"><span class="db-k">1 active calorie</span><strong>10 $GODFATHΣR</strong></div>
+      <div class="db-tile"><span class="db-k">Sleep score 85+</span><strong>× 1.5</strong></div>
+      <div class="db-tile"><span class="db-k">Sleep score 90+</span><strong>× 2</strong></div>
+    </div>
+    <p class="db-note">Weekly burn = (steps × 1 + active calories × 10) × sleep multiplier. Active calories are the calories the watch counts from movement, on top of resting metabolism — baseline calories don't count. Every Sunday the week's result is published here with the burn transaction, separately from the Sunday Offering. Past weeks since launch are burned retroactively. Data is self-reported from the watch; the burn is voluntary and may change or stop at any time.</p>
+    <p class="db-motto">Build the body. Master yourself. Earn your presence.<br>$GODFATHΣR builds Family.</p>
+
+    <details class="log gold" style="margin-top:22px;">
+      <summary>The Discipline Burn Ledger</summary>
+      <div class="log-sub">Weekly watch totals and the resulting on-chain burn</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Week</th><th>Steps</th><th>Active calories</th><th>Sleep score</th><th>Multiplier</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
+          <tbody id="disciplineRows"><tr><td colspan="7" class="empty">No entries yet — the first week appears here.</td></tr></tbody>
+        </table>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -1942,7 +2002,8 @@ const DATA = {
     // { date: "Month D, 2026", fundSigma: 0, burned: 0, tx: "https://orbmarkets.io/tx/..." }
     { date: "October 11, 2026", fundSigma: 174607, burned: 174607.76, tx: "https://orbmarkets.io/tx/32BE4oDkMeSrVxWikmmXAFnY8kLWRCdzGHfahySmjBLMd6JMh8mzRko66J5hiFZwjh1nG4kCboadcj7YEWDVx7tF" },
     { date: "October 18, 2026", fundSigma: 323587, burned: 323587.15, tx: "https://orbmarkets.io/tx/4XLF6rXjtG62LqTPRYb773dW7kA59ReGbePLEHttSSNU3AbV4YdUdMnGaGP9wkGR2FpEQRUP5QLth5Cv4ZdxAFn2" },
-    { date: "October 25, 2026", fundSigma: 405237, burned: 405237.87, tx: "https://orbmarkets.io/tx/4ssJqR4Eaxru1KN9qze2UcZP21S1nHdzhuiRdsEyBCvEqra574uqeXEuhVTPrTeeSXY9xnMdfRvNxoMB14DFYoac" }
+    { date: "October 25, 2026", fundSigma: 405237, burned: 405237.87, tx: "https://orbmarkets.io/tx/4ssJqR4Eaxru1KN9qze2UcZP21S1nHdzhuiRdsEyBCvEqra574uqeXEuhVTPrTeeSXY9xnMdfRvNxoMB14DFYoac" },
+    { date: "November 1, 2026", fundSigma: 585062, burned: 585062.29, tx: "https://orbmarkets.io/tx/3wkwZNuNEDGVDVLxkaGWhLh1fDFnwcohFYhwRee8RZbkoSiJnHtTweiTCeFDnA32TruKrQs2DbZoSYPYv5eF2CSp" }
   ],
   sigmaFund: {
     sharePct: 10,       // % of the Fund's $SIGMA swapped for $GODFATHΣR and burned at every step
@@ -2182,6 +2243,9 @@ const DATA = {
     { date: "October 6, 2026", wallet: "4ti2...gYuV", walletFull: "4ti2BgS2TUcMXTXPyJLYJHgaBnyVX4rRqwUc4eX8gYuV", sent: 500000, sigmaReward: 12700, tx: "https://orbmarkets.io/tx/2HS5Sk2cWjhTknwQ6hiqmWuMv5Uw3VES6dyhhPVeMUyTAKnAKWmaabfxGsKArXgjmLTXcZh1noLoxWGUQSR1NWgM" },
     { date: "October 6, 2026", wallet: "EBtQ...Qqds", walletFull: "EBtQ912uYYzzRs9BfWpoPNZPMGwSoALqZ9edbZsDQqds", sent: 500000, sigmaReward: 12700, tx: "https://orbmarkets.io/tx/2n9kCS6zCP2uYEqx8qHSUNyfMhbkZzcSkoKYN7rrYWmowUmNviuKQKEDK3KRznyaGrfQ213beYJKxMBhr7UjZuYm" }
   ], // each entry: { date, wallet, walletFull, sent, sigmaReward, tx } — the public, per-wallet Laundry ledger. "sent" is the gross $GODFATHΣR the wallet sent (max 1,000,000/day through Sept 26, 2026; max 500,000/day from Sept 27, 2026); "sigmaReward" is the $SIGMA actually paid back (120% of the value sent through Sept 26, 2026, then 115% from Sept 27, 2026 onward, at the time of the transfer); "tx" links the reward payout. The corresponding aggregate burn for each batch is tracked separately in buybackLog.
+  disciplineLog: [
+    // { week: "Oct 26 – Nov 1, 2026", steps: 0, activeCalories: 0, sleepScore: 0, multiplier: 1, burned: 0, tx: "https://orbmarkets.io/tx/..." }
+  ], // "The Discipline Burn": weekly burn = (steps × 1 + active calories × 10) × sleep multiplier (85+ = 1.5, 90+ = 2)
   tributeLog: [
     { date: "September 16, 2026", wallet: "Dev Wallet", burned: 6165125.675911, tx: "https://orbmarkets.io/tx/TXGjWyV6fceoEpAghtStpSNuxLnb7AQmL7mL9Q8M63cNsBvMscSgiQtLEE46sjTwDNos6nHiupwvfdR9T1fXJYL" }
   ], // each entry: { date, wallet, burned, tx } — "Protection Money": wallets that burn $GODFATHΣR entirely on their own initiative, with no cap, no formula and no reward attached — a pure tribute to the Godfather, logged here for transparency alongside the other three mechanisms.
@@ -2535,7 +2599,8 @@ const sigmaFundExecuted = sigmaFundCfg.executed || [];
 const offeringLog = DATA.offeringLog || [];
 const sigmaFundBurnedSum = sigmaFundExecuted.reduce((sum, r) => sum + (Number(r.burned) || 0), 0)
   + offeringLog.reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
-const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum + sigmaFundBurnedSum;
+const disciplineBurnedSum = (DATA.disciplineLog || []).reduce((sum, r) => sum + (Number(r.burned) || 0), 0);
+const totalBurnedAllSum = oathBurnedSum + familyBurnedSum + buybackBurnedSum + tributeBurnedSum + sigmaFundBurnedSum + disciplineBurnedSum;
 
 const oathBurnedTotalEl = document.getElementById("oathBurnedTotal");
 if(oathBurnedTotalEl){ oathBurnedTotalEl.textContent = fmt(oathBurnedSum); }
@@ -2543,6 +2608,8 @@ const familyBurnedTotalEl = document.getElementById("familyBurnedTotal");
 if(familyBurnedTotalEl){ familyBurnedTotalEl.textContent = fmt(familyBurnedSum); }
 const buybackBurnedTotalEl = document.getElementById("buybackBurnedTotal");
 if(buybackBurnedTotalEl){ buybackBurnedTotalEl.textContent = fmt(buybackBurnedSum); }
+const disciplineBurnedTotalEl = document.getElementById("disciplineBurnedTotal");
+if(disciplineBurnedTotalEl){ disciplineBurnedTotalEl.textContent = fmt(disciplineBurnedSum); }
 const tributeBurnedTotalEl = document.getElementById("tributeBurnedTotal");
 if(tributeBurnedTotalEl){ tributeBurnedTotalEl.textContent = fmt(tributeBurnedSum); }
 const sigmaFundBurnedTotalEl = document.getElementById("sigmaFundBurnedTotal");
@@ -2662,6 +2729,16 @@ if(DATA.burnLog.length){
     <td>+${fmt(r.delta)}</td><td>${fmt(r.burned)}</td>
     <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
   </tr>`));
+}
+if(DATA.disciplineLog && DATA.disciplineLog.length){
+  const body=document.getElementById("disciplineRows");
+  if(body){
+    body.innerHTML="";
+    DATA.disciplineLog.forEach(r=>body.insertAdjacentHTML("beforeend",`<tr>
+      <td>${r.week}</td><td>${fmt(r.steps)}</td><td>${fmt(r.activeCalories)}</td><td>${r.sleepScore}</td><td>×${r.multiplier}</td><td>${fmt(r.burned)}</td>
+      <td>${r.tx?`<a href="${r.tx}" target="_blank" rel="noopener noreferrer">View ↗</a>`:"—"}</td>
+    </tr>`));
+  }
 }
 if(DATA.tributeLog && DATA.tributeLog.length){
   const body=document.getElementById("tributeRows");
