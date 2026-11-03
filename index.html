@@ -1336,6 +1336,50 @@ footer{background:#0e0f11}
 .phase-pill.active{color:#9ad6ad;border-color:rgba(115,201,145,.4)}
 @media(max-width:600px){.mechanism-summary .phase-pill{font-size:.72rem;padding:6px 9px}.engine-top{gap:8px;flex-wrap:wrap}}
 </style>
+<style id="mechanism-cards-refresh">
+/* A restrained cinematic treatment for the mechanism overview. */
+.engines-section .engine-grid{gap:18px}
+.engines-section a.engine-card{
+  isolation:isolate;overflow:hidden;
+  background:linear-gradient(145deg,#1c1b19 0%,#151515 52%,#111214 100%);
+  border:1px solid rgba(202,174,117,.25);
+  box-shadow:0 8px 24px rgba(0,0,0,.20),inset 0 1px rgba(255,255,255,.035);
+  transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease;
+  animation:card-appear .5s backwards;
+}
+.engines-section a.engine-card::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
+  background:radial-gradient(ellipse at 20% 0%,rgba(206,170,103,.13),transparent 62%);
+  transition:opacity .28s ease;
+}
+.engines-section a.engine-card:hover,.engines-section a.engine-card:focus-visible{
+  transform:translateY(-4px);border-color:rgba(212,181,120,.65);
+  box-shadow:0 14px 30px rgba(0,0,0,.32),0 0 0 1px rgba(212,181,120,.08);
+}
+.engines-section a.engine-card:hover::before,.engines-section a.engine-card:focus-visible::before{opacity:1}
+.engines-section .engine-card h3{color:#dfc38d}
+.engines-section .engine-card p{color:#cbc4b8}
+.engines-section .engine-action{color:#dbc28f;border-top:1px solid rgba(202,174,117,.12);margin-top:auto;padding-top:15px}
+.engines-section .engine-card p{margin-bottom:20px}
+.engines-section .engine-action span{transition:transform .25s ease}
+.engines-section a.engine-card:hover .engine-action span,.engines-section a.engine-card:focus-visible .engine-action span{transform:translate(3px,-3px)}
+.engines-section a.engine-card:nth-child(2){animation-delay:.04s}
+.engines-section a.engine-card:nth-child(3){animation-delay:.08s}
+.engines-section a.engine-card:nth-child(4){animation-delay:.12s}
+.engines-section a.engine-card:nth-child(5){animation-delay:.16s}
+.engines-section a.engine-card:nth-child(6){animation-delay:.20s}
+@keyframes card-appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.engines-section a.engine-card{animation:none;transition:none}.engines-section a.engine-card:hover,.engines-section a.engine-card:focus-visible{transform:none}.engines-section a.engine-card::before,.engines-section .engine-action span{transition:none}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style id="approved-font-update">
+body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif}
+.brand,.footer-brand,h1,h2,h3,.hero-h1,.engine-card h3,.mechanism-name{font-family:Cinzel,Georgia,serif;font-weight:600;line-height:1.2}
+.engine-card h3,.mechanism-name{font-weight:500}
+.supply-number,.burn-breakdown-total,.burn-breakdown-row strong,.dev-wallet-number,.reserve-number,.vault-balance strong,.followers strong,.db-tile strong,.numbers-stack #devLockedAmount,th,td,.phase-pill,.engine-action,.navlinks,.navlinks .stonk,.top-copy,.btn,.copybtn{font-family:Manrope,Inter,system-ui,sans-serif}
+.supply-number,.burn-breakdown-total,.dev-wallet-number,.reserve-number{font-weight:600;font-variant-numeric:tabular-nums}
+.phase-pill,.engine-action,.btn,.top-copy{font-weight:600}
+</style>
 </head>
 <body>
 <header>
@@ -1524,13 +1568,14 @@ footer{background:#0e0f11}
     </div>
     <p class="db-lead">Discipline builds the man. The man builds his presence.</p>
     <div class="db-copy">
-      <p>Charisma is more than appearance. It comes from self-respect, confidence, composure and the discipline to keep improving yourself.</p>
-      <p>A strong presence is built through daily choices. Training the body, maintaining your health, developing endurance, protecting your recovery and staying consistent even when motivation fades.</p>
-      <p>The Don believes that discipline begins with oneself. That is why he puts his own routine under the same standard he expects from the Family.</p>
-      <p>Through his smartwatch, daily steps, active calories and sleep performance are tracked throughout the week. At the end of each week, that effort determines the amount of $GODFATHΣR permanently burned.</p>
-      <p>The watch does not measure charisma. It measures part of the work behind it.</p>
-      <p>With this, I want to make the project more personal — and to work for it every single day. The burn happens every Sunday as the result of the week's work, alongside the Sunday Offering but separate from it. More work, more burn.</p>
-      <p>And the Don doesn't forget: every week since $GODFATHΣR launched will be burned retroactively, based on the data the watch recorded.</p>
+      <p>Charisma is more than appearance. It grows from self-respect, composure, responsibility and the desire to improve every day.</p>
+      <p>We believe every man can be the $GODFATHER of his own life: someone who takes control, makes decisions, cares for his family and helps others when he can.</p>
+      <p>That presence is built through daily choices. Exercise and discipline strengthen both body and mind, developing endurance, self-control and resilience. By working on himself, a man becomes better equipped to face challenges, contribute to his community and pursue his goals.</p>
+      <p>The $GODFATHER developer puts his own work into the project. Using the smartwatch he wears at all times, he tracks his steps, active calories and sleep quality throughout the week. These results determine how much $GODFATHER is permanently burned.</p>
+      <p>Recovery matters as much as movement. The watch’s sleep score helps track it and reflects the effect of daily choices: late nights, too little sleep and evening alcohol can all reduce sleep quality and the score.</p>
+      <p>For the developer, this project is a personal commitment: every day is another opportunity to work on himself and on what we are building.</p>
+      <p>The burn takes place every Sunday, based on the week’s effort, alongside but separately from the Sunday Offering. More work, more burn.</p>
+      <p>And the Don doesn’t forget: every week since $GODFATHER launched will also be burned retroactively, based on data recorded by the watch he wears at all times.</p>
     </div>
 
     <div class="db-formula">
