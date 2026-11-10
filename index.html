@@ -1396,6 +1396,46 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 .phase-pill,.engine-action,.btn,.top-copy{font-weight:600}
 </style>
 <style id="banner-fit-update">.hero-banner{width:100%;height:auto;max-height:none;object-fit:contain}</style>
+
+<style id="sigma-refinery-styles">
+/* The Sigma Refinery — scoped to the new mechanism; existing mechanisms untouched. */
+.refinery-lead{max-width:830px;color:#c9c0b0;font-size:1rem;line-height:1.75;margin:0 0 20px}
+.refinery-lead strong,.refinery-note strong{color:#dfc38b}
+.refinery-rule-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}
+.refinery-rule{border:1px solid var(--line);border-radius:10px;padding:18px 16px;background:#141517;min-width:0}
+.refinery-rule-label{display:block;color:#aaa399;font-size:.72rem;text-transform:uppercase;letter-spacing:.09em;line-height:1.5}
+.refinery-rule-value{display:block;color:#e9d8b4;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:600;margin-top:7px;line-height:1.25}
+.refinery-rule-detail{display:block;color:#afa79a;font-size:.76rem;margin-top:5px;line-height:1.5}
+.refinery-pool{padding:24px;border:1px solid rgba(195,166,109,.42);border-radius:12px;background:linear-gradient(135deg,#1b1915,#111315 72%);margin:26px 0}
+.refinery-pool-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.refinery-pool .refinery-kicker{color:#cbb181;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:10px}
+.refinery-remaining{color:#f0dfb9;font-family:Fraunces,Georgia,serif;font-size:clamp(1.65rem,4vw,2.5rem);line-height:1.2;display:block}
+.refinery-pool-meta{color:#aca497;font-size:.82rem;line-height:1.6;margin-top:8px}
+.refinery-pool-stat{text-align:right;min-width:160px}
+.refinery-pool-stat strong{display:block;color:#e6d1a5;font-size:1.1rem}
+.refinery-progress-track{background:#34312a;height:11px;border-radius:99px;overflow:hidden;margin-top:20px;border:1px solid rgba(195,166,109,.25)}
+.refinery-progress-fill{height:100%;background:linear-gradient(90deg,#846c42,#c5a46d);width:0%;transition:width .4s ease}
+.refinery-progress-labels{display:flex;justify-content:space-between;gap:12px;color:#aca497;font-size:.75rem;margin-top:8px}
+.refinery-flow{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid var(--line);background:#111214;border-radius:10px;padding:20px;margin:18px 0 22px}
+.refinery-flow-step{flex:1;min-width:0;text-align:center}
+.refinery-flow-step strong{display:block;color:#dfc38b;font-size:1.05rem;margin-bottom:4px}
+.refinery-flow-step span{display:block;color:#b8b0a3;font-size:.8rem;line-height:1.45}
+.refinery-flow-arrow{color:#bfa068;flex:none;font-size:1.5rem}
+.refinery-note{max-width:960px;color:#bdb4a6;font-size:.87rem;line-height:1.75;margin:14px 0}
+.refinery-note.warning{padding:12px 15px;border-left:2px solid #c0a16c;background:rgba(195,166,109,.06)}
+.refinery-wallet{margin:22px 0;border-radius:10px}
+.refinery-ledger{margin-top:26px}
+.refinery-ledger .tablewrap{overflow-x:auto}
+.refinery-ledger table{min-width:850px}
+.refinery-ledger td{font-size:.82rem;vertical-align:middle}
+.refinery-ledger th{white-space:nowrap}
+.refinery-ledger .refinery-address{font-family:ui-monospace,Consolas,monospace;font-size:.76rem;white-space:nowrap}
+.refinery-ledger a{color:#dfc38b;text-decoration:underline;text-underline-offset:3px}
+.refinery-ledger .refinery-pending{color:#bcb1a0;font-size:.76rem}
+.refinery-ledger .refinery-completed{color:#9ad6ad;font-size:.76rem}
+@media(max-width:800px){.refinery-rule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.refinery-rule-grid{gap:9px}.refinery-rule{padding:14px}.refinery-flow{flex-direction:column;gap:10px}.refinery-flow-arrow{transform:rotate(90deg)}.refinery-flow-step{text-align:center}.refinery-pool{padding:18px}.refinery-pool-stat{text-align:left}.refinery-remaining{overflow-wrap:anywhere}}
+</style>
 </head>
 <body>
 <header>
@@ -1508,6 +1548,16 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
         <p>Every week, the Don's steps, active calories and sleep decide how much $GODFATHΣR is permanently burned.</p>
 <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
       </a>
+
+<a class="engine-card" href="#the-sigma-refinery" aria-controls="panel-the-sigma-refinery">
+  <div class="engine-top">
+    <span class="engine-label">Mechanism #6</span>
+    <span class="phase-pill active refinery-status"><span class="phase-dot"></span><span class="refinery-status-label">Active</span></span>
+  </div>
+  <h3>The Sigma Refinery</h3>
+  <p>Deposit $SIGMA, receive 125% of its USD value in $GODFATHΣR. Grow the Fund, fuel Sunday burns.</p>
+  <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
+</a>
       <a class="engine-card" href="#protection-money" aria-controls="panel-protection-money">
         <div class="engine-top">
           <span class="engine-label">Voluntary</span>
@@ -1719,6 +1769,75 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
   </div>
 </div>
 </details>
+</section>
+
+
+<!-- THE SIGMA REFINERY — separate from the older, paused Laundry -->
+<section class="section mechanism-section" id="the-sigma-refinery">
+  <details class="mechanism-panel" id="panel-the-sigma-refinery">
+    <summary class="mechanism-summary"><span class="mechanism-name">The Sigma Refinery</span><span class="phase-pill active refinery-status"><span class="phase-dot" aria-hidden="true"></span><span class="refinery-status-label">Active</span></span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
+    <div class="mechanism-content">
+      <div class="shell">
+        <p class="refinery-lead"><strong>Bring your $SIGMA. Receive 25% extra in $GODFATHΣR. Help grow the $SIGMA Fund.</strong> Send $SIGMA to the official dev wallet and receive $GODFATHΣR worth 125% of the deposited $SIGMA's USD value, calculated at the applicable exchange rates.</p>
+        <div class="refinery-rule-grid" aria-label="Sigma Refinery rules">
+          <div class="refinery-rule"><span class="refinery-rule-label">Minimum deposit</span><strong class="refinery-rule-value">$5</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Maximum deposit</span><strong class="refinery-rule-value">$30</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Conversion bonus</span><strong class="refinery-rule-value">+25%</strong><span class="refinery-rule-detail">Before the 3% transfer tax</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Participation</span><strong class="refinery-rule-value">1 × 24h</strong><span class="refinery-rule-detail">Once per wallet, rolling 24 hours</span></div>
+        </div>
+
+        <div class="refinery-flow" aria-label="Sigma Refinery conversion process">
+          <div class="refinery-flow-step"><strong>Deposit $SIGMA</strong><span>$5–$30 from your wallet</span></div>
+          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
+          <div class="refinery-flow-step"><strong>+25% bonus</strong><span>USD value × 1.25</span></div>
+          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
+          <div class="refinery-flow-step"><strong>Receive $GODFATHΣR</strong><span>3% transfer tax applies</span></div>
+        </div>
+        <p class="refinery-note">Examples before transfer tax: <strong>$5 in $SIGMA → $6.25 in $GODFATHΣR</strong> &nbsp;·&nbsp; <strong>$20 → $25</strong> &nbsp;·&nbsp; <strong>$30 → $37.50</strong>. After the standard 3% $GODFATHΣR transfer tax, the nominal bonus is approximately <strong>21.25%</strong>, assuming unchanged prices. Token prices, trading costs and liquidity can change realized value.</p>
+
+        <div class="refinery-pool" aria-label="Sigma Refinery allocation">
+          <div class="refinery-pool-top">
+            <div>
+              <span class="refinery-kicker">Refinery allocation · public ledger</span>
+              <strong class="refinery-remaining"><span id="refineryPoolRemaining">100,000,000</span> $GODFATHΣR</strong>
+              <div class="refinery-pool-meta">Remaining from the initial <strong>100,000,000 $GODFATHΣR</strong> allocation</div>
+            </div>
+            <div class="refinery-pool-stat">
+              <span class="refinery-kicker">Distributed (gross)</span>
+              <strong><span id="refineryPoolPaid">0</span> $GODFATHΣR</strong>
+              <span class="refinery-pool-meta"><span id="refineryCompletedCount">0</span> completed exchanges</span>
+            </div>
+          </div>
+          <div class="refinery-progress-track" id="refineryProgressTrack" role="progressbar" aria-label="Sigma Refinery allocation used" aria-valuemin="0" aria-valuemax="100000000" aria-valuenow="0"><div class="refinery-progress-fill" id="refineryProgressFill"></div></div>
+          <div class="refinery-progress-labels"><span><span id="refineryUsedPct">0%</span> distributed</span><span><span id="refineryRemainingPct">100%</span> remaining</span></div>
+          <p class="refinery-pool-meta">The available allocation is calculated from the $GODFATHΣR gross payouts published in the Refinery ledger below, not the dev wallet's total token balance. No global daily distribution cap. The Refinery pauses when the full allocation is exhausted.</p>
+        </div>
+
+        <div class="burnwallet-card refinery-wallet">
+          <span class="reserve-label">Official dev wallet — $SIGMA deposits only (Solana)</span>
+          <div class="burnwallet-row">
+            <code id="refineryDevWallet">ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn</code>
+            <button class="copybtn top-copy" type="button" data-copy="refineryDevWallet">Copy</button>
+          </div>
+          <p class="refinery-note warning">Only send $SIGMA on Solana. Verify the address before sending. Minimum $5, maximum $30 in $SIGMA per eligible deposit; the next eligible deposit is at least 24 hours after the previous one. Crypto transfers cannot be reversed. Published exchanges are verified and processed separately; sending tokens does not trigger an automatic on-chain payout.</p>
+        </div>
+
+        <p class="refinery-note"><strong>More $SIGMA in the Fund means larger Sunday burns.</strong> The dev wallet accumulates the deposited $SIGMA in the Family's Fund. Every Sunday, it burns as many $GODFATHΣR tokens as the number of $SIGMA tokens held in the Fund (e.g., 1,000,000 $SIGMA in the Fund → 1,000,000 $GODFATHΣR burned). Separately, the 3% $GODFATHΣR transfer fee buys $SIGMA and distributes it pro rata to $GODFATHΣR holders.</p>
+
+        <details class="log gold refinery-ledger" open>
+          <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
+          <div class="log-sub">Verified sender wallets, incoming $SIGMA, outgoing $GODFATHΣR and links to both on-chain transactions. Entries are published manually after review.</div>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>#</th><th>Date (UTC)</th><th>Sender wallet</th><th>$SIGMA received</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th><th>Status</th></tr></thead>
+              <tbody id="refineryRows"><tr><td colspan="8" class="empty">No verified Refinery exchanges have been published yet.</td></tr></tbody>
+            </table>
+          </div>
+        </details>
+        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
+      </div>
+    </div>
+  </details>
 </section>
 
 <section class="section mechanism-section" id="the-laundry">
@@ -2646,6 +2765,23 @@ const DATA = {
     { date: "September 16, 2026", wallet: "43 removed wallets", burned: 40264295, note: "On September 16, 2026, 43 wallets were removed from the public Sworn list after the Oath's closing review found they no longer held any $GODFATHΣR. Their burns already happened on-chain and are permanent, so the amount they burned (40,264,295 — the site's rounded display figures at time of review, not full original decimal precision) stays counted in the total below even though the wallets themselves no longer appear as active Sworn members." },
     { date: "September 20, 2026", wallet: "6 removed wallets", burned: 5953704.14, note: "On September 20, 2026, after the 48-hour grace period expired, 6 more wallets were removed from the public Sworn list for holding less than the required 2,200,000 $GODFATHΣR. Their burns already happened on-chain and are permanent, so the amount they burned stays counted in the total below even though the wallets themselves no longer appear as active Sworn members." }
   ],
+
+// The Sigma Refinery: a separate allocation from the older Laundry and the dev wallet's
+// general balance. Pool remaining = 100M - gross GODFATHER rewards sent in this ledger.
+refinery: { allocation: 100000000, minDepositUsd: 5, maxDepositUsd: 30, bonusPct: 25, transferFeePct: 3 },
+refineryLog: [
+  // Add ONE entry per real SIGMA deposit/reward pair, once the transactions have been checked.
+  // date is the UTC date of the deposit; wallet is the sender's FULL Solana address.
+  // sigmaReceived is the actual amount arriving at the dev wallet; godfatherSent is the
+  // GROSS amount sent out, before GODFATHER's 3% transfer tax.
+  // depositTx and rewardTx are the corresponding public explorer URLs.
+  // Example ONLY (do not remove the // or copy with invented values):
+  // { date: "2026-11-10", wallet: "FULL_SENDER_WALLET", sigmaReceived: 12345.6789,
+  //   godfatherSent: 765432.1, depositTx: "https://orbmarkets.io/tx/DEPOSIT_SIGNATURE",
+  //   rewardTx: "https://orbmarkets.io/tx/REWARD_SIGNATURE" },
+  // To record a deposit awaiting payout, leave godfatherSent: 0 and rewardTx: "".
+  // Only confirmed payouts with a rewardTx reduce the publicly available pool.
+],
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
   sigmaMint: "5SVG3T9CNQsm2kEwzbRq6hASqh1oGfjqTtLXYUibpump",
@@ -2991,6 +3127,98 @@ if(DATA.buybackLog.length){
     </tr>`));
   }
 }
+
+// SIGMA REFINERY: its own public ledger, independent of the paused Laundry.
+// Entries are added manually in DATA.refineryLog after checking the on-chain transactions.
+// We NEVER derive the 100M allocation from the dev wallet's balance, which is shared with
+// multiple mechanisms. Only confirmed and linked gross GODFATHER payouts reduce it.
+(function renderSigmaRefinery(){
+  const walletDisplay = document.getElementById("refineryDevWallet");
+  if(walletDisplay) walletDisplay.textContent = DATA.devWalletAddress;
+  const cfg = DATA.refinery || {};
+  const allocation = Number(cfg.allocation) || 100000000;
+  const entries = Array.isArray(DATA.refineryLog) ? DATA.refineryLog : [];
+  const body = document.getElementById("refineryRows");
+  if(!body) return;
+  const quantity = (n, decimals=6) => new Intl.NumberFormat("en-US", {maximumFractionDigits:decimals}).format(Number(n)||0);
+  const signatureUrl = value => {
+    if(typeof value !== "string") return "";
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" && ["orbmarkets.io", "solscan.io", "solana.fm", "explorer.solana.com"].includes(url.hostname)
+        && /\/tx\/[A-Za-z0-9]+/.test(url.pathname) ? url.href : "";
+    } catch(e){ return ""; }
+  };
+  const isCompleted = entry => Number(entry.godfatherSent)>0 && !!signatureUrl(entry.rewardTx);
+  const totalSent = entries.reduce((total, entry) => total + (isCompleted(entry) ? Number(entry.godfatherSent) : 0), 0);
+  const completed = entries.filter(isCompleted).length;
+  const remaining = Math.max(0, allocation-totalSent);
+  const usedPct = Math.min(100, Math.max(0, allocation ? (totalSent/allocation*100) : 0));
+  const showPct = pct => pct.toFixed(2).replace(/\.?0+$/,"") + "%";
+  const setValue = (id, v) => {const el=document.getElementById(id);if(el) el.textContent=v;};
+  setValue("refineryPoolRemaining", quantity(remaining, 2));
+  setValue("refineryPoolPaid", quantity(totalSent, 2));
+  setValue("refineryCompletedCount", quantity(completed, 0));
+  setValue("refineryLedgerCount", quantity(entries.length, 0));
+  setValue("refineryUsedPct", showPct(usedPct));
+  setValue("refineryRemainingPct", showPct(100-usedPct));
+  const fill = document.getElementById("refineryProgressFill");
+  if(fill) fill.style.width = usedPct + "%";
+  const progress = document.getElementById("refineryProgressTrack");
+  if(progress) progress.setAttribute("aria-valuenow", String(Math.min(allocation,totalSent)));
+  document.querySelectorAll(".refinery-status").forEach(pill=>{
+    const paused = remaining <= 0;
+    pill.classList.toggle("paused", paused);
+    pill.classList.toggle("active", !paused);
+    const text = pill.querySelector(".refinery-status-label");
+    if(text) text.textContent=paused ? "Paused" : "Active";
+  });
+  if(!entries.length) return; // Keep the honest empty-ledger placeholder until first verified entry.
+  body.textContent="";
+  const textCell=(tr,value,klass)=>{
+    const cell=document.createElement("td");
+    if(klass) cell.className=klass;
+    cell.textContent=String(value);
+    tr.appendChild(cell);
+    return cell;
+  };
+  const txCell=(tr,url)=>{
+    const cell=document.createElement("td");
+    const safe=signatureUrl(url);
+    if(safe){
+      const a=document.createElement("a");
+      a.href=safe;a.target="_blank";a.rel="noopener noreferrer";
+      a.textContent="View TX ↗";
+      cell.appendChild(a);
+    } else cell.textContent="—";
+    tr.appendChild(cell);
+  };
+  entries.forEach((entry,index)=>{
+    const tr=document.createElement("tr");
+    textCell(tr,index+1);
+    textCell(tr,entry.date||"—");
+    const fullWallet=String(entry.wallet||"");
+    const walletShort=fullWallet.length>15 ? fullWallet.slice(0,6)+"…"+fullWallet.slice(-6) : fullWallet;
+    const walletCell=document.createElement("td");
+    walletCell.className="refinery-address";
+    walletCell.title=fullWallet;
+    if(/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(fullWallet)){
+      const walletLink=document.createElement("a");
+      walletLink.href="https://solscan.io/account/"+fullWallet;
+      walletLink.target="_blank";walletLink.rel="noopener noreferrer";
+      walletLink.textContent=walletShort;walletLink.title=fullWallet;
+      walletCell.appendChild(walletLink);
+    }else walletCell.textContent=walletShort;
+    tr.appendChild(walletCell);
+    textCell(tr,quantity(entry.sigmaReceived,8));
+    textCell(tr,isCompleted(entry) ? quantity(entry.godfatherSent,6) : "—");
+    txCell(tr,entry.depositTx);
+    txCell(tr,entry.rewardTx);
+    textCell(tr,isCompleted(entry)?"Completed":"Pending",isCompleted(entry)?"refinery-completed":"refinery-pending");
+    body.appendChild(tr);
+  });
+})();
+
 if(DATA.laundryLog && DATA.laundryLog.length){
   const body=document.getElementById("laundryRows");
   if(body){
