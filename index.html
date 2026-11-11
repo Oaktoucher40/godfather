@@ -1782,7 +1782,7 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 
         <details class="log gold refinery-ledger" open>
           <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
-          <div class="log-sub">Verified sender wallets, incoming $SIGMA, outgoing $GODFATHΣR and links to both on-chain transactions. Entries are published manually after review.</div>
+          <div class="log-sub">Public record of sender wallets, received $SIGMA and reported $GODFATHΣR payouts with links to both transactions. Published manually; payout links are supplied by the developer.</div>
           <div class="tablewrap">
             <table>
               <thead><tr><th>#</th><th>Date (UTC)</th><th>Sender wallet</th><th>$SIGMA received</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th><th>Status</th></tr></thead>
@@ -1790,7 +1790,7 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
             </table>
           </div>
         </details>
-        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
+        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links; reward amounts are recorded as reported by the developer. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
       </div>
     </div>
   </details>
@@ -2851,17 +2851,23 @@ const DATA = {
 // general balance. Pool remaining = 100M - gross GODFATHER rewards sent in this ledger.
 refinery: { allocation: 100000000, minDepositUsd: 5, maxDepositUsd: 30, bonusPct: 25, transferFeePct: 3 },
 refineryLog: [
-  // Add ONE entry per real SIGMA deposit/reward pair, once the transactions have been checked.
-  // date is the UTC date of the deposit; wallet is the sender's FULL Solana address.
-  // sigmaReceived is the actual amount arriving at the dev wallet; godfatherSent is the
-  // GROSS amount sent out, before GODFATHER's 3% transfer tax.
-  // depositTx and rewardTx are the corresponding public explorer URLs.
-  // Example ONLY (do not remove the // or copy with invented values):
-  // { date: "2026-11-10", wallet: "FULL_SENDER_WALLET", sigmaReceived: 12345.6789,
-  //   godfatherSent: 765432.1, depositTx: "https://orbmarkets.io/tx/DEPOSIT_SIGNATURE",
-  //   rewardTx: "https://orbmarkets.io/tx/REWARD_SIGNATURE" },
-  // To record a deposit awaiting payout, leave godfatherSent: 0 and rewardTx: "".
-  // Only confirmed payouts with a rewardTx reduce the publicly available pool.
+  // Nov 11, 2026: four user-reported completed exchanges.
+  // SIGMA amounts and sender wallets were checked in the user's Work session.
+  // Reward TX signatures and gross quantities are supplied/reported by the user;
+  // the outgoing transactions have not been independently verified in this session.
+  // The reward signatures are paired to deposits in the order supplied by the user.
+  { date: "2026-11-11", wallet: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", sigmaReceived: 28000, depositUsdReported: 30, godfatherSent: 1431844,
+    depositTx: "https://orbmarkets.io/tx/4epTDdETWEyFpqGG13epq7N45JK2rFQLbjpDk2jGRK31uZh6Mcs6Zf38hBmB19ZWmHivHNjBnsqjrJ32Ny9A9CKU",
+    rewardTx: "https://orbmarkets.io/tx/4hoyYWtyPd9pYUW45TaMKmhQ2TkcLngExP4i7aggDQAHaUjsT6Y5eXeLeFkzxnnwiXw6LujZxkWGZp8GfRzUmAtA", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-11", wallet: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", sigmaReceived: 28000, depositUsdReported: 30, godfatherSent: 1431844,
+    depositTx: "https://orbmarkets.io/tx/2AUVLJYxHzHX7TZ6gxUm4uoA5GP9UmXUEVHJxC6vqSAWr5KucHi8GbvwR8xm2CkuUZEuG9rpeg69iubuTTTZBBZ9",
+    rewardTx: "https://orbmarkets.io/tx/2Ru5eMiveX6vSYK6KtZu1i7YN1wMv14Piiwn6pC2mAKeW8AdsAqYvYMC3MCTq7DkWCCoGxgk4R4SSXX2ULr2dTbW", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-11", wallet: "5uWvTqxLun3DFDKdN6aRMb4FiecUFpUZGrm8mbSnr7J6", sigmaReceived: 28000, depositUsdReported: 30, godfatherSent: 1431844,
+    depositTx: "https://orbmarkets.io/tx/459tpXXqbPHr5Dx6NnWspt4J28CirNSbnhNdpN9RqjrKT75ECnM2YP35r3psVweCVMA2h2KSfD3WLzfozBGoU8CN",
+    rewardTx: "https://orbmarkets.io/tx/QiuKCLc1yz91XDEDrbChmbL6iP17WbiRDFkqa1xHPaTwHfeXVYpeiATFmAhDNZa215ddr69J7r87DdCo2hZFAL9", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-11", wallet: "8RMVxXLfavcvQE1Y74CC3aUJGS1gzDC8DiJTBkJ7mdrt", sigmaReceived: 24856.244645, depositUsdReported: 28, godfatherSent: 1336388,
+    depositTx: "https://orbmarkets.io/tx/4LHJSBMZt3yRGWojXkRmJKeKS7rdYN1DpqCp3vRkgiwMbea5ffwsgMr7fdA2jUJtryJS6ZhioEzMb4E2Knmq4uRE",
+    rewardTx: "https://orbmarkets.io/tx/3WD9Gm5Z4cFJnGPZJjwQTH8HcuXz1Es8KzuFjnMzEeM6hGgzeoi1ve4P9KiZ1y9pcmhbiWUuExKVSCmnrd1LcPbD", payoutBasis: "User-reported transfer" },
 ],
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
@@ -3212,7 +3218,7 @@ if(DATA.buybackLog.length){
 // SIGMA REFINERY: its own public ledger, independent of the paused Laundry.
 // Entries are added manually in DATA.refineryLog after checking the on-chain transactions.
 // We NEVER derive the 100M allocation from the dev wallet's balance, which is shared with
-// multiple mechanisms. Only confirmed and linked gross GODFATHER payouts reduce it.
+// multiple mechanisms. Only publicly linked, developer-reported gross GODFATHER payouts reduce it.
 (function renderSigmaRefinery(){
   const walletDisplay = document.getElementById("refineryDevWallet");
   if(walletDisplay) walletDisplay.textContent = DATA.devWalletAddress;
@@ -3295,7 +3301,7 @@ if(DATA.buybackLog.length){
     textCell(tr,isCompleted(entry) ? quantity(entry.godfatherSent,6) : "—");
     txCell(tr,entry.depositTx);
     txCell(tr,entry.rewardTx);
-    textCell(tr,isCompleted(entry)?"Completed":"Pending",isCompleted(entry)?"refinery-completed":"refinery-pending");
+    textCell(tr,isCompleted(entry) ? (entry.payoutBasis === "User-reported transfer" ? "Paid (reported)" : "Completed") : "Pending",isCompleted(entry)?"refinery-completed":"refinery-pending");
     body.appendChild(tr);
   });
 })();
@@ -3465,8 +3471,9 @@ loadSwornBalances();
 </script>
 <audio id="bgm" src="theme.mp3" loop preload="auto"></audio>
 <script>
-// Background music. Browsers block audible autoplay until the visitor interacts with the page, so we
-// try to start immediately and, if blocked, start on the very first click / key press / tap.
+// Background music: the existing track should begin on the visitor's first interaction.
+// Browser autoplay rules require a user gesture; an old saved mute preference should not
+// silently disable the first-click behavior on every subsequent visit.
 (function(){
   const audio = document.getElementById("bgm");
   const btn = document.getElementById("muteBtn");
@@ -3474,37 +3481,54 @@ loadSwornBalances();
   const icoOn = document.getElementById("icoSoundOn");
   const icoOff = document.getElementById("icoSoundOff");
   audio.volume = 0.35;
-  let muted = false;
-  try{ muted = localStorage.getItem("bgmMuted") === "1"; }catch(e){}
+  let muted = false; // Mute/unmute applies to this page view, not future visits.
+  let trying = false;
+  const unlockEvents = ["pointerdown", "touchstart", "click", "keydown"];
 
   function render(){
-    icoOn.style.display = muted ? "none" : "";
-    icoOff.style.display = muted ? "" : "none";
+    if(icoOn) icoOn.style.display = muted ? "none" : "";
+    if(icoOff) icoOff.style.display = muted ? "" : "none";
     btn.setAttribute("aria-label", muted ? "Unmute music" : "Mute music");
+    btn.setAttribute("aria-pressed", String(muted));
+  }
+  function removeUnlock(){
+    unlockEvents.forEach(ev => document.removeEventListener(ev, onUnlock, true));
   }
   function start(){
-    if(muted) return;
-    const p = audio.play();
-    if(p && p.then){ p.then(removeUnlock).catch(()=>{}); }
+    if(muted || trying || !audio.paused) return;
+    trying = true;
+    try{
+      const result = audio.play();
+      if(result && typeof result.then === "function"){
+        result.then(() => { trying = false; removeUnlock(); })
+          .catch(err => { trying = false; console.warn("Background music could not start:", err); });
+      }else{
+        trying = false;
+        if(!audio.paused) removeUnlock();
+      }
+    }catch(err){ trying = false; console.warn("Background music could not start:", err); }
   }
-  const unlockEvents = ["click","keydown","touchend","pointerup"];
-  function onUnlock(e){
-    if(btn.contains(e.target)) return; // a click on the speaker itself only toggles mute
+  function onUnlock(event){
+    if(btn.contains(event.target)) return;
     start();
   }
-  function removeUnlock(){ unlockEvents.forEach(ev => document.removeEventListener(ev, onUnlock, true)); }
   unlockEvents.forEach(ev => document.addEventListener(ev, onUnlock, true));
-
-  btn.addEventListener("click", function(){
-    muted = !muted;
-    try{ localStorage.setItem("bgmMuted", muted ? "1" : "0"); }catch(e){}
-    if(muted){ audio.pause(); }
-    else{ audio.play().catch(()=>{}); }
+  audio.addEventListener("playing", removeUnlock);
+  audio.addEventListener("error", function(){
+    console.warn("Background track unavailable. Check that theme.mp3 exists beside index.html.");
+    btn.title = "Background music file unavailable: theme.mp3";
+  });
+  btn.addEventListener("click", function(event){
+    event.stopPropagation();
+    // The first click on the speaker should start music, not mute silence.
+    if(muted){ muted = false; start(); }
+    else if(audio.paused){ start(); }
+    else { muted = true; audio.pause(); }
     render();
   });
-
   render();
-  start(); // works if the browser allows autoplay; otherwise the first interaction above starts it
+  // If autoplay is permitted, play immediately. Otherwise start on the first click/tap.
+  start();
 })();
 </script>
 <script>
