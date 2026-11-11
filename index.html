@@ -1436,6 +1436,93 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 @media(max-width:800px){.refinery-rule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.refinery-rule-grid{gap:9px}.refinery-rule{padding:14px}.refinery-flow{flex-direction:column;gap:10px}.refinery-flow-arrow{transform:rotate(90deg)}.refinery-flow-step{text-align:center}.refinery-pool{padding:18px}.refinery-pool-stat{text-align:left}.refinery-remaining{overflow-wrap:anywhere}}
 </style>
+<style id="november-layout-refinement">
+/* November 2026 — overview, Numbers and mechanism ordering refinement */
+.engines-section .engine-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.engines-section .engine-card {
+  flex: 0 1 calc((100% - 48px) / 4);
+  min-width: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.engines-section .engine-card--inactive {
+  filter: grayscale(1);
+  background: linear-gradient(145deg, #171717, #0d0d0d) !important;
+  border-color: rgba(200,200,200,.22) !important;
+}
+.engines-section .engine-card--inactive h3 { color: #d1d1d1; }
+.engines-section .engine-card--inactive p { color: #a6a6a6; }
+.engines-section .engine-card--inactive .engine-action {
+  color: #c4c4c4;
+  border-top-color: rgba(210,210,210,.13);
+}
+.engines-section .engine-card--inactive .phase-pill {
+  color: #b8b8b8;
+  border-color: rgba(178,178,178,.36);
+}
+.engines-section .engine-card--inactive .phase-dot {
+  background: #999;
+  box-shadow: none;
+}
+@media (max-width: 980px) {
+  .engines-section .engine-card { flex-basis: calc((100% - 16px) / 2); }
+}
+@media (max-width: 590px) {
+  .engines-section .engine-grid { gap: 12px; }
+  .engines-section .engine-card { flex-basis: 100%; }
+}
+
+/* Artwork retains its intrinsic 1:1 composition — no top/bottom letterboxing. */
+.numbers-layout { align-items: start; }
+.numbers-art { align-self: start; }
+.numbers-art img { display:block; width:100%; height:auto; aspect-ratio:1 / 1; object-fit:contain; }
+@media (max-width: 860px) {
+  .numbers-art { width: min(100%, 420px); max-width: 420px; aspect-ratio: 1 / 1; }
+  .numbers-art img { width: 100%; height: 100%; }
+}
+@media (min-width: 861px) {
+  .numbers-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; }
+  .numbers-stack { gap: 8px; }
+  .numbers-stack .supply-card { padding: 12px 14px; }
+  .numbers-stack .supply-card-layout { grid-template-columns:minmax(0,1fr) minmax(120px,140px); gap: 10px; }
+  .numbers-stack .supply-label { font-size: .69rem; margin-bottom: 3px; }
+  .numbers-stack .supply-number { font-size: clamp(1.35rem, 2.15vw, 1.95rem); }
+  .numbers-stack .supply-ca { margin: 5px 0 0; gap: 6px; }
+  .numbers-stack .supply-ca code { font-size: .62rem; }
+  .numbers-stack .supply-ca .copybtn { padding: 4px 9px; font-size:.67rem; }
+  .numbers-stack .supply-meta { margin-top: 4px; font-size: .65rem; line-height:1.4; }
+  .numbers-stack .supply-chart { gap: 5px; }
+  .numbers-stack .supply-donut { width: 90px; }
+  .numbers-stack .supply-donut-center { width: 56px; }
+  .numbers-stack .supply-donut-center strong { font-size: .78rem; }
+  .numbers-stack .supply-donut-center span { font-size: .47rem; }
+  .numbers-stack .supply-chart-legend { gap: 2px; font-size:.59rem; }
+  .numbers-stack .supply-chart-note { font-size:.55rem; }
+  .numbers-stack .burn-breakdown { padding: 10px 14px; }
+  .numbers-stack .burn-breakdown-head { font-size: .7rem; }
+  .numbers-stack .burn-breakdown-total { font-size:1.38rem; margin-bottom:5px; }
+  .numbers-stack .burn-breakdown-rows { grid-template-columns:repeat(3,minmax(0,1fr)); gap: 5px; }
+  .numbers-stack .burn-breakdown-row { padding: 5px 7px; }
+  .numbers-stack .burn-breakdown-row span { font-size: .61rem; }
+  .numbers-stack .burn-breakdown-row strong { font-size: .77rem; }
+  .numbers-stack .burnwallet-card { padding: 10px 14px; }
+  .numbers-stack .reserve-label { font-size: .68rem; }
+  .numbers-stack .burnwallet-row { gap: 5px; }
+  .numbers-stack #devLockedAmount { font-size: 1.1rem; }
+  .numbers-stack .burnwallet-row .top-copy { padding: 5px 8px; font-size:.64rem; }
+  .numbers-stack .dev-wallet-note { margin-top:5px; font-size:.67rem; line-height:1.35; }
+}
+</style>
 </head>
 <body>
 <header>
@@ -1503,15 +1590,6 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 <section class="section engines-section">
   <div class="shell">
     <div class="engine-grid">
-      <a class="engine-card" href="#the-oath" aria-controls="panel-the-oath">
-        <div class="engine-top">
-          <span class="engine-label">Mechanism #1</span>
-          <span class="phase-pill closed"><span class="phase-dot"></span>Closed</span>
-        </div>
-        <h3>The Oath</h3>
-        <p>Burn early, get doubled back — commitment that pays for itself.</p>
-<span class="engine-action">View details <span aria-hidden="true">↗</span></span>
-      </a>
       <a class="engine-card" href="#the-recruitment" aria-controls="panel-the-recruitment">
         <div class="engine-top">
           <span class="engine-label">Mechanism #2</span>
@@ -1519,15 +1597,6 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
         </div>
         <h3>The Recruitment — Family Burn</h3>
         <p>Every new follower ATH burns $GODFATHΣR — growth that shrinks the supply.</p>
-<span class="engine-action">View details <span aria-hidden="true">↗</span></span>
-      </a>
-      <a class="engine-card" href="#the-laundry" aria-controls="panel-the-laundry">
-        <div class="engine-top">
-          <span class="engine-label">Mechanism #3</span>
-          <span class="phase-pill paused"><span class="phase-dot"></span>Paused</span>
-        </div>
-        <h3>The Laundry — Burn &amp; Reward</h3>
-        <p>Paused. Restarts when the $SIGMA market cap reaches $5M.</p>
 <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
       </a>
       <a class="engine-card" href="#sigma-fund" aria-controls="panel-sigma-fund">
@@ -1548,8 +1617,7 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
         <p>Every week, the Don's steps, active calories and sleep decide how much $GODFATHΣR is permanently burned.</p>
 <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
       </a>
-
-<a class="engine-card" href="#the-sigma-refinery" aria-controls="panel-the-sigma-refinery">
+      <a class="engine-card" href="#the-sigma-refinery" aria-controls="panel-the-sigma-refinery">
   <div class="engine-top">
     <span class="engine-label">Mechanism #6</span>
     <span class="phase-pill active refinery-status"><span class="phase-dot"></span><span class="refinery-status-label">Active</span></span>
@@ -1558,6 +1626,15 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
   <p>Deposit $SIGMA, receive 125% of its USD value in $GODFATHΣR. Grow the Fund, fuel Sunday burns.</p>
   <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
 </a>
+      <a class="engine-card engine-card--inactive" href="#the-laundry" aria-controls="panel-the-laundry">
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #3</span>
+          <span class="phase-pill paused"><span class="phase-dot"></span>Paused</span>
+        </div>
+        <h3>The Laundry — Burn &amp; Reward</h3>
+        <p>Paused. Restarts when the $SIGMA market cap reaches $5M.</p>
+<span class="engine-action">View details <span aria-hidden="true">↗</span></span>
+      </a>
       <a class="engine-card" href="#protection-money" aria-controls="panel-protection-money">
         <div class="engine-top">
           <span class="engine-label">Voluntary</span>
@@ -1565,6 +1642,15 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
         </div>
         <h3>Protection Money</h3>
         <p>No cap, no formula, no reward — just tribute, offered to the Godfather on the house.</p>
+<span class="engine-action">View details <span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="engine-card engine-card--inactive" href="#the-oath" aria-controls="panel-the-oath">
+        <div class="engine-top">
+          <span class="engine-label">Mechanism #1</span>
+          <span class="phase-pill closed"><span class="phase-dot"></span>Closed</span>
+        </div>
+        <h3>The Oath</h3>
+        <p>Burn early, get doubled back — commitment that pays for itself.</p>
 <span class="engine-action">View details <span aria-hidden="true">↗</span></span>
       </a>
     </div>
@@ -1583,7 +1669,7 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
       <article class="supply-card">
         <div class="supply-card-layout">
         <div class="supply-card-info">
-        <span class="supply-label">$GODFATHER remaining supply</span>
+        <span class="supply-label">$GODFATHΣR circulating supply</span>
         <strong class="supply-number"><span id="godfatherRemainingSupply">Loading…</span><span class="live-dot" id="gfLiveDot" title="Live on-chain data"></span></strong>
         <div class="supply-ca">
           <code id="godfatherSupplyCA">Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m</code>
@@ -1598,7 +1684,7 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
           <ul class="supply-chart-legend">
             <li><i style="background:#b77a43"></i>Burned <strong id="chartBurned">—</strong></li>
             <li><i style="background:#d9b56d"></i>Locked forever <strong id="chartLocked">—</strong></li>
-            <li><i style="background:#51565a"></i>Other supply <strong id="chartOther">—</strong></li>
+            <li><i style="background:#51565a"></i>Circulating <strong id="chartOther">—</strong></li>
           </ul>
           <p class="supply-chart-note" id="supplyChartNote">Share of original supply</p>
         </div>
@@ -1640,6 +1726,74 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
       </div>
     </div>
   </div>
+</section>
+
+<!-- THE SIGMA REFINERY — separate from the older, paused Laundry -->
+<section class="section mechanism-section" id="the-sigma-refinery">
+  <details class="mechanism-panel" id="panel-the-sigma-refinery">
+    <summary class="mechanism-summary"><span class="mechanism-name">The Sigma Refinery</span><span class="phase-pill active refinery-status"><span class="phase-dot" aria-hidden="true"></span><span class="refinery-status-label">Active</span></span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
+    <div class="mechanism-content">
+      <div class="shell">
+        <p class="refinery-lead"><strong>Bring your $SIGMA. Receive 25% extra in $GODFATHΣR. Help grow the $SIGMA Fund.</strong> Send $SIGMA to the official dev wallet and receive $GODFATHΣR worth 125% of the deposited $SIGMA's USD value, calculated at the applicable exchange rates.</p>
+        <div class="refinery-rule-grid" aria-label="Sigma Refinery rules">
+          <div class="refinery-rule"><span class="refinery-rule-label">Minimum deposit</span><strong class="refinery-rule-value">$5</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Maximum deposit</span><strong class="refinery-rule-value">$30</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Conversion bonus</span><strong class="refinery-rule-value">+25%</strong><span class="refinery-rule-detail">Before the 3% transfer tax</span></div>
+          <div class="refinery-rule"><span class="refinery-rule-label">Participation</span><strong class="refinery-rule-value">1 × 24h</strong><span class="refinery-rule-detail">Once per wallet, rolling 24 hours</span></div>
+        </div>
+
+        <div class="refinery-flow" aria-label="Sigma Refinery conversion process">
+          <div class="refinery-flow-step"><strong>Deposit $SIGMA</strong><span>$5–$30 from your wallet</span></div>
+          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
+          <div class="refinery-flow-step"><strong>+25% bonus</strong><span>USD value × 1.25</span></div>
+          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
+          <div class="refinery-flow-step"><strong>Receive $GODFATHΣR</strong><span>3% transfer tax applies</span></div>
+        </div>
+        <p class="refinery-note">Examples before transfer tax: <strong>$5 in $SIGMA → $6.25 in $GODFATHΣR</strong> &nbsp;·&nbsp; <strong>$20 → $25</strong> &nbsp;·&nbsp; <strong>$30 → $37.50</strong>. After the standard 3% $GODFATHΣR transfer tax, the nominal bonus is approximately <strong>21.25%</strong>, assuming unchanged prices. Token prices, trading costs and liquidity can change realized value.</p>
+
+        <div class="refinery-pool" aria-label="Sigma Refinery allocation">
+          <div class="refinery-pool-top">
+            <div>
+              <span class="refinery-kicker">Refinery allocation · public ledger</span>
+              <strong class="refinery-remaining"><span id="refineryPoolRemaining">100,000,000</span> $GODFATHΣR</strong>
+              <div class="refinery-pool-meta">Remaining from the initial <strong>100,000,000 $GODFATHΣR</strong> allocation</div>
+            </div>
+            <div class="refinery-pool-stat">
+              <span class="refinery-kicker">Distributed (gross)</span>
+              <strong><span id="refineryPoolPaid">0</span> $GODFATHΣR</strong>
+              <span class="refinery-pool-meta"><span id="refineryCompletedCount">0</span> completed exchanges</span>
+            </div>
+          </div>
+          <div class="refinery-progress-track" id="refineryProgressTrack" role="progressbar" aria-label="Sigma Refinery allocation used" aria-valuemin="0" aria-valuemax="100000000" aria-valuenow="0"><div class="refinery-progress-fill" id="refineryProgressFill"></div></div>
+          <div class="refinery-progress-labels"><span><span id="refineryUsedPct">0%</span> distributed</span><span><span id="refineryRemainingPct">100%</span> remaining</span></div>
+          <p class="refinery-pool-meta">The available allocation is calculated from the $GODFATHΣR gross payouts published in the Refinery ledger below, not the dev wallet's total token balance. No global daily distribution cap. The Refinery pauses when the full allocation is exhausted.</p>
+        </div>
+
+        <div class="burnwallet-card refinery-wallet">
+          <span class="reserve-label">Official dev wallet — $SIGMA deposits only (Solana)</span>
+          <div class="burnwallet-row">
+            <code id="refineryDevWallet">ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn</code>
+            <button class="copybtn top-copy" type="button" data-copy="refineryDevWallet">Copy</button>
+          </div>
+          <p class="refinery-note warning">Only send $SIGMA on Solana. Verify the address before sending. Minimum $5, maximum $30 in $SIGMA per eligible deposit; the next eligible deposit is at least 24 hours after the previous one. Crypto transfers cannot be reversed. Published exchanges are verified and processed separately; sending tokens does not trigger an automatic on-chain payout.</p>
+        </div>
+
+        <p class="refinery-note"><strong>More $SIGMA in the Fund means larger Sunday burns.</strong> The dev wallet accumulates the deposited $SIGMA in the Family's Fund. Every Sunday, it burns as many $GODFATHΣR tokens as the number of $SIGMA tokens held in the Fund (e.g., 1,000,000 $SIGMA in the Fund → 1,000,000 $GODFATHΣR burned). Separately, the 3% $GODFATHΣR transfer fee buys $SIGMA and distributes it pro rata to $GODFATHΣR holders.</p>
+
+        <details class="log gold refinery-ledger" open>
+          <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
+          <div class="log-sub">Verified sender wallets, incoming $SIGMA, outgoing $GODFATHΣR and links to both on-chain transactions. Entries are published manually after review.</div>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>#</th><th>Date (UTC)</th><th>Sender wallet</th><th>$SIGMA received</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th><th>Status</th></tr></thead>
+              <tbody id="refineryRows"><tr><td colspan="8" class="empty">No verified Refinery exchanges have been published yet.</td></tr></tbody>
+            </table>
+          </div>
+        </details>
+        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
+      </div>
+    </div>
+  </details>
 </section>
 
 <section class="section mechanism-section" id="discipline-burn">
@@ -1771,73 +1925,31 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 </details>
 </section>
 
-
-<!-- THE SIGMA REFINERY — separate from the older, paused Laundry -->
-<section class="section mechanism-section" id="the-sigma-refinery">
-  <details class="mechanism-panel" id="panel-the-sigma-refinery">
-    <summary class="mechanism-summary"><span class="mechanism-name">The Sigma Refinery</span><span class="phase-pill active refinery-status"><span class="phase-dot" aria-hidden="true"></span><span class="refinery-status-label">Active</span></span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
-    <div class="mechanism-content">
-      <div class="shell">
-        <p class="refinery-lead"><strong>Bring your $SIGMA. Receive 25% extra in $GODFATHΣR. Help grow the $SIGMA Fund.</strong> Send $SIGMA to the official dev wallet and receive $GODFATHΣR worth 125% of the deposited $SIGMA's USD value, calculated at the applicable exchange rates.</p>
-        <div class="refinery-rule-grid" aria-label="Sigma Refinery rules">
-          <div class="refinery-rule"><span class="refinery-rule-label">Minimum deposit</span><strong class="refinery-rule-value">$5</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
-          <div class="refinery-rule"><span class="refinery-rule-label">Maximum deposit</span><strong class="refinery-rule-value">$30</strong><span class="refinery-rule-detail">USD value in $SIGMA</span></div>
-          <div class="refinery-rule"><span class="refinery-rule-label">Conversion bonus</span><strong class="refinery-rule-value">+25%</strong><span class="refinery-rule-detail">Before the 3% transfer tax</span></div>
-          <div class="refinery-rule"><span class="refinery-rule-label">Participation</span><strong class="refinery-rule-value">1 × 24h</strong><span class="refinery-rule-detail">Once per wallet, rolling 24 hours</span></div>
-        </div>
-
-        <div class="refinery-flow" aria-label="Sigma Refinery conversion process">
-          <div class="refinery-flow-step"><strong>Deposit $SIGMA</strong><span>$5–$30 from your wallet</span></div>
-          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
-          <div class="refinery-flow-step"><strong>+25% bonus</strong><span>USD value × 1.25</span></div>
-          <span class="refinery-flow-arrow" aria-hidden="true">→</span>
-          <div class="refinery-flow-step"><strong>Receive $GODFATHΣR</strong><span>3% transfer tax applies</span></div>
-        </div>
-        <p class="refinery-note">Examples before transfer tax: <strong>$5 in $SIGMA → $6.25 in $GODFATHΣR</strong> &nbsp;·&nbsp; <strong>$20 → $25</strong> &nbsp;·&nbsp; <strong>$30 → $37.50</strong>. After the standard 3% $GODFATHΣR transfer tax, the nominal bonus is approximately <strong>21.25%</strong>, assuming unchanged prices. Token prices, trading costs and liquidity can change realized value.</p>
-
-        <div class="refinery-pool" aria-label="Sigma Refinery allocation">
-          <div class="refinery-pool-top">
-            <div>
-              <span class="refinery-kicker">Refinery allocation · public ledger</span>
-              <strong class="refinery-remaining"><span id="refineryPoolRemaining">100,000,000</span> $GODFATHΣR</strong>
-              <div class="refinery-pool-meta">Remaining from the initial <strong>100,000,000 $GODFATHΣR</strong> allocation</div>
-            </div>
-            <div class="refinery-pool-stat">
-              <span class="refinery-kicker">Distributed (gross)</span>
-              <strong><span id="refineryPoolPaid">0</span> $GODFATHΣR</strong>
-              <span class="refinery-pool-meta"><span id="refineryCompletedCount">0</span> completed exchanges</span>
-            </div>
-          </div>
-          <div class="refinery-progress-track" id="refineryProgressTrack" role="progressbar" aria-label="Sigma Refinery allocation used" aria-valuemin="0" aria-valuemax="100000000" aria-valuenow="0"><div class="refinery-progress-fill" id="refineryProgressFill"></div></div>
-          <div class="refinery-progress-labels"><span><span id="refineryUsedPct">0%</span> distributed</span><span><span id="refineryRemainingPct">100%</span> remaining</span></div>
-          <p class="refinery-pool-meta">The available allocation is calculated from the $GODFATHΣR gross payouts published in the Refinery ledger below, not the dev wallet's total token balance. No global daily distribution cap. The Refinery pauses when the full allocation is exhausted.</p>
-        </div>
-
-        <div class="burnwallet-card refinery-wallet">
-          <span class="reserve-label">Official dev wallet — $SIGMA deposits only (Solana)</span>
-          <div class="burnwallet-row">
-            <code id="refineryDevWallet">ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn</code>
-            <button class="copybtn top-copy" type="button" data-copy="refineryDevWallet">Copy</button>
-          </div>
-          <p class="refinery-note warning">Only send $SIGMA on Solana. Verify the address before sending. Minimum $5, maximum $30 in $SIGMA per eligible deposit; the next eligible deposit is at least 24 hours after the previous one. Crypto transfers cannot be reversed. Published exchanges are verified and processed separately; sending tokens does not trigger an automatic on-chain payout.</p>
-        </div>
-
-        <p class="refinery-note"><strong>More $SIGMA in the Fund means larger Sunday burns.</strong> The dev wallet accumulates the deposited $SIGMA in the Family's Fund. Every Sunday, it burns as many $GODFATHΣR tokens as the number of $SIGMA tokens held in the Fund (e.g., 1,000,000 $SIGMA in the Fund → 1,000,000 $GODFATHΣR burned). Separately, the 3% $GODFATHΣR transfer fee buys $SIGMA and distributes it pro rata to $GODFATHΣR holders.</p>
-
-        <details class="log gold refinery-ledger" open>
-          <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
-          <div class="log-sub">Verified sender wallets, incoming $SIGMA, outgoing $GODFATHΣR and links to both on-chain transactions. Entries are published manually after review.</div>
-          <div class="tablewrap">
-            <table>
-              <thead><tr><th>#</th><th>Date (UTC)</th><th>Sender wallet</th><th>$SIGMA received</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th><th>Status</th></tr></thead>
-              <tbody id="refineryRows"><tr><td colspan="8" class="empty">No verified Refinery exchanges have been published yet.</td></tr></tbody>
-            </table>
-          </div>
-        </details>
-        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
-      </div>
+<section class="section mechanism-section" id="protection-money">
+<details class="mechanism-panel" id="panel-protection-money">
+<summary class="mechanism-summary"><span class="mechanism-name">Protection Money</span><span class="phase-pill active"><span class="phase-dot" aria-hidden="true"></span>Voluntary</span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
+<div class="mechanism-content">
+  <div class="shell">
+    <div class="eyebrow-row">
+      <span class="eyebrow">Protection Money</span>
+      <span class="phase-pill active"><span class="phase-dot"></span>Voluntary</span>
     </div>
-  </details>
+    <h2>No cap. No formula. Just tribute.</h2>
+    <p class="phase-teaser-copy">Some in the Family send $GODFATHΣR to the burn wallet for no reason at all — no mechanism triggers it, no reward is owed. Just a wallet, choosing to burn, and letting the Godfather know. Loyalty like that tends to be remembered.</p>
+
+    <details class="log gold" style="margin-top:28px;">
+      <summary>The Protection Money Ledger</summary>
+      <div class="log-sub">Unprompted tribute burns, sent and destroyed with nothing asked in return</div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
+          <tbody id="tributeRows"><tr><td colspan="5" class="empty">No entries yet — the first one appears here.</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</div>
+</details>
 </section>
 
 <section class="section mechanism-section" id="the-laundry">
@@ -2077,9 +2189,6 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 </details>
 </section>
 
-
-
-
 <section class="section mechanism-section oath-section" id="the-oath">
 <details class="mechanism-panel" id="panel-the-oath">
 <summary class="mechanism-summary"><span class="mechanism-name">The Oath</span><span class="phase-pill closed">Closed</span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
@@ -2109,34 +2218,6 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
         </div>
       </details>
     </div>
-  </div>
-</div>
-</details>
-</section>
-
-
-<section class="section mechanism-section" id="protection-money">
-<details class="mechanism-panel" id="panel-protection-money">
-<summary class="mechanism-summary"><span class="mechanism-name">Protection Money</span><span class="phase-pill active"><span class="phase-dot" aria-hidden="true"></span>Voluntary</span><span class="mechanism-toggle" aria-hidden="true"></span></summary>
-<div class="mechanism-content">
-  <div class="shell">
-    <div class="eyebrow-row">
-      <span class="eyebrow">Protection Money</span>
-      <span class="phase-pill active"><span class="phase-dot"></span>Voluntary</span>
-    </div>
-    <h2>No cap. No formula. Just tribute.</h2>
-    <p class="phase-teaser-copy">Some in the Family send $GODFATHΣR to the burn wallet for no reason at all — no mechanism triggers it, no reward is owed. Just a wallet, choosing to burn, and letting the Godfather know. Loyalty like that tends to be remembered.</p>
-
-    <details class="log gold" style="margin-top:28px;">
-      <summary>The Protection Money Ledger</summary>
-      <div class="log-sub">Unprompted tribute burns, sent and destroyed with nothing asked in return</div>
-      <div class="tablewrap">
-        <table>
-          <thead><tr><th>#</th><th>Date</th><th>Wallet</th><th>$GODFATHΣR burned</th><th>Transaction</th></tr></thead>
-          <tbody id="tributeRows"><tr><td colspan="5" class="empty">No entries yet — the first one appears here.</td></tr></tbody>
-        </table>
-      </div>
-    </details>
   </div>
 </div>
 </details>
@@ -3036,13 +3117,13 @@ function updateSupplyChart(supply, isLive){
     return;
   }
   const burned = total - supply;
-  const other = supply - lock;
+  const other = Math.max(0, supply - lock);
   const pct = value => (value / total * 100);
   const percentage = value => pct(value).toFixed(2).replace(/\.?0+$/, "") + "%";
   const burnedPct = pct(burned), lockedEnd = pct(burned + lock);
   const donut = document.getElementById("supplyDonut");
   donut.style.background = `conic-gradient(#b77a43 0% ${burnedPct}%, #d9b56d ${burnedPct}% ${lockedEnd}%, #51565a ${lockedEnd}% 100%)`;
-  donut.setAttribute("aria-label", `Of the original supply: ${fmt(burned)} burned (${percentage(burned)}), ${fmt(lock)} locked forever (${percentage(lock)}), and ${fmt(other)} in other supply (${percentage(other)}).`);
+  donut.setAttribute("aria-label", `Of the original supply: ${fmt(burned)} burned (${percentage(burned)}), ${fmt(lock)} locked forever (${percentage(lock)}), and ${fmt(other)} circulating (${percentage(other)}).`);
   document.getElementById("removedPercent").textContent = percentage(burned + lock);
   document.getElementById("chartBurned").textContent = percentage(burned);
   document.getElementById("chartLocked").textContent = percentage(lock);
@@ -3063,19 +3144,19 @@ async function loadLiveSupplies(){
   const gfSupply = await fetchTokenSupply(DATA.godfatherMint);
   updateSupplyChart(typeof gfSupply === "number" ? gfSupply : gfFallback, typeof gfSupply === "number");
 
-  // gfSupply (live, from getTokenSupply) reflects the on-chain total supply after burns —
-  // this matches the blockchain exactly. Locked-forever tokens are NOT subtracted here:
-  // they still physically exist on-chain (just permanently inaccessible), so excluding them
-  // would make this number diverge from what a block explorer shows. The lock is disclosed
-  // separately via its own card instead.
+  // Circulating supply is defined here as live on-chain supply after burns,
+  // less the 80M $GODFATHΣR permanently locked in the three StakePoint positions.
+  // Permanently locked tokens still exist on-chain but cannot circulate.
+  const onChainSupply = (typeof gfSupply === "number") ? gfSupply : gfFallback;
+  const circulatingSupply = Math.max(0, onChainSupply - (Number(DATA.lockedForever) || 0));
   if(gfEl){
-    gfEl.textContent = (typeof gfSupply === "number") ? fmt(gfSupply) : fmt(gfFallback);
+    gfEl.textContent = fmt(circulatingSupply);
   }
   if(typeof gfSupply === "number" && gfLiveDotEl){ gfLiveDotEl.classList.add("on"); }
   if(gfMetaEl){
     gfMetaEl.textContent = (typeof gfSupply === "number")
-      ? "Live on-chain supply. Note: the 80,000,000 $GODFATHΣR locked forever (below) is not subtracted from this figure — it still exists on-chain, just permanently inaccessible."
-      : "Live figure unavailable right now — showing supply minus logged burns. The 80,000,000 $GODFATHΣR locked forever (below) is not subtracted from this figure.";
+      ? `Circulating = ${fmt(onChainSupply)} live on-chain supply − ${fmt(DATA.lockedForever)} permanently locked.`
+      : `Live supply temporarily unavailable. Estimate = original supply − logged burns − ${fmt(DATA.lockedForever)} permanently locked.`;
   }
 }
 loadLiveSupplies();
