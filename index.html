@@ -1647,7 +1647,15 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
 
 <style id="header-numbers-update">
 :root{--stonk-blue:#2f7df6}
+/* Mute button: centered in the top row on wide screens, right end of the row otherwise */
+.nav{position:relative}
+#muteBtn{flex:0 0 auto}
+@media(min-width:1200px){#muteBtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}}
+@media(max-width:900px){#muteBtn{order:2}}
+@media(min-width:901px) and (max-width:1199px){header .top-ca{flex:0 1 auto;min-width:0}}
 /* Header: links sit left, right after the brand; StonkFun is an emblem-only link */
+header .shell.nav{width:100%;max-width:none;margin:0;padding-left:18px;padding-right:18px}
+@media(max-width:700px){header .shell.nav{padding-left:12px;padding-right:12px}}
 .navlinks{margin-left:0;margin-right:auto}
 .navlinks .stonk{display:flex;width:34px;height:34px;padding:0;gap:0;border:1px solid rgba(47,125,246,.55);border-radius:50%;justify-content:center;color:var(--stonk-blue)}
 .navlinks .stonk:hover{border-color:var(--stonk-blue);background:rgba(47,125,246,.12)}
@@ -1707,10 +1715,6 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
     </a>
 
     <nav class="navlinks">
-      <button id="muteBtn" class="iconlink" type="button" aria-label="Mute music" title="Mute / unmute music" style="background:none;cursor:pointer;padding:0;">
-        <svg id="icoSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
-        <svg id="icoSoundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M16 9.5l5 5"/><path d="M21 9.5l-5 5"/></svg>
-      </button>
       <a id="navX" class="iconlink" href="#" aria-label="X" title="X">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-6.9l-5.4-6.9L4.8 22H1.7l8.2-9.3L1 2h7.1l4.9 6.3L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
       </a>
@@ -1734,6 +1738,10 @@ body,button,input,select,textarea{font-family:Manrope,Inter,system-ui,sans-serif
       </a>
     </nav>
 
+    <button id="muteBtn" class="iconlink" type="button" aria-label="Mute music" title="Mute / unmute music" style="background:none;cursor:pointer;padding:0;">
+      <svg id="icoSoundOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M15.5 9a4 4 0 0 1 0 6"/><path d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+      <svg id="icoSoundOff" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5H4Z" fill="currentColor" stroke="none"/><path d="M16 9.5l5 5"/><path d="M21 9.5l-5 5"/></svg>
+    </button>
     <div class="top-ca">
       <span>CA</span>
       <code id="contractValue">Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m</code>
@@ -3651,7 +3659,7 @@ loadSwornBalances();
   audio.volume = 0.35;
   let muted = false; // Mute/unmute applies to this page view, not future visits.
   let trying = false;
-  const unlockEvents = ["pointerdown", "touchstart", "click", "keydown"];
+  const unlockEvents = ["click"]; // a real click/tap only — scrolling, touching or key presses must not start the music
 
   function render(){
     if(icoOn) icoOn.style.display = muted ? "none" : "";
@@ -3695,8 +3703,7 @@ loadSwornBalances();
     render();
   });
   render();
-  // If autoplay is permitted, play immediately. Otherwise start on the first click/tap.
-  start();
+  // Never start on page load: the music begins on the visitor's first click/tap.
 })();
 </script>
 <script>
