@@ -1928,22 +1928,22 @@ header .shell.nav{width:100%;max-width:none;margin:0;padding-left:18px;padding-r
             <code id="refineryDevWallet">ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn</code>
             <button class="copybtn top-copy" type="button" data-copy="refineryDevWallet">Copy</button>
           </div>
-          <p class="refinery-note warning">Only send $SIGMA on Solana. Verify the address before sending. Minimum $5, maximum $30 in $SIGMA per eligible deposit; the next eligible deposit is at least 24 hours after the previous one. Crypto transfers cannot be reversed. Published exchanges are verified and processed separately; sending tokens does not trigger an automatic on-chain payout.</p>
+          <p class="refinery-note warning">Only send $SIGMA on Solana. Verify the address before sending. Minimum $5, maximum $30 in $SIGMA per eligible deposit; the next eligible deposit is at least 24 hours after the previous one. Crypto transfers cannot be reversed. Exchanges are processed separately and published manually; sending tokens does not trigger an automatic on-chain payout.</p>
         </div>
 
         <p class="refinery-note"><strong>More $SIGMA in the Fund means larger Sunday burns.</strong> The dev wallet accumulates the deposited $SIGMA in the Family's Fund. Every Sunday, it burns as many $GODFATHΣR tokens as the number of $SIGMA tokens held in the Fund (e.g., 1,000,000 $SIGMA in the Fund → 1,000,000 $GODFATHΣR burned). Separately, the 3% $GODFATHΣR transfer fee buys $SIGMA and distributes it pro rata to $GODFATHΣR holders.</p>
 
         <details class="log gold refinery-ledger" open>
           <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
-          <div class="log-sub">Public record of sender wallets, received $SIGMA and reported $GODFATHΣR payouts with links to both transactions. Published manually; payout links are supplied by the developer.</div>
+          <div class="log-sub">Public record of sender wallets, reported USD deposit values and gross $GODFATHΣR payouts, with links to both transactions. Published manually; the payout details are developer-reported and can be checked using the linked transactions.</div>
           <div class="tablewrap">
             <table>
-              <thead><tr><th>#</th><th>Date (UTC)</th><th>Sender wallet</th><th>$SIGMA received</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th><th>Status</th></tr></thead>
-              <tbody id="refineryRows"><tr><td colspan="8" class="empty">No verified Refinery exchanges have been published yet.</td></tr></tbody>
+              <thead><tr><th>#</th><th>Date (reported)</th><th>Sender wallet</th><th>Deposit value (USD)</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th></tr></thead>
+              <tbody id="refineryRows"><tr><td colspan="7" class="empty">No Refinery exchanges have been published yet.</td></tr></tbody>
             </table>
           </div>
         </details>
-        <p class="refinery-note">The ledger is updated when transactions are verified and published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links; reward amounts are recorded as reported by the developer. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
+        <p class="refinery-note">The ledger is updated manually when developer-reported transactions are published; it is not an automatic live feed. Transfer amounts and wallet activity can be independently checked using the transaction links; reward amounts are recorded as reported by the developer. <strong>Two tokens. One Family. Only possible on StonkFun.</strong></p>
       </div>
     </div>
   </details>
@@ -3012,6 +3012,25 @@ refineryLog: [
   { date: "2026-11-11", wallet: "8RMVxXLfavcvQE1Y74CC3aUJGS1gzDC8DiJTBkJ7mdrt", sigmaReceived: 24856.244645, depositUsdReported: 28, godfatherSent: 1336388,
     depositTx: "https://orbmarkets.io/tx/4LHJSBMZt3yRGWojXkRmJKeKS7rdYN1DpqCp3vRkgiwMbea5ffwsgMr7fdA2jUJtryJS6ZhioEzMb4E2Knmq4uRE",
     rewardTx: "https://orbmarkets.io/tx/3WD9Gm5Z4cFJnGPZJjwQTH8HcuXz1Es8KzuFjnMzEeM6hGgzeoi1ve4P9KiZ1y9pcmhbiWUuExKVSCmnrd1LcPbD", payoutBasis: "User-reported transfer" },
+
+  // Nov 13, 2026: five new user-reported payouts, paired by the order supplied.
+  // Date is the reporting date, not an independently verified on-chain UTC timestamp.
+  // USD deposit values and gross GODFATHER payout amounts are developer-reported.
+  { date: "2026-11-13", wallet: "3P2jeEC2cUUPKvzaXUhs4kphcYifBc3cT7vTywUFnTFu", depositUsdReported: 28.72, godfatherSent: 1513491,
+    depositTx: "https://orbmarkets.io/tx/4w87SVy2gzL8amUhq5SGn7aqmBgDcQsN1QwkbfA1FxyZxn6596AvYUeQb4nLYUdem7Qnc7q4uJtJu7is7B4xQgEw",
+    rewardTx: "https://orbmarkets.io/tx/5mXknKXBXJbCZz38d6Ew1iQnAGEXHpJ5d6MAmsk2Zfe7n2YZrTpSJMKui63ZzcLLH8oKcx3vqF9aJBHXrzDbiSD3", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-13", wallet: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", depositUsdReported: 29.77, godfatherSent: 1568824,
+    depositTx: "https://orbmarkets.io/tx/5DYdJd8b8bvscjfCDzztDTM3wtYRG1DMqLVW1ruramAXbTvSJwEqwmPFjHzBghc7GiQ5h4Z6tfA37EL6YHqwdkLt",
+    rewardTx: "https://orbmarkets.io/tx/3e8LirCmMd9TqnTV3igZCPtPC1DEAcxq6c5vWH9rHg6hQ6zUf6BZMLPZpEhoDLj1StebUYmUUAZvgErnoRaGVcAd", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-13", wallet: "8RMVxXLfavcvQE1Y74CC3aUJGS1gzDC8DiJTBkJ7mdrt", depositUsdReported: 28.11, godfatherSent: 1481345,
+    depositTx: "https://orbmarkets.io/tx/4gFJGYp4Be7gF5BWzNtaoLdgBBs1Dpdrgv9nq1wVDhMKyRnRak6DUyUsCZz7Mh8q29nCttQddxAuJBWp3PQzU4ui",
+    rewardTx: "https://orbmarkets.io/tx/5AhtzKRGUQim614WKcN4TbeFAzSyNF8MgDxLpX1ohezrR2oRbR1NqPFjQsN7wVpKFkkNVhMBHXHTKRGrUmM2xNsK", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-13", wallet: "9MzbuvtxAwpY427Q3T3hPuZX2U81h8WwaDZssKYGhaUH", depositUsdReported: 30.00, godfatherSent: 1580944,
+    depositTx: "https://orbmarkets.io/tx/3DVnmsunQgKF5zEB6pkU7CxuAa5JEGMkjfb6fNfuTRorraUp8RGptq9JUkZ7MKRpfwE5PMaHtpw3rTpM1ibiUBV1",
+    rewardTx: "https://orbmarkets.io/tx/32nUHK7X9WAvLBDPYE6b9WtbrpvQ6RYfywtrUWYwJtPwnNQ1ihh7SvEbLHPvyxU5PU3XzbZxx8DtSbu9yJ9Yyz5p", payoutBasis: "User-reported transfer" },
+  { date: "2026-11-13", wallet: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", depositUsdReported: 30.00, godfatherSent: 1580944,
+    depositTx: "https://orbmarkets.io/tx/519FiecrrKvwgVrXSHvYdzUyECxkNuzW1AFbPAzhAd6HmqpYGmv1omSUTGLZX5h6fzH7urjcGxhGigVcWLYYamKA",
+    rewardTx: "https://orbmarkets.io/tx/41F7gPAGDa2r8xcwEpePCTCfJpcKSx73phb3P8pk5duT3oZuFYQquycYvfym1ut6S4FqPG9cMGL8F1PX4DfjucU5", payoutBasis: "User-reported transfer" },
 ],
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
@@ -3473,11 +3492,10 @@ if(DATA.buybackLog.length){
       walletCell.appendChild(walletLink);
     }else walletCell.textContent=walletShort;
     tr.appendChild(walletCell);
-    textCell(tr,quantity(entry.sigmaReceived,8));
+    textCell(tr,Number.isFinite(Number(entry.depositUsdReported)) ? "$" + quantity(entry.depositUsdReported,2) : "—");
     textCell(tr,isCompleted(entry) ? quantity(entry.godfatherSent,6) : "—");
     txCell(tr,entry.depositTx);
     txCell(tr,entry.rewardTx);
-    textCell(tr,isCompleted(entry) ? (entry.payoutBasis === "User-reported transfer" ? "Paid (reported)" : "Completed") : "Pending",isCompleted(entry)?"refinery-completed":"refinery-pending");
     body.appendChild(tr);
   });
 })();
