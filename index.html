@@ -1909,17 +1909,17 @@ header .shell.nav{width:100%;max-width:none;margin:0;padding-left:18px;padding-r
           <div class="refinery-pool-top">
             <div>
               <span class="refinery-kicker">Refinery allocation · public ledger</span>
-              <strong class="refinery-remaining"><span id="refineryPoolRemaining">100,000,000</span> $GODFATHΣR</strong>
+              <strong class="refinery-remaining"><span id="refineryPoolRemaining">76,398,432</span> $GODFATHΣR</strong>
               <div class="refinery-pool-meta">Remaining from the initial <strong>100,000,000 $GODFATHΣR</strong> allocation</div>
             </div>
             <div class="refinery-pool-stat">
               <span class="refinery-kicker">Distributed (gross)</span>
-              <strong><span id="refineryPoolPaid">0</span> $GODFATHΣR</strong>
-              <span class="refinery-pool-meta"><span id="refineryCompletedCount">0</span> completed exchanges</span>
+              <strong><span id="refineryPoolPaid">23,601,568</span> $GODFATHΣR</strong>
+              <span class="refinery-pool-meta"><span id="refineryCompletedCount">15</span> completed exchanges</span>
             </div>
           </div>
-          <div class="refinery-progress-track" id="refineryProgressTrack" role="progressbar" aria-label="Sigma Refinery allocation used" aria-valuemin="0" aria-valuemax="100000000" aria-valuenow="0"><div class="refinery-progress-fill" id="refineryProgressFill"></div></div>
-          <div class="refinery-progress-labels"><span><span id="refineryUsedPct">0%</span> distributed</span><span><span id="refineryRemainingPct">100%</span> remaining</span></div>
+          <div class="refinery-progress-track" id="refineryProgressTrack" role="progressbar" aria-label="Sigma Refinery allocation used" aria-valuemin="0" aria-valuemax="100000000" aria-valuenow="23601568"><div class="refinery-progress-fill" id="refineryProgressFill" style="width:23.601568%"></div></div>
+          <div class="refinery-progress-labels"><span><span id="refineryUsedPct">23.6%</span> distributed</span><span><span id="refineryRemainingPct">76.4%</span> remaining</span></div>
           <p class="refinery-pool-meta">The available allocation is calculated from the $GODFATHΣR gross payouts published in the Refinery ledger below, not the dev wallet's total token balance. No global daily distribution cap. The Refinery pauses when the full allocation is exhausted.</p>
         </div>
 
@@ -1935,12 +1935,12 @@ header .shell.nav{width:100%;max-width:none;margin:0;padding-left:18px;padding-r
         <p class="refinery-note"><strong>More $SIGMA in the Fund means larger Sunday burns.</strong> The dev wallet accumulates the deposited $SIGMA in the Family's Fund. Every Sunday, it burns as many $GODFATHΣR tokens as the number of $SIGMA tokens held in the Fund (e.g., 1,000,000 $SIGMA in the Fund → 1,000,000 $GODFATHΣR burned). Separately, the 3% $GODFATHΣR transfer fee buys $SIGMA and distributes it pro rata to $GODFATHΣR holders.</p>
 
         <details class="log gold refinery-ledger" open>
-          <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">0</span> recorded exchanges</span></summary>
+          <summary>The Sigma Refinery Ledger <span class="summary-tag">— <span id="refineryLedgerCount">15</span> recorded exchanges</span></summary>
           <div class="log-sub">Public record of sender wallets, reported USD deposit values and gross $GODFATHΣR payouts, with links to both transactions. Published manually; the payout details are developer-reported and can be checked using the linked transactions.</div>
           <div class="tablewrap">
             <table>
               <thead><tr><th>#</th><th>Date (reported)</th><th>Sender wallet</th><th>Deposit value (USD)</th><th>$GODFATHΣR sent (gross)</th><th>$SIGMA deposit TX</th><th>$GODFATHΣR reward TX</th></tr></thead>
-              <tbody id="refineryRows"><tr><td colspan="7" class="empty">No Refinery exchanges have been published yet.</td></tr></tbody>
+              <tbody id="refineryRows"><tr><td colspan="7" class="empty">The Refinery ledger is displayed when JavaScript is enabled.</td></tr></tbody>
             </table>
           </div>
         </details>
@@ -3032,6 +3032,29 @@ refineryLog: [
   { date: "2026-11-13", wallet: "6jJ9XCiPyu9gxovCDXs6CovCsWMLfmkQpKvDkq8S9opp", depositUsdReported: 30.00, godfatherSent: 1580944,
     depositTx: "https://orbmarkets.io/tx/519FiecrrKvwgVrXSHvYdzUyECxkNuzW1AFbPAzhAd6HmqpYGmv1omSUTGLZX5h6fzH7urjcGxhGigVcWLYYamKA",
     rewardTx: "https://orbmarkets.io/tx/41F7gPAGDa2r8xcwEpePCTCfJpcKSx73phb3P8pk5duT3oZuFYQquycYvfym1ut6S4FqPG9cMGL8F1PX4DfjucU5", payoutBasis: "User-reported transfer" },
+  // Nov 14, 2026: six additional developer-reported deposits and gross reward payouts.
+  // The deposit and reward signatures are paired in the order supplied by the developer.
+  // USD amounts use the developer-provided deposit-time values; payouts use $0.00002161 per $GODFATHΣR
+  // and a 25% bonus, rounded to whole tokens. On-chain recipient/amounts are not independently verified here.
+  { date: "2026-11-14", wallet: "8TTwGDpgvHcxbzTmiY9dv9LQ2UzM6TPDwPwjojjK7ZcA", depositUsdReported: 30.00, godfatherSent: 1735308,
+    depositTx: "https://orbmarkets.io/tx/5orTBo9Fv7MHCVrS81qpb1hNHEUwF37LdrizX31WDVjnwgd8GjHuKSLNxvGv9BdfReTMTU64a4cCNR4CcsFCrAja",
+    rewardTx: "https://orbmarkets.io/tx/2ZF1RjBrNMD4h7hmu8f6CRxUrd3QpCwyeAqXgjV7nUJpfX55y6LhJNuCQUnbDibiz4s9nZZLhYWz8vcmiBz3LK4Y", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+  { date: "2026-11-14", wallet: "3P2jeEC2cUUPKvzaXUhs4kphcYifBc3cT7vTywUFnTFu", depositUsdReported: 29.00, godfatherSent: 1677464,
+    depositTx: "https://orbmarkets.io/tx/2gKeaJDztV7JEEHSYtjaDPpsokCHSN8CqMPMHocpkKFKh3BaVjp3hjzwDBjhaFnVubCishKxNnVbaFmtSTryNSTy",
+    rewardTx: "https://orbmarkets.io/tx/2X8uesTD56HdLvyZ8qWVNNB5f7Vpi13Cc2yQy81dvS3R81mN5mubNd5SdwRhcNbw3po3DWTNWkJ9Z5FVnMvr33Wk", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+  { date: "2026-11-14", wallet: "8RMVxXLfavcvQE1Y74CC3aUJGS1gzDC8DiJTBkJ7mdrt", depositUsdReported: 29.20, godfatherSent: 1689033,
+    depositTx: "https://orbmarkets.io/tx/32VjC11V8BTzsw73jefhzWCt9MPY7NG7NS6AHLfptwqsnFf8MFbYARDUf4EvxGKpVJg5tJaaYjvTacTVSPRYeWvs",
+    rewardTx: "https://orbmarkets.io/tx/3WvioguUJ2TU2pjHvT5FcDbYEXy9wsL4jbYxY9f5v3bpEFTS1EBSTUoKZa6N8ZP1nZmBFpjFWgi1TgxhNHg7Ghba", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+  { date: "2026-11-14", wallet: "FhZk4gRYHHGcFXxy5pGN1tXvKRrGBt5t1LpsYbBgkFeq", depositUsdReported: 29.30, godfatherSent: 1694817,
+    depositTx: "https://orbmarkets.io/tx/5GRwuDJk1SmRangxj4MFFPhCLq6uoUZoam2LiSDHDUuSLaitQM44qQCK7iok3GXiS1xYbhpgxYh8BHkPYLWMYp9h",
+    rewardTx: "https://orbmarkets.io/tx/4evNKxMDxsxLy2jT5cprEVvDYVLbgjm8Ufa12mCrBYNvKzu2SSG96bioVeDXpwKbvceoHpbJo6sHVQqGfeouZGHG", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+  { date: "2026-11-14", wallet: "5uWvTqxLun3DFDKdN6aRMb4FiecUFpUZGrm8mbSnr7J6", depositUsdReported: 30.00, godfatherSent: 1735308,
+    depositTx: "https://orbmarkets.io/tx/5UPu5w1Nr2s3Yt7ipnXBgqk89G2d3pojVxdaHGuU1behGWeFfQrwbWS37ckMh9usLBMTua97gfTzDLPZjB9WMoAT",
+    rewardTx: "https://orbmarkets.io/tx/2jdjKzuxv52rcg3jVmo6zkm8Tmyqfm4C1DWiFYtw5R41DnyFrPE5BaAuCDmyTLcKCfobQj1tzb9uE2FZ1UJFkL2p", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+  { date: "2026-11-14", wallet: "9MzbuvtxAwpY427Q3T3hPuZX2U81h8WwaDZssKYGhaUH", depositUsdReported: 29.60, godfatherSent: 1712170,
+    depositTx: "https://orbmarkets.io/tx/3VmHdDGYCA5AWQSgeJXt3Q8UGsCybFN9gPAa7ZwMnfxPCX88i3oEY6rvNK1uW25yNrcY49eYShvYSFDi8moaW7BM",
+    rewardTx: "https://orbmarkets.io/tx/5dAjFs2YighdANRvtXDLWi49JUAZVVAFU7i1khmfDygXAvLnbKr9GzZoWuLYxEVSeEqQ1FHrCGiCKhBJHR5TbrfY", payoutBasis: "Developer-reported transfer; on-chain destination not independently verified" },
+
 ],
   devWalletAddress: "ATuoUTvtViKWrGaonZDPWTAdLE8Eq8V3Dq1AHCCpPiXn", // public anyway — visible on-chain via any transaction
   godfatherMint: "Dqdshp9irA9fhXkBpi5GaMUk3HEf3aTevVim94S3Hj2m",
@@ -3412,7 +3435,7 @@ if(DATA.buybackLog.length){
 }
 
 // SIGMA REFINERY: its own public ledger, independent of the paused Laundry.
-// Entries are added manually in DATA.refineryLog after checking the on-chain transactions.
+// Entries are added manually in DATA.refineryLog from developer-reported deposit and reward transactions.
 // We NEVER derive the 100M allocation from the dev wallet's balance, which is shared with
 // multiple mechanisms. Only publicly linked, developer-reported gross GODFATHER payouts reduce it.
 (function renderSigmaRefinery(){
